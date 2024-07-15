@@ -1,0 +1,15 @@
+{
+    "name": "spook/projet-passion-mang-api",
+    "autoload": {
+        "psr-4": {
+            "Spook\\ProjetPassionMangApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Antoine Caps",
+            "email": "147519666+Aetherum97@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
