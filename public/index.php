@@ -1,7 +1,6 @@
 <?php
 
-use Common\Core\Database;
-
+use Common\Core\App;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -10,7 +9,5 @@ spl_autoload_register(function ($class){
     require __DIR__ . "/../src/{$result}.php";
 });
 
-
-$config = require_once __DIR__ . '/../config/db.config.php';
-
-Database::getInstance($config['database']);
+$router = App::init();
+$router->route();

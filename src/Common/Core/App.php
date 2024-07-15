@@ -61,6 +61,11 @@ class App
     // CONTAINER INIT
     $container = new Container();
 
+    $container->setContainer(Database::class, function () {
+      $config = require_once __DIR__ . '/../../config/db.config.php';
+      Database::getInstance($config['database']);
+    });
+
     App::setContainer($container);
 
     // REPOSITORIES CONTAINER INIT
@@ -82,9 +87,9 @@ class App
 
     // ROUTER INIT
     $router = new Router();
-    $router->addRoute(RequestMethod::GET,'/manga', 'Controller\MangaController', 'index');
-    
+
+    $router->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
+
+    return $router;
   }
-
-
 }
