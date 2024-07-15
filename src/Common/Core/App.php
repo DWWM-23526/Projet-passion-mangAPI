@@ -2,6 +2,8 @@
 
 namespace Common\Core;
 
+use Common\Core\Router;
+
 class App
 {
   protected static Container $container;
@@ -79,7 +81,8 @@ class App
     App::setHandlersContainer($containerHandlers);
 
     // ROUTER INIT
-
+    $router = new Router();
+    $router->addRoute(RequestMethod::GET,'/manga', 'Controller\MangaController', 'index');
     
   }
 
