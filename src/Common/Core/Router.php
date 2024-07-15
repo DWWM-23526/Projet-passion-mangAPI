@@ -1,5 +1,5 @@
 <?php 
-namespace Core;
+namespace Common\Core;
 
 use Exception;
 
@@ -21,9 +21,7 @@ class Router
         $this->routes[array_key_last($this->routes)]['middleware'] = $key;
     }
 
-    private function addRoute(RequestMethod $requestMethod, string $uri, string $controller, string $method){
-
-
+    public function addRoute(RequestMethod $requestMethod, string $uri, string $controller, string $method){
         $this->routes[] = [
             'requestMethod' => $requestMethod->name,
             'uri' => $uri,
@@ -61,7 +59,7 @@ class Router
 
             }
         }
-        // HTTPRequest::abord();
+        // TODO : HTTPRequest::abord();
     }
 }
 
