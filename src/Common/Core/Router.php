@@ -13,8 +13,6 @@ enum RequestMethod {
 
 class Router
 {
-    
-
     private array $routes = [];
 
     public function middleware($key){
