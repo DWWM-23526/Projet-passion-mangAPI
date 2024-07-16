@@ -13,6 +13,8 @@ class Manga
   public ?int $tome_number;
   public ?string $texte;
   public int $Id_mangaka;
+  public bool $is_deleted;
+
 
   public function __construct(array $data = [])
   {
@@ -25,5 +27,6 @@ class Manga
     $this->tome_number = $data['tome_number'] ?? null;
     $this->texte = $data['texte'] ?? null;
     $this->Id_mangaka = $data['Id_mangaka'] ?? 0;
+    $this->is_deleted = $data['id_deleted'] ?? 0;
   }
 }

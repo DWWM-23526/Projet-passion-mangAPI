@@ -2,11 +2,17 @@
 
 namespace Common\Database;
 
+use Common\Database\Schemas\EmailConfirmationSchema;
+use Common\Database\Schemas\FavoritesSchema;
+use Common\Database\Schemas\MangakaSchema;
+use Common\Database\Schemas\MangaSchema;
+use Common\Database\Schemas\TagsMangaSchema;
+use Common\Database\Schemas\TagsSchema;
 use Common\Core\App;
 use Common\Core\Database;
 use Common\Database\Migrations\AddIsDeletedToUsers;
 use Common\Database\Schemas\MigrationsSchema;
-use Common\Database\Schemas\UserSchema;
+use Common\Database\Schemas\UsersSchema;
 
 class DatabaseManager
 {
@@ -15,9 +21,7 @@ class DatabaseManager
     private array $config;
 
     private array $schemas = [
-        MigrationsSchema::class,
         UserSchema::class,
-
     ];
 
     private array $migrations = [
