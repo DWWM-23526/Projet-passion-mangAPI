@@ -1,6 +1,8 @@
-<?php namespace Common\Core; 
+<?php
 
-class HTTPRequest 
+namespace Common\Core;
+
+class HTTPRequest
 {
 
     private static HTTPRequest | null $instance = null;
@@ -31,9 +33,8 @@ class HTTPRequest
     {
         $body = [];
 
-        if ($this->requestMethod == 'POST' || $this->requestMethod == 'PUT' || $this->requestMethod == 'PATCH')
-        {
-            $body = json_decode(file_get_contents('php://input'), true) ?? [];
+        if ($this->requestMethod == 'POST' || $this->requestMethod == 'PUT' || $this->requestMethod == 'PATCH') {
+            $body = filter_var_array(json_decode(file_get_contents('php://input'), true) ?? [], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         }
 
         return $body;
@@ -58,5 +59,4 @@ class HTTPRequest
     {
         return $this->body;
     }
-
 }
