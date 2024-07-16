@@ -1,8 +1,10 @@
 <?php 
 namespace Manga\Controller;
 
+use Common\Core\HTTPRequest;
+
 class MangaController{
-    public function index(){
-        echo "Coucou tu veux voir ma ...";
+    public function index(HTTPRequest $request){
+        echo var_dump($request->getHeaders());
     }
 }

@@ -30,9 +30,9 @@ class Router
     }
 
     public function route(){
-        $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-        $uri = urldecode($uri);
-        $requestMethod = $_SERVER['REQUEST_METHOD'];
+        $request = HTTPRequest::getInstance();
+        $uri = $request->getUri();
+        $requestMethod = $request->getMethod();
 
         foreach($this->routes as $route){
             if($route['uri'] === $uri && $route['requestMethod'] === strtoupper($requestMethod)){
@@ -46,7 +46,7 @@ class Router
                     $controller = new $route['controller'];
                     $method = $route['method'];
                     if(method_exists($controller, $method)){
-                        $controller->$method();
+                        $controller->$method($request);
                         return;
                     } else {
                         throw new Exception(" method {$method} not trouved in class {$controller}");
