@@ -1,9 +1,11 @@
-<?php namespace Common\Database\Schemas;
+<?php
+
+namespace Common\Database\Schemas;
 
 use Common\Core\App;
 use Common\Core\Database;
 
-class UserSchema
+class MigrationsSchema
 {
     public function up()
     {
@@ -12,13 +14,11 @@ class UserSchema
             throw new \Exception('Database connection could not be established.');
         }
 
-        
-        $db->query("CREATE TABLE IF NOT EXISTS users (
-            Id_user INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL
+       
+        $db->query("CREATE TABLE IF NOT EXISTS migrations (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            migration VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )");
     }
 }
-
-
