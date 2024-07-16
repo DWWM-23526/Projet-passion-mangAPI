@@ -2,12 +2,14 @@
 
 namespace Common\Core;
 
+use Common\Core\Router;
+use Common\Database\DatabaseManager;
+
 class App
 {
   protected static Container $container;
   protected static Container $servicesContainer;
   protected static Container $repositoriesContainer;
-  protected static Container $handlersContainer;
 
 
   // CONTAINER 
@@ -45,19 +47,20 @@ class App
     return self::$repositoriesContainer;
   }
 
-  // HANDLER
-
-  protected static function setHandlersContainer(Container $container)
-  {
-    self::$handlersContainer = $container;
-  }
-
   // INITIALIZATION
 
   public static function init()
   {
+    $config = require __DIR__ . '/../../../config/db.config.php';
+
+
+
     // CONTAINER INIT
     $container = new Container();
+
+    $container->setContainer(Database::class, function () use ($config) {
+      return Database::getInstance($config['database']);
+    });
 
     App::setContainer($container);
 
@@ -73,15 +76,15 @@ class App
 
     App::setServiceContainer($containerServices);
 
-    // HANDLER CONTAINER INIT
-    $containerHandlers = new Container();
 
-    App::setHandlersContainer($containerHandlers);
+    // DATABASE INIT
+    DatabaseManager::getInstance($config['database']);
 
     // ROUTER INIT
+    $router = new Router();
 
-    
+    $router->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
+
+    return $router;
   }
-
-
 }

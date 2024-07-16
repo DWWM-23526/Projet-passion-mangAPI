@@ -1,5 +1,7 @@
 <?php
 
+use Common\Core\App;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 spl_autoload_register(function ($class){
@@ -7,3 +9,5 @@ spl_autoload_register(function ($class){
     require __DIR__ . "/../src/{$result}.php";
 });
 
+$app = App::init();
+$app->route();
