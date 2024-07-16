@@ -7,10 +7,10 @@ use PDO;
 class Database
 {
     private static Database | null $instance = null;
-    private PDO $connexion;
+    private PDO $connection;
     private mixed $statement;
 
-    private function __construct(array $config)
+    private function __construct(?array $config)
     {
 
         $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['db']};charset={$config['charset']}";
@@ -21,10 +21,10 @@ class Database
             PDO::ATTR_EMULATE_PREPARES => false,
         ];
 
-        $this->connexion = $this->connexion($dsn, $config['user'], $config['pass'], $option);
+        $this->connection = $this->connection($dsn, $config['user'], $config['pass'], $option);
     }
 
-    // DATABASE INIT METHODS --------------------------------
+    // DATABASE INIT METHODS 
 
     public static function getInstance(array $config)
     {
@@ -35,7 +35,7 @@ class Database
         return self::$instance;
     }
 
-    private function connexion(string $dns, string $user, string $pass, array $option)
+    private function connection(string $dns, string $user, string $pass, array $option)
     {
 
         try {
@@ -47,7 +47,7 @@ class Database
         return $pdo;
     }
 
-    // DATABASE METHODS --------------------------------
+    // DATABASE METHODS 
 
     private function fetch()
     {
@@ -86,7 +86,11 @@ class Database
 
     public function query(string $query, array $params = [])
     {
-        $this->statement = $this->connexion->prepare($query);
+        $this->statement = $this->connection->prepare($query);
         $this->statement->execute($params);
+    }
+
+    public function getConnection() {
+        return $this->connection;
     }
 }

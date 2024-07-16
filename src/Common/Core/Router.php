@@ -32,7 +32,7 @@ class Router
     public function route(){
         $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
         $uri = urldecode($uri);
-        $requestMethod = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
 
         foreach($this->routes as $route){
             if($route['uri'] === $uri && $route['requestMethod'] === strtoupper($requestMethod)){
