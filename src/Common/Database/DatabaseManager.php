@@ -88,7 +88,7 @@ class DatabaseManager
 
     private function migration()
     {
-        foreach ($this->migrations as $$migration) {
+        foreach ($this->migrations as $migration) {
             (new $migration())->up();
         }
     }
