@@ -14,7 +14,6 @@ class TagsMangaSchema
       throw new \Exception("Database connection could not be established");
     }
 
-    $db->getConnection();
     $db->query("CREATE TABLE IF NOT EXISTS tags_manga (
     Id_manga INT,
     Id_tag INT,
