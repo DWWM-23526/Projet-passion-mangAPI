@@ -13,7 +13,6 @@ class FavoritesSchema
       throw new \Exception("Database connection could not be established.");
     }
 
-    $db->getConnection();
     $db->query("CREATE TABLE IF NOT EXISTS favoris (
     Id_manga INT,
     Id_user INT,

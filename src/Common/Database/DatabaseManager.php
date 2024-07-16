@@ -2,13 +2,27 @@
 
 namespace Common\Database;
 
+use Common\Core\App;
+use Common\Core\Database;
+
 use Common\Database\Schemas\EmailConfirmationSchema;
 use Common\Database\Schemas\FavoritesSchema;
 use Common\Database\Schemas\MangakaSchema;
 use Common\Database\Schemas\MangaSchema;
 use Common\Database\Schemas\TagsMangaSchema;
 use Common\Database\Schemas\TagsSchema;
+use Common\Database\Schemas\MigrationsSchema;
 use Common\Database\Schemas\UsersSchema;
+
+use Common\Database\Migrations\AddIsDeletedToUsers;
+
+use Common\Database\Seed\EmailConfirmationSeed;
+use Common\Database\Seed\FavoritesSeed;
+use Common\Database\Seed\MangakasSeed;
+use Common\Database\Seed\MangasSeed;
+use Common\Database\Seed\TagsMangasSeed;
+use Common\Database\Seed\TagsSeed;
+use Common\Database\Seed\UsersSeed;
 
 class DatabaseManager
 {
@@ -17,6 +31,7 @@ class DatabaseManager
     private array $config;
 
     private array $schemas = [
+        MigrationsSchema::class,
         UsersSchema::class,
         MangakaSchema::class,
         MangaSchema::class,
@@ -27,18 +42,28 @@ class DatabaseManager
     ];
 
     private array $migrations = [
-        
+        AddIsDeletedToUsers::class,
     ];
 
     private array $seeds = [
-        
+        UsersSeed::class,
+        MangakasSeed::class,
+        MangasSeed::class,
+        TagsSeed::class,
+        TagsMangasSeed::class,
+        FavoritesSeed::class,
+        EmailConfirmationSeed::class,
     ];
     
+
     private function __construct(array $config)
     {
         $this->config = $config;
         $this->checkDatabaseAndCreate();
         $this->checkTableAndCreate();
+        $this->migrate();
+        $this->seed();
+
     }
 
     public static function getInstance(array $config): self
@@ -50,44 +75,37 @@ class DatabaseManager
         return self::$instance;
     }
 
-    public static function init()
-    {
-
-    }
+    
 
     // DATABASE MIGRATION AND SEED METHODS 
 
     private function checkDatabaseAndCreate(): void
     {
         $dsn = "mysql:host={$this->config['host']};port={$this->config['port']};charset={$this->config['charset']}";
-        
+
         $option = [
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
         ];
 
         try {
-          
-            $this->pdo = new \PDO($dsn, $this->config['user'], $this->config['pass'], $option); 
+
+            $this->pdo = new \PDO($dsn, $this->config['user'], $this->config['pass'], $option);
             $result = $this->pdo->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '{$this->config['db']}'")->fetchColumn();
 
             if (!$result) {
                 $this->pdo->exec("CREATE DATABASE `{$this->config['db']}` CHARSET {$this->config['charset']}");
             }
-            
-            if ($result > 1)
-            {
+
+            if ($result > 1) {
                 throw new \Exception('There is multiple DB with the same name');
                 // abort
             }
-
         } catch (\PDOException $e) {
 
             throw new \Exception($e->getMessage(), (int)$e->getCode());
-
         } finally {
 
             $this->pdo = null;
-
         }
     }
 
@@ -98,11 +116,32 @@ class DatabaseManager
         }
     }
 
-    private function migration()
+    private function migrate()
     {
+
+        $appliedMigration = $this->getAppliedMigrations();
+        var_dump($appliedMigration);
+        $newMigrations = [];
+
+
         foreach ($this->migrations as $migration) {
-            (new $migration())->up();
+            if (!in_array($migration, $appliedMigration)){
+                $newMigrations[] = $migration;
+                (new $migration())->up();  
+                $this->logMigrations($migration);             
+            }
         }
+
+        if (empty($newMigrations))
+        {
+
+            echo "All migrations are applied.";
+
+        } else {
+
+            echo "Migrations applied: " . implode(', ', $newMigrations);
+        }
+
     }
 
     private function seed()
@@ -112,5 +151,32 @@ class DatabaseManager
         }
     }
 
-    
+    private function getAppliedMigrations()
+    {
+
+        $db = App::inject()->getContainer(Database::class);
+
+        if ($db === null) {
+            throw new \Exception('Database connection could not be established.');
+        }
+
+        $result = $db->query("SELECT migration FROM migrations")->fetchAllOrNull(\PDO::FETCH_COLUMN);
+
+        if ($result === null) {
+            $result = [];
+        }
+        
+        return $result;
+    }
+
+    private function logMigrations(string $migration)
+    {
+        $db = App::inject()->getContainer(Database::class);
+
+        if ($db === null) {
+            throw new \Exception('Database connection could not be established.');
+        }
+
+        $result = $db->query("INSERT INTO migrations (migration) VALUES (:migration)", ['migration' => $migration]);
+    }
 }

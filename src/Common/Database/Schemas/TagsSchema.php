@@ -13,7 +13,7 @@ class TagsSchema
       throw new \Exception("Database connection could not be established");
     }
 
-    $db->getConnection();
+ 
     $db->query("CREATE TABLE IF NOT EXISTS tags (
     Id_tag INT AUTO_INCREMENT PRIMARY KEY,
     tag_name VARCHAR(50),

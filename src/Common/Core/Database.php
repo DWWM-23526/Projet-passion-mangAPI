@@ -2,6 +2,7 @@
 
 namespace Common\Core;
 
+use Common\core\HTTPResponse;
 use PDO;
 
 class Database
@@ -14,6 +15,7 @@ class Database
     {
 
         $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['db']};charset={$config['charset']};collate={$config['collate']};";
+
 
         $option = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -54,9 +56,9 @@ class Database
         return $this->statement->fetch();
     }
 
-    private function fetchAll()
+    private function fetchAll($fetchStyle)
     {
-        $result = $this->statement->fetchAll();
+        return $this->statement->fetchAll($fetchStyle);
     }
 
 
@@ -65,32 +67,34 @@ class Database
         $result = $this->fetch();
 
         if (!$result) {
-            // abort
+            throw new \Exception('No results found.');
         }
-        // http status code
         return $result;
     }
 
-
-    public function fetchAllOrFail()
+    public function fetchAllOrFail(int $fetchStyle = PDO::FETCH_ASSOC): array
     {
-        $result = $this->fetchAll();
-
+        $result = $this->fetchAll($fetchStyle, );
         if (!$result) {
-            // abort
+            throw new \Exception('No results found.');
         }
-        // http status code
         return $result;
     }
 
+    public function fetchAllOrNull(int $fetchStyle = PDO::FETCH_ASSOC): array | null
+    {
+        $result = $this->fetchAll($fetchStyle, );
+        if (!$result) {
+            return null;
+        }
+        return $result;
+    }
 
     public function query(string $query, array $params = [])
     {
         $this->statement = $this->connection->prepare($query);
         $this->statement->execute($params);
-    }
 
-    public function getConnection() {
-        return $this->connection;
+        return $this;
     }
 }
