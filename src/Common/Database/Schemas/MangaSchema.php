@@ -1,4 +1,5 @@
 <?php
+
 namespace Common\Database\Schemas;
 
 use Common\Core\App;
@@ -17,7 +18,14 @@ class MangaSchema
     $db->query("CREATE TABLE IF NOT EXISTS mangas (
     Id_manga INT AUTO_INCREMENT PRIMARY KEY,
     img_manga VARCHAR(255) NOT NULL,
-    manga_name VARCHAR(75) NOT NULL
+    manga_name VARCHAR(75),
+    edition varchar(50),
+    total_tome_number INT,
+    year_release DATE,
+    tome_number INT,
+    texte text,
+    Id_mangaka int,
+    FOREIGN KEY (Id_mangaka) REFERENCES mangakas (Id_mangaka) ON DELETE SET NULL ON UPDATE CASCADE
     )");
   }
 }
