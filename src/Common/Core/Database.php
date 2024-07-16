@@ -14,7 +14,7 @@ class Database
     private function __construct(?array $config)
     {
 
-        $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['db']};charset={$config['charset']}";
+        $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['db']};charset={$config['charset']};collate={$config['collate']}";
 
         $option = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -71,7 +71,6 @@ class Database
         return $result;
     }
 
-
     public function fetchAllOrFail(int $fetchStyle = PDO::FETCH_ASSOC): array
     {
         $result = $this->fetchAll($fetchStyle, );
@@ -89,7 +88,6 @@ class Database
         }
         return $result;
     }
-
 
     public function query(string $query, array $params = [])
     {
