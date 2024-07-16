@@ -24,9 +24,9 @@ class MangaRepository
     return array_map(fn ($data) => new Manga($data), $result);
   }
 
-  public function getMangaById(string $idColumn, int $id)
+  public function getMangaById(int $id)
   {
-    $result = $this->db->query("SELECT * FROM $this->table WHERE {$idColumn} = :id", ['id' => $id])->fetchOrFail();
+    $result = $this->db->query("SELECT * FROM $this->table WHERE Id_manga = :id", ['id' => $id])->fetchOrFail();
     return $result ? new Manga($result) : null;
   }
 
@@ -98,9 +98,9 @@ class MangaRepository
     }
   }
 
-  public function deleteManga(string $idColumn, int $id)
+  public function deleteManga( int $id)
   {
-    $this->db->query("DELETE FROM $this->table WHERE {$idColumn} = :id", ['id'=>$id]);
+    $this->db->query("DELETE FROM $this->table WHERE Id_Manga = :id", ['id'=>$id]);
   }
   
 }
