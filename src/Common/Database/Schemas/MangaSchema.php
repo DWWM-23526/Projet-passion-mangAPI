@@ -13,8 +13,7 @@ class MangaSchema
     if ($db === null) {
       throw new \Exception("Database connection could not be established");
     }
-
-    $db->getConnection();
+    
     $db->query("CREATE TABLE IF NOT EXISTS mangas (
     Id_manga INT AUTO_INCREMENT PRIMARY KEY,
     img_manga VARCHAR(255) NOT NULL,
