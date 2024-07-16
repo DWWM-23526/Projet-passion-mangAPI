@@ -2,7 +2,7 @@
 
 namespace Favorites\Model;
 
-class Favories
+class Favorites
 {
   public int $Id_user;
   public int $Id_manga;

@@ -24,6 +24,7 @@ class MangaSchema
     year_release DATE,
     tome_number INT,
     texte text,
+    is_deleted BOOLEAN DEFAULT FALSE,
     Id_mangaka int,
     FOREIGN KEY (Id_mangaka) REFERENCES mangakas (Id_mangaka) ON DELETE SET NULL ON UPDATE CASCADE
     )");

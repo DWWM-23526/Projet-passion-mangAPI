@@ -1,9 +1,11 @@
-<?php namespace Common\Database\Schemas;
+<?php
+
+namespace Common\Database\Schemas;
 
 use Common\Core\App;
 use Common\Core\Database;
 
-class UserSchema
+class UsersSchema
 {
     public function up()
     {
@@ -16,9 +18,8 @@ class UserSchema
         $db->query("CREATE TABLE IF NOT EXISTS users (
             Id_user INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL
+            email VARCHAR(255) NOT NULL,
+            password VARCHAR(255) NOT NULL
         )");
     }
 }
-
-

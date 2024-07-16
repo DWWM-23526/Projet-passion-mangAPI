@@ -16,7 +16,8 @@ class TagsSchema
     $db->getConnection();
     $db->query("CREATE TABLE IF NOT EXISTS tags (
     Id_tag INT AUTO_INCREMENT PRIMARY KEY,
-    tag_name VARCHAR(50)
+    tag_name VARCHAR(50),
+    is_deleted BOOLEAN DEFAULT FALSE
     )");
   }
 }
