@@ -3,6 +3,7 @@
 namespace Common\Core;
 
 use Common\Core\Router;
+use Common\Database\DatabaseManager;
 
 class App
 {

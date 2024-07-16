@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Core;
+namespace Common\Database;
 
 use Common\Database\Schemas\UserSchema;
 
