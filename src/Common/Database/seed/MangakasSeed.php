@@ -14,7 +14,6 @@ class MangakasSeed
             throw new \Exception('Database connection could not be established.');
         }
 
-        $db->getConnection();
         try {
             $db->query("INSERT INTO `mangakas` (`Id_mangaka`, `img_mangaka`, `first_name`, `last_name`, `birthdate`, `texte`) VALUES
             (1, 'img_mangaka1.jpg', 'Eiichiro', 'Oda', '1975-01-01', 'Auteur de One Piece.'),

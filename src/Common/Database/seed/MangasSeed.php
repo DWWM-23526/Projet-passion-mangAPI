@@ -14,7 +14,7 @@ class MangasSeed
             throw new \Exception('Database connection could not be established.');
         }
 
-        $db->getConnection();
+  
         try {
             $db->query("INSERT INTO `mangas` (`Id_manga`, `img_manga`, `manga_name`, `edition`, `total_tome_number`, `year_release`, `tome_number`, `texte`, `Id_mangaka`) VALUES
             (1, 'img_manga1.jpg', 'One Piece', 'Shueisha', 100, '1997-07-22', 100, 'Un manga sur les pirates à la recherche du One Piece.', 1),

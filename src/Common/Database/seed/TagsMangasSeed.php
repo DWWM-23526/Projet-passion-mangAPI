@@ -14,7 +14,6 @@ class TagsMangasSeed
             throw new \Exception('Database connection could not be established.');
         }
 
-        $db->getConnection();
         try {
             $db->query("INSERT INTO `tags_manga` (`Id_manga`, `Id_tag`) VALUES
                     (1, 1), (2, 1), (3, 1), (4, 1), (5, 1),(6, 1), 

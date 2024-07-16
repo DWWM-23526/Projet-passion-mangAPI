@@ -14,7 +14,7 @@ class TagsSeed
             throw new \Exception('Database connection could not be established.');
         }
 
-        $db->getConnection();
+  
         try {
             $db->query("INSERT INTO `tags` (`Id_tag`, `tag_name`) VALUES
                     (1, 'Action'),

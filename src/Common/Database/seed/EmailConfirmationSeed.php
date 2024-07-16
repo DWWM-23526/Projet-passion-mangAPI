@@ -14,7 +14,7 @@ class EmailConfirmationSeed
             throw new \Exception('Database connection could not be established.');
         }
 
-        // $db->getConnection();
+
         // $db->query("");
     }
 }

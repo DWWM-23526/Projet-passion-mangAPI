@@ -14,7 +14,6 @@ class UsersSeed
             throw new \Exception('Database connection could not be established.');
         }
 
-        $db->getConnection();
         try {
             $db->query("INSERT INTO `users` (`Id_user`, `name`, `email`, `password`) VALUES
             (1, 'password123', 'user1@example.com', 'UserOne'),
