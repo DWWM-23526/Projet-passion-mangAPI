@@ -5,7 +5,7 @@ namespace Common\Database\Seed;
 use Common\Core\App;
 use Common\Core\Database;
 
-class UserSeed
+class FavoritesSeed
 {
     public function up()
     {
@@ -15,7 +15,7 @@ class UserSeed
         }
 
         $db->getConnection();
-        $db->query("INSERT INTO `tags_manga` (`Id_manga`, `Id_tag`) VALUES
+        $db->query("INSERT INTO `favoris` (`Id_manga`, `Id_user`) VALUES
                     (1, 1), (2, 1), (3, 1), (4, 1), (5, 1),(6, 1), 
                     (16, 1), (17, 1), (18, 1),(19, 1), (20, 1), (21, 1),
                     (11, 2),(13, 2), (14, 2), (15, 2), (17, 2), (18, 2),

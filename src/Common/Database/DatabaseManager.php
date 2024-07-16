@@ -9,6 +9,7 @@ use Common\Database\Schemas\MangaSchema;
 use Common\Database\Schemas\TagsMangaSchema;
 use Common\Database\Schemas\TagsSchema;
 use Common\Database\Schemas\UsersSchema;
+use Common\Database\Seed\UsersSeed;
 
 class DatabaseManager
 {
@@ -31,7 +32,8 @@ class DatabaseManager
     ];
 
     private array $seeds = [
-        
+        UsersSeed::class,
+
     ];
     
     private function __construct(array $config)
@@ -39,6 +41,7 @@ class DatabaseManager
         $this->config = $config;
         $this->checkDatabaseAndCreate();
         $this->checkTableAndCreate();
+        $this->seed();
     }
 
     public static function getInstance(array $config): self

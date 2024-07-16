@@ -5,7 +5,7 @@ namespace Common\Database\Seed;
 use Common\Core\App;
 use Common\Core\Database;
 
-class UserSeed
+class UsersSeed
 {
     public function up()
     {
@@ -15,7 +15,7 @@ class UserSeed
         }
 
         $db->getConnection();
-        $db->query("INSERT INTO `users` (`Id_user`, `password`, `email`, `pseudo`) VALUES
+        $db->query("INSERT INTO `users` (`Id_user`, `name`, `email`, `password`) VALUES
             (1, 'password123', 'user1@example.com', 'UserOne'),
             (2, 'password456', 'user2@example.com', 'UserTwo'),
             (3, 'password789', 'user3@example.com', 'UserThree'),

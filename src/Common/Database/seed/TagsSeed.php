@@ -5,7 +5,7 @@ namespace Common\Database\Seed;
 use Common\Core\App;
 use Common\Core\Database;
 
-class UserSeed
+class TagsSeed
 {
     public function up()
     {
