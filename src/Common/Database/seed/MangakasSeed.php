@@ -15,7 +15,8 @@ class MangakasSeed
         }
 
         $db->getConnection();
-        $db->query("INSERT INTO `mangakas` (`Id_mangaka`, `img_mangaka`, `first_name`, `last_name`, `birthdate`, `texte`) VALUES
+        try {
+            $db->query("INSERT INTO `mangakas` (`Id_mangaka`, `img_mangaka`, `first_name`, `last_name`, `birthdate`, `texte`) VALUES
             (1, 'img_mangaka1.jpg', 'Eiichiro', 'Oda', '1975-01-01', 'Auteur de One Piece.'),
             (2, 'img_mangaka2.jpg', 'Masashi', 'Kishimoto', '1974-11-08', 'Auteur de Naruto.'),
             (3, 'img_mangaka3.jpg', 'Akira', 'Toriyama', '1955-04-05', 'Auteur de Dragon Ball.'),
@@ -41,5 +42,9 @@ class MangakasSeed
             (23, 'img_mangaka23.jpg', 'Hiro', 'Mashima', '1977-05-03', 'Auteur de Fairy Tail.'),
             (24, 'img_mangaka24.jpg', 'Yoshitoki', 'Oima', '1989-03-15', 'Auteur de A Silent Voice.'),
             (25, 'img_mangaka25.jpg', 'Kaiu', 'Shirai', '1986-10-05', 'Auteur de The Promised Neverland.')");
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
+        
     }
 }

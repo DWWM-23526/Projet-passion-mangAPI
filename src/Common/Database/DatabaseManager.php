@@ -9,6 +9,12 @@ use Common\Database\Schemas\MangaSchema;
 use Common\Database\Schemas\TagsMangaSchema;
 use Common\Database\Schemas\TagsSchema;
 use Common\Database\Schemas\UsersSchema;
+use Common\Database\Seed\EmailConfirmationSeed;
+use Common\Database\Seed\FavoritesSeed;
+use Common\Database\Seed\MangakasSeed;
+use Common\Database\Seed\MangasSeed;
+use Common\Database\Seed\TagsMangasSeed;
+use Common\Database\Seed\TagsSeed;
 use Common\Database\Seed\UsersSeed;
 
 class DatabaseManager
@@ -33,7 +39,12 @@ class DatabaseManager
 
     private array $seeds = [
         UsersSeed::class,
-
+        MangakasSeed::class,
+        MangasSeed::class,
+        TagsSeed::class,
+        TagsMangasSeed::class,
+        FavoritesSeed::class,
+        EmailConfirmationSeed::class,
     ];
     
     private function __construct(array $config)

@@ -15,11 +15,17 @@ class TagsSeed
         }
 
         $db->getConnection();
-        $db->query("INSERT INTO `tags` (`Id_tag`, `tag_name`) VALUES
+        try {
+            $db->query("INSERT INTO `tags` (`Id_tag`, `tag_name`) VALUES
                     (1, 'Action'),
                     (2, 'Aventure'),
                     (3, 'Fantaisie'),
                     (4, 'Shonen'),
                     (5, 'Drame');");
+    
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
     }
+        
 }
