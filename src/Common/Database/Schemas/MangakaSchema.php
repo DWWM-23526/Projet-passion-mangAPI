@@ -21,7 +21,8 @@ class MangakaSchema
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     birthdate DATE,
-    texte TEXT
+    texte TEXT,
+    is_deleted BOOLEAN DEFAULT FALSE
    )");
   }
 }

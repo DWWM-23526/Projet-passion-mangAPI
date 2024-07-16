@@ -16,8 +16,9 @@ class TagsMangaSchema
 
     $db->getConnection();
     $db->query("CREATE TABLE IF NOT EXISTS tags_manga (
-    Id_manga INT PRIMARY KEY,
-    Id_tag INT PRIMARY KEY,
+    Id_manga INT,
+    Id_tag INT,
+    PRIMARY KEY (Id_manga,Id_tag),
     FOREIGN KEY (Id_manga) REFERENCES mangas (Id_manga),
     FOREIGN KEY (Id_tag) REFERENCES tags (Id_tag)
     )");

@@ -10,6 +10,7 @@ class Mangaka
   public ?string $last_name;
   public ?string $birthdate;
   public ?string $texte;
+  public bool $is_deleted;
 
   public function __construct(array $data = [])
   {
@@ -19,5 +20,6 @@ class Mangaka
     $this->last_name = $data['last_name'] ?? null;
     $this->birthdate = $data['birthdate'] ?? null;
     $this->texte = $data['texte'] ?? null;
+    $this->is_deleted = $data['id_deleted'] ?? 0;
   }
 }

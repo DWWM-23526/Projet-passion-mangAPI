@@ -3,12 +3,12 @@
 namespace Common\Database;
 
 use Common\Database\Schemas\EmailConfirmationSchema;
-use Common\Database\Schemas\FavorisSchema;
+use Common\Database\Schemas\FavoritesSchema;
 use Common\Database\Schemas\MangakaSchema;
 use Common\Database\Schemas\MangaSchema;
 use Common\Database\Schemas\TagsMangaSchema;
 use Common\Database\Schemas\TagsSchema;
-use Common\Database\Schemas\UserSchema;
+use Common\Database\Schemas\UsersSchema;
 
 class DatabaseManager
 {
@@ -17,12 +17,12 @@ class DatabaseManager
     private array $config;
 
     private array $schemas = [
-        UserSchema::class,
+        UsersSchema::class,
         MangakaSchema::class,
         MangaSchema::class,
         TagsSchema::class,
         TagsMangaSchema::class,
-        FavorisSchema::class,
+        FavoritesSchema::class,
         EmailConfirmationSchema::class
     ];
 
