@@ -21,7 +21,14 @@ class DatabaseManager
     private array $config;
 
     private array $schemas = [
-        UserSchema::class,
+        MigrationsSchema::class,
+        UsersSchema::class,
+        MangakaSchema::class,
+        MangaSchema::class,
+        TagsSchema::class,
+        TagsMangaSchema::class,
+        FavoritesSchema::class,
+        EmailConfirmationSchema::class
     ];
 
     private array $migrations = [
