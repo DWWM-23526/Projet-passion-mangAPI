@@ -9,5 +9,5 @@ spl_autoload_register(function ($class){
     require __DIR__ . "/../src/{$result}.php";
 });
 
-$router = App::init();
-$router->route();
+$app = App::init();
+$app->route();
