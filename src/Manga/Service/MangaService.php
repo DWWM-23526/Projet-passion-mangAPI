@@ -3,7 +3,6 @@
 namespace Manga\Service;
 
 use Common\Core\App;
-use Common\Core\Database;
 use Manga\Model\Manga;
 use Manga\Repository\MangaRepository;
 
@@ -13,7 +12,7 @@ class MangaService
 
   public function __construct()
   {
-    $this->mangaRepository = App::inject()->getContainer(Database::class);
+    $this->mangaRepository = App::injectService()->getContainer(MangaRepository::class);
   }
 
   public function getAllMangas()
