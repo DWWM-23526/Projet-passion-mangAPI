@@ -78,6 +78,10 @@ class MangakaRepository
 
   public function deleteMangaka(int $id)
   {
-    $this->db->query("DELETE FROM $this->table WHERE Id_mangaka = :id", ['id' => $id]);
+    try {
+      $this->db->query("DELETE FROM $this->table WHERE Id_mangaka = :id", ['id' => $id]);
+    } catch (\PDOException $e) {
+      throw new \Exception("Erreur lord du delete de mangaka :" / $e->getMessage());
+    }
   }
 }

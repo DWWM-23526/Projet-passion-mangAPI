@@ -89,6 +89,10 @@ class MangaRepository
 
   public function deleteManga(int $id)
   {
-    $this->db->query("DELETE FROM $this->table WHERE Id_Manga = :id", ['id'=>$id]);
+    try {
+      $this->db->query("DELETE FROM $this->table WHERE Id_Manga = :id", ['id' => $id]);
+    } catch (\PDOException $e) {
+      throw new \Exception("Erreur lors du delete du manga: " . $e->getMessage());
+    }
   }
 }
