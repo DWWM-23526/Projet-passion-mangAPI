@@ -13,7 +13,7 @@ class MangaRepository
 
   public function __construct()
   {
-    $this->db = App::inject()->getContainer(Database::class);
+    $this->db = App::injectRepository()->getContainer(Database::class);
   }
 
   // CRUD
@@ -32,7 +32,7 @@ class MangaRepository
 
   public function createManga(Manga $manga)
   {
-    $query = "INSERT INTO mangas(
+    $query = "INSERT INTO $this->table(
       Id_manga,
       img_manga,
       manga_name,
@@ -66,7 +66,7 @@ class MangaRepository
 
   public function updateManga(Manga $manga)
   {
-    $query = "UPDATE mangas
+    $query = "UPDATE $this->table
               SET img_manga = :img_manga,
                   manga_name = :manga_name,
                   edition = :edition,
