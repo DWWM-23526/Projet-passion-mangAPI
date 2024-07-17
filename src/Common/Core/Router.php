@@ -1,25 +1,42 @@
-<?php 
+<?php
+
 namespace Common\Core;
 
+use Common\Core\HTTPRequest;
+use Common\Core\HTTPResponse;
 use Exception;
 
 enum RequestMethod {
-    case GET ;
-    case POST ;
-    case DELETE ;
-    case PATCH ;
-    case PUT ;
+    case GET;
+    case POST;
+    case DELETE;
+    case PATCH;
+    case PUT;
 }
 
 class Router
 {
+    private static ?Router $instance = null;
     private array $routes = [];
 
-    public function middleware($key){
+    private function __construct() {
+    }
+
+    public static function getInstance(): Router
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    public function middleware($key)
+    {
         $this->routes[array_key_last($this->routes)]['middleware'] = $key;
     }
 
-    public function addRoute(RequestMethod $requestMethod, string $uri, string $controller, string $method){
+    public function addRoute(RequestMethod $requestMethod, string $uri, string $controller, string $method)
+    {
         $this->routes[] = [
             'requestMethod' => $requestMethod->name,
             'uri' => $uri,
@@ -29,35 +46,37 @@ class Router
         ];
     }
 
-    public function route(){
+    public function route()
+    {
         $request = HTTPRequest::getInstance();
+        $response = HTTPResponse::getInstance();
         $uri = $request->getUri();
         $requestMethod = $request->getMethod();
 
-        foreach($this->routes as $route){
-            if($route['uri'] === $uri && $route['requestMethod'] === strtoupper($requestMethod)){
+        foreach ($this->routes as $route) {
+            if ($route['uri'] === $uri && $route['requestMethod'] === strtoupper($requestMethod)) {
 
                 // TODO : A faire avec Middleware
                 // if($route['middleware']){
                 //     echo "pas par là";
                 // }
 
-                if(class_exists($route['controller'])){
+
+                if (class_exists($route['controller'])) {
                     $controller = new $route['controller'];
                     $method = $route['method'];
-                    if(method_exists($controller, $method)){
-                        $controller->$method($request);
+                    if (method_exists($controller, $method)) {
+                        $controller->$method($request, $response);
                         return;
                     } else {
-                        throw new Exception(" method {$method} not trouved in class {$controller}");
+                        throw new Exception("Method {$method} not found in class {$route['controller']}");
                     }
                 } else {
-                    throw new Exception("class {$route['controller']} does not exist");
+                    throw new Exception("Class {$route['controller']} does not exist");
                 }
-
             }
         }
+
         // TODO : HTTPRequest::abord();
     }
 }
-
