@@ -8,23 +8,25 @@ use Common\Database\DatabaseManager;
 class App
 {
   private static ?App $instance = null;
-
+  private static ?Router $router = null;
 
   protected static Container $container;
   protected static Container $servicesContainer;
   protected static Container $repositoriesContainer;
 
+  private function __construct()
+  {
+    
+  }
 
   public static function getInstance(): App
   {
     if (self::$instance === null) {
       self::$instance = new self();
     }
-
     return self::$instance;
   }
 
-  // CONTAINER 
   private static function setContainer(Container $container)
   {
     self::$container = $container;
@@ -35,7 +37,6 @@ class App
     return self::$container;
   }
 
-  // SERVICES
   private static function setServiceContainer(Container $container)
   {
     self::$servicesContainer = $container;
@@ -45,8 +46,6 @@ class App
   {
     return self::$servicesContainer;
   }
-
-  // REPOSITORIES
 
   private static function setRepositoriesContainer(Container $container)
   {
@@ -58,35 +57,31 @@ class App
     return self::$repositoriesContainer;
   }
 
-  // INITIALIZATION
-
   public static function init()
   {
-
     self::getInstance();
 
-    $router = new Router();
-    $router->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
-
-    if (isset($_SESSION['initialized']) && $_SESSION['initialized']) {
-      return $router;
+    if (self::$router === null) {
+      $app = self::$router = Router::getInstance();
+      $app->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
     }
 
-    $_SESSION['initialized'] = true;
+    if (!isset($_SESSION['initialized'])) {
 
-    $config = require __DIR__ . '/../../../config/db.config.php';
+      $_SESSION['initialized'] = true;
 
-    // Container INIT
-    
-    self::initMainContainer();
-    self::initRepositoriesContainer();
-    self::initServicesContainer();
+      $config = require __DIR__ . '/../../../config/db.config.php';
 
+      self::initMainContainer();
+      self::initRepositoriesContainer();
+      self::initServicesContainer();
 
-    // DATABASE INIT
-    DatabaseManager::getInstance($config['database']);
+      DatabaseManager::getInstance($config['database']);
 
-    return $router;
+      self::logMessage('App initialized');
+    }
+
+    return self::$router;
   }
 
   private static function initMainContainer()
@@ -98,20 +93,26 @@ class App
       return Database::getInstance($config['database']);
     });
 
-    App::setContainer($container);
+    self::setContainer($container);
   }
 
   private static function initRepositoriesContainer()
   {
     $containerRepositories = new Container();
-
-    App::setRepositoriesContainer($containerRepositories);
+    self::setRepositoriesContainer($containerRepositories);
   }
 
   private static function initServicesContainer()
   {
     $containerServices = new Container();
+    self::setServiceContainer($containerServices);
+  }
 
-    App::setServiceContainer($containerServices);
+  private static function logMessage($message)
+  {
+    $logFile = __DIR__ . '/../../../log/migration.log';
+    $timestamp = date('Y-m-d H:i:s');
+    $logEntry = "[$timestamp] $message\n";
+    file_put_contents($logFile, $logEntry, FILE_APPEND);
   }
 }
