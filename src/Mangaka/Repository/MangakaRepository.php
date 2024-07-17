@@ -18,7 +18,7 @@ class MangakaRepository
 
   public function getAllMangakas()
   {
-    $result = $this->db->query("SELECT * FROM $this->table")->fetchAll;
+    $result = $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
     return array_map(fn ($data) => new Mangaka($data), $result);
   }
 

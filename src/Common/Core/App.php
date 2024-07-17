@@ -4,6 +4,8 @@ namespace Common\Core;
 
 use Common\Core\Router;
 use Common\Database\DatabaseManager;
+use EmailConfirm\Repository\EmailConfirmRepository;
+use EmailConfirm\Service\EmailConfirmService;
 use Manga\Repository\MangaRepository;
 use Manga\Service\MangaService;
 use Mangaka\Repository\MangakaRepository;
@@ -112,6 +114,10 @@ class App
       return new MangakaRepository();
     });
 
+    $containerRepositories->setContainer(EmailConfirmRepository::class, function () {
+      return new EmailConfirmRepository();
+    });
+
     self::setRepositoriesContainer($containerRepositories);
   }
 
@@ -126,6 +132,10 @@ class App
 
     $containerServices->setContainer(MangakaService::class, function () {
       return new MangakaService();
+    });
+
+    $containerServices->setContainer(EmailConfirmService::class, function () {
+      return new EmailConfirmService();
     });
 
 
