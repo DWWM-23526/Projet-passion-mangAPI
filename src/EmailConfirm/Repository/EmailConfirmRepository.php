@@ -13,7 +13,7 @@ class EmailConfirmRepository
 
   public function __construct()
   {
-    $this->db = App::injectRepository()->getContainer(Database::class);
+    $this->db = App::inject()->getContainer(Database::class);
   }
 
   // CRUD
@@ -24,7 +24,7 @@ class EmailConfirmRepository
     return array_map(fn ($data) => new EmailConfirm($data), $result);
   }
 
-  public function getEmailById(string $email)
+  public function getEmailByEmail(string $email)
   {
     $result = $this->db->query("SELECT * FROM $this->table WHERE email = :email", ['email' => $email])->fetchOrFail();
     return $result ? new EmailConfirm($result) : null;
@@ -35,11 +35,13 @@ class EmailConfirmRepository
     $query = "INSERT INTO $this->table(
     id_conf,
     email,
-    cle)
+    cle,
+    date)
     VALUES (
     :id_conf,
     :email,
-    :cle
+    :cle,
+    :date
     )";
 
     $values = $emailConfirm->toArray();

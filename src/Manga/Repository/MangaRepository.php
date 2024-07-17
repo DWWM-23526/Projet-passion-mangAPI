@@ -13,7 +13,7 @@ class MangaRepository
 
   public function __construct()
   {
-    $this->db = App::injectRepository()->getContainer(Database::class);
+    $this->db = App::inject()->getContainer(Database::class);
   }
 
   // CRUD
