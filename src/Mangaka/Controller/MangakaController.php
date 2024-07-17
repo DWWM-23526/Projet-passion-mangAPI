@@ -2,17 +2,18 @@
 
 namespace Mangaka\Controller;
 
+use Common\Core\App;
 use Common\Core\HTTPRequest;
 use Mangaka\Service\MangakaService;
 
 class MangakaController
 {
-  private HTTPRequest $request;
+  
   private MangakaService $mangakaService;
 
   public function __construct()
   {
-    $this->mangakaService = new MangakaService();
+    $this->mangakaService = App::injectService()->getContainer(MangakaService::class) ;
   }
 
   public function index(HTTPRequest $request)

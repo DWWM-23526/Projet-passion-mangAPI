@@ -2,9 +2,11 @@
 
 namespace Manga\Controller;
 
+use Common\Core\App;
 use Common\Core\HTTPRequest;
-use Manga\Service\MangaService;
+
 use Common\core\HTTPResponse;
+use Manga\Service\MangaService;
 
 class MangaController
 {
@@ -13,9 +15,12 @@ class MangaController
 
     public function __construct()
     {
-        $this->mangaService = new MangaService();
+        $this->mangaService = App::injectService()->getContainer(MangaService::class);
     }
-    public function index(HTTPRequest $request, HTTPResponse $response) 
-    { $response->sendJsonResponse(['response' =>'hello from manga', 'status' => 200]);
+
+    public function index(HTTPRequest $request, HTTPResponse $response)
+    {
+        
+        $response->sendJsonResponse(['response' => 'hello from manga', 'status' => 200]);
     }
 }

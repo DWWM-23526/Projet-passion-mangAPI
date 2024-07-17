@@ -3,7 +3,7 @@
 namespace Mangaka\Service;
 
 use Common\Core\App;
-use Common\Core\Database;
+
 use Mangaka\Model\Mangaka;
 use Mangaka\Repository\MangakaRepository;
 
@@ -13,7 +13,7 @@ class MangakaService
 
   public function __construct()
   {
-    $this->mangakaRepository = App::inject()->getContainer(Database::class);
+    $this->mangakaRepository = App::injectRepository()->getContainer(MangakaRepository::class);
   }
 
   public function getAllMangakas()
