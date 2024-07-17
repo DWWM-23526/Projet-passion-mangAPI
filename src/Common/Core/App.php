@@ -71,7 +71,6 @@ class App
     self::initRepositoriesContainer();
     self::initServicesContainer();
 
-
     if (!isset($_SESSION['initialized'])) {
 
       $_SESSION['initialized'] = true;
