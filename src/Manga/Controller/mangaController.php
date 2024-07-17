@@ -13,7 +13,6 @@ class MangaController
 
     public function __construct()
     {
-        $this->request = new HTTPRequest();
         $this->mangaService = new MangaService();
     }
     public function index(HTTPRequest $request)

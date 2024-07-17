@@ -6,6 +6,8 @@ use Common\Core\Router;
 use Common\Database\DatabaseManager;
 use Manga\Repository\MangaRepository;
 use Manga\Service\MangaService;
+use Mangaka\Repository\MangakaRepository;
+use Mangaka\Service\MangakaService;
 
 class App
 {
@@ -74,6 +76,10 @@ class App
       return new MangaRepository();
     });
 
+    $containerRepositories->setContainer(MangakaService::class, function () {
+      return new MangakaRepository();
+    });
+
     App::setRepositoriesContainer($containerRepositories);
 
     // SERVICES CONTAINER INIT
@@ -82,6 +88,10 @@ class App
 
     $containerServices->setContainer(MangaService::class, function () {
       return new MangaService();
+    });
+
+    $containerServices->setContainer(MangakaService::class, function () {
+      return new MangakaService();
     });
 
     App::setServiceContainer($containerServices);
