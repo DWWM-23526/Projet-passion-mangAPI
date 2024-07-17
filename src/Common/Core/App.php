@@ -7,13 +7,24 @@ use Common\Database\DatabaseManager;
 
 class App
 {
+  private static ?App $instance = null;
+
+
   protected static Container $container;
   protected static Container $servicesContainer;
   protected static Container $repositoriesContainer;
 
 
-  // CONTAINER 
+  public static function getInstance(): App
+  {
+    if (self::$instance === null) {
+      self::$instance = new self();
+    }
 
+    return self::$instance;
+  }
+
+  // CONTAINER 
   private static function setContainer(Container $container)
   {
     self::$container = $container;
@@ -51,11 +62,36 @@ class App
 
   public static function init()
   {
+
+    self::getInstance();
+
+    $router = new Router();
+    $router->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
+
+    if (isset($_SESSION['initialized']) && $_SESSION['initialized']) {
+      return $router;
+    }
+
+    $_SESSION['initialized'] = true;
+
     $config = require __DIR__ . '/../../../config/db.config.php';
 
+    // Container INIT
+    
+    self::initMainContainer();
+    self::initRepositoriesContainer();
+    self::initServicesContainer();
 
 
-    // CONTAINER INIT
+    // DATABASE INIT
+    DatabaseManager::getInstance($config['database']);
+
+    return $router;
+  }
+
+  private static function initMainContainer()
+  {
+    $config = require __DIR__ . '/../../../config/db.config.php';
     $container = new Container();
 
     $container->setContainer(Database::class, function () use ($config) {
@@ -63,28 +99,19 @@ class App
     });
 
     App::setContainer($container);
+  }
 
-    // REPOSITORIES CONTAINER INIT
+  private static function initRepositoriesContainer()
+  {
+    $containerRepositories = new Container();
 
-    $containerRepositoties = new Container();
+    App::setRepositoriesContainer($containerRepositories);
+  }
 
-    App::setRepositoriesContainer($containerRepositoties);
-
-    // SERVICES CONTAINER INIT
-
+  private static function initServicesContainer()
+  {
     $containerServices = new Container();
 
     App::setServiceContainer($containerServices);
-
-
-    // DATABASE INIT
-    DatabaseManager::getInstance($config['database']);
-
-    // ROUTER INIT
-    $router = new Router();
-
-    $router->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
-
-    return $router;
   }
 }
