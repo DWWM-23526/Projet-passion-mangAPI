@@ -51,9 +51,9 @@ class DatabaseManager
         TagsSeed::class,
         TagsMangasSeed::class,
         FavoritesSeed::class,
-        
+
     ];
-    
+
 
     private function __construct(array $config)
     {
@@ -62,7 +62,6 @@ class DatabaseManager
         $this->checkTableAndCreate();
         $this->migrate();
         $this->seed();
-
     }
 
     public static function getInstance(array $config): self
@@ -74,7 +73,7 @@ class DatabaseManager
         return self::$instance;
     }
 
-    
+
 
     // DATABASE MIGRATION AND SEED METHODS 
 
@@ -123,23 +122,20 @@ class DatabaseManager
 
 
         foreach ($this->migrations as $migration) {
-            if (!in_array($migration, $appliedMigration)){
+            if (!in_array($migration, $appliedMigration)) {
                 $newMigrations[] = $migration;
-                (new $migration())->up();  
-                $this->logMigrations($migration);             
+                (new $migration())->up();
+                $this->logMigrations($migration);
             }
         }
 
-        if (empty($newMigrations))
-        {
+        if (empty($newMigrations)) {
 
-            echo "All migrations are applied.";
-
+            $this->logMessage("All migrations are applied.");
         } else {
 
-            echo "Migrations applied: " . implode(', ', $newMigrations);
+            $this->logMessage("Migration applied: " . implode(', ', $newMigrations));
         }
-
     }
 
     private function seed()
@@ -148,21 +144,19 @@ class DatabaseManager
         $newMigrations = [];
 
         foreach ($this->seeds as $seed) {
-            if (!in_array($seed, $appliedMigration)){
+            if (!in_array($seed, $appliedMigration)) {
                 $newMigrations[] = $seed;
-                (new $seed())->up();  
-                $this->logMigrations($seed);             
+                (new $seed())->up();
+                $this->logMigrations($seed);
             }
         }
 
-        if (empty($newMigrations))
-        {
+        if (empty($newMigrations)) {
 
-            echo "All seeds are applied.";
-
+            $this->logMessage("All seeds are applied.");
         } else {
 
-            echo "seeds applied: " . implode(', ', $newMigrations);
+            $this->logMessage("Seeds applied: " . implode(', ', $newMigrations));
         }
     }
 
@@ -180,7 +174,7 @@ class DatabaseManager
         if ($result === null) {
             $result = [];
         }
-        
+
         return $result;
     }
 
@@ -193,5 +187,13 @@ class DatabaseManager
         }
 
         $result = $db->query("INSERT INTO migrations (migration) VALUES (:migration)", ['migration' => $migration]);
+    }
+
+    private function logMessage($message)
+    {
+        $logFile = __DIR__ . '/../../../log/migration.log';
+        $timestamp = date('Y-m-d H:i:s');
+        $logEntry = "[$timestamp] $message\n";
+        file_put_contents($logFile, $logEntry, FILE_APPEND);
     }
 }

@@ -11,12 +11,23 @@ use Mangaka\Service\MangakaService;
 
 class App
 {
+  private static ?App $instance = null;
+
   protected static Container $container;
   protected static Container $servicesContainer;
   protected static Container $repositoriesContainer;
 
+  private function __construct()
+  {
+  }
 
-  // CONTAINER 
+  public static function getInstance(): App
+  {
+    if (self::$instance === null) {
+      self::$instance = new self();
+    }
+    return self::$instance;
+  }
 
   private static function setContainer(Container $container)
   {
@@ -28,7 +39,6 @@ class App
     return self::$container;
   }
 
-  // SERVICES
   private static function setServiceContainer(Container $container)
   {
     self::$servicesContainer = $container;
@@ -38,8 +48,6 @@ class App
   {
     return self::$servicesContainer;
   }
-
-  // REPOSITORIES
 
   private static function setRepositoriesContainer(Container $container)
   {
@@ -51,25 +59,49 @@ class App
     return self::$repositoriesContainer;
   }
 
-  // INITIALIZATION
-
   public static function init()
   {
+    self::getInstance();
+    $app = Router::getInstance();
+
+    $app->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
+
+
+    self::initMainContainer();
+    self::initRepositoriesContainer();
+    self::initServicesContainer();
+
+
+    if (!isset($_SESSION['initialized'])) {
+
+      $_SESSION['initialized'] = true;
+
+      $config = require __DIR__ . '/../../../config/db.config.php';
+
+
+      DatabaseManager::getInstance($config['database']);
+
+      self::logMessage('App initialized');
+    }
+
+    return $app;
+  }
+
+  private static function initMainContainer()
+  {
     $config = require __DIR__ . '/../../../config/db.config.php';
-
-
-
-    // CONTAINER INIT
     $container = new Container();
 
     $container->setContainer(Database::class, function () use ($config) {
       return Database::getInstance($config['database']);
     });
 
-    App::setContainer($container);
+    self::setContainer($container);
+  }
 
-    // REPOSITORIES CONTAINER INIT
 
+  private static function initRepositoriesContainer()
+  {
     $containerRepositories = new Container();
 
     $containerRepositories->setContainer(MangaRepository::class, function () {
@@ -80,10 +112,12 @@ class App
       return new MangakaRepository();
     });
 
-    App::setRepositoriesContainer($containerRepositories);
+    self::setRepositoriesContainer($containerRepositories);
+  }
 
-    // SERVICES CONTAINER INIT
 
+  private static function initServicesContainer()
+  {
     $containerServices = new Container();
 
     $containerServices->setContainer(MangaService::class, function () {
@@ -94,17 +128,16 @@ class App
       return new MangakaService();
     });
 
-    App::setServiceContainer($containerServices);
+
+    self::setServiceContainer($containerServices);
+  }
 
 
-    // DATABASE INIT
-    DatabaseManager::getInstance($config['database']);
-
-    // ROUTER INIT
-    $router = new Router();
-
-    $router->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
-
-    return $router;
+  private static function logMessage($message)
+  {
+    $logFile = __DIR__ . '/../../../log/migration.log';
+    $timestamp = date('Y-m-d H:i:s');
+    $logEntry = "[$timestamp] $message\n";
+    file_put_contents($logFile, $logEntry, FILE_APPEND);
   }
 }
