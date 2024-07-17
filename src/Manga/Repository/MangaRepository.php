@@ -55,12 +55,12 @@ class MangaRepository
       :Id_mangaka,
       :id_deleted)";
 
-    $values = Manga::toArray($manga);
+    $values = $manga->toArray();
 
     try {
       $this->db->query($query, $values);
     } catch (\PDOException $e) {
-      throw new \Exception("Error on manga" . $e->getMessage());
+      throw new \Exception("Error on Manga" . $e->getMessage());
     }
   }
 
@@ -98,9 +98,8 @@ class MangaRepository
     }
   }
 
-  public function deleteManga( int $id)
+  public function deleteManga(int $id)
   {
     $this->db->query("DELETE FROM $this->table WHERE Id_Manga = :id", ['id'=>$id]);
   }
-  
 }

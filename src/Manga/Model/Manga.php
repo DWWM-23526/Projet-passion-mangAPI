@@ -30,19 +30,19 @@ class Manga
     $this->is_deleted = $data['id_deleted'] ?? 0;
   }
 
-  public static function toArray(Manga $data): array
+  public function toArray(): array
     {
         return [
-            'Id_manga' => $data->Id_manga,
-            'img_manga' => $data->img_manga,
-            'manga_name' => $data->manga_name,
-            'edition' => $data->edition,
-            'total_tome_number' => $data->total_tome_number,
-            'year_release' => $data->year_release,
-            'tome_number' => $data->tome_number,
-            'texte' => $data->texte,
-            'Id_mangaka' => $data->Id_mangaka,
-            'is_deleted'=> $data->is_deleted
+            'Id_manga' => $this->Id_manga,
+            'img_manga' => $this->img_manga,
+            'manga_name' => $this->manga_name,
+            'edition' => $this->edition,
+            'total_tome_number' => $this->total_tome_number,
+            'year_release' => $this->year_release,
+            'tome_number' => $this->tome_number,
+            'texte' => $this->texte,
+            'Id_mangaka' => $this->Id_mangaka,
+            'is_deleted'=> $this->is_deleted
         ];
     }
 }

@@ -22,4 +22,17 @@ class Mangaka
     $this->texte = $data['texte'] ?? null;
     $this->is_deleted = $data['id_deleted'] ?? 0;
   }
+
+  public function toArray(): array
+  {
+    return [
+      'Id_mangaka' => $this->Id_mangaka,
+      'img_mangaka' => $this->img_mangaka,
+      'first_name' => $this->first_name,
+      'last_name' => $this->last_name,
+      'birthdate' => $this->birthdate,
+      'texte' => $this->texte,
+      'is_deleted' => $this->is_deleted,
+    ];
+  }
 }
