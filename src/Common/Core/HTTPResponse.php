@@ -4,6 +4,16 @@ namespace Common\core;
 
 class HTTPResponse
 {
+    private static HTTPResponse| null $instance = null;
+
+    public static function getInstance()
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
 
     public static function abort(int $error = 404)
     {
@@ -23,7 +33,6 @@ class HTTPResponse
     {
         http_response_code($statusCode);
         header("Location: $path");
-        // HTTPResponse::setHeader('Auth: heheh');
         die();
     }
 
@@ -38,5 +47,13 @@ class HTTPResponse
     public static function setHeader(string $header)
     {
         header($header);
+    }
+    
+    public function sendJsonResponse(array $data, int $statusCode = 200)
+    {
+        self::setStatusCode($statusCode);
+        self::setHeader('Content-Type: application/json');
+        echo json_encode($data);
+        die();
     }
 }

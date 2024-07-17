@@ -133,11 +133,11 @@ class DatabaseManager
         if (empty($newMigrations))
         {
 
-            echo "All migrations are applied.";
+            // echo "All migrations are applied.";
 
         } else {
 
-            echo "Migrations applied: " . implode(', ', $newMigrations);
+            // echo "Migrations applied: " . implode(', ', $newMigrations);
         }
 
     }
@@ -158,11 +158,11 @@ class DatabaseManager
         if (empty($newMigrations))
         {
 
-            echo "All seeds are applied.";
+            // echo "All seeds are applied.";
 
         } else {
 
-            echo "seeds applied: " . implode(', ', $newMigrations);
+            // echo "seeds applied: " . implode(', ', $newMigrations);
         }
     }
 

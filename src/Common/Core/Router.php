@@ -1,6 +1,7 @@
 <?php 
 namespace Common\Core;
 
+use Common\core\HTTPResponse;
 use Exception;
 
 enum RequestMethod {
@@ -31,6 +32,7 @@ class Router
 
     public function route(){
         $request = HTTPRequest::getInstance();
+        $response = HTTPResponse::getInstance();
         $uri = $request->getUri();
         $requestMethod = $request->getMethod();
 
@@ -46,7 +48,7 @@ class Router
                     $controller = new $route['controller'];
                     $method = $route['method'];
                     if(method_exists($controller, $method)){
-                        $controller->$method($request);
+                        $controller->$method($request , $response);
                         return;
                     } else {
                         throw new Exception(" method {$method} not trouved in class {$controller}");
