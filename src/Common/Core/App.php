@@ -8,7 +8,6 @@ use Common\Database\DatabaseManager;
 class App
 {
   private static ?App $instance = null;
-  private static ?Router $router = null;
 
   protected static Container $container;
   protected static Container $servicesContainer;
@@ -16,7 +15,6 @@ class App
 
   private function __construct()
   {
-    
   }
 
   public static function getInstance(): App
@@ -60,11 +58,9 @@ class App
   public static function init()
   {
     self::getInstance();
+    $app = Router::getInstance();
 
-    if (self::$router === null) {
-      $app = self::$router = Router::getInstance();
-      $app->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
-    }
+    $app->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
 
     if (!isset($_SESSION['initialized'])) {
 
@@ -81,7 +77,7 @@ class App
       self::logMessage('App initialized');
     }
 
-    return self::$router;
+    return $app;
   }
 
   private static function initMainContainer()
