@@ -67,15 +67,7 @@ class MangakaRepository
         is_deleted = :is_deleted
     WHERE Id_mangaka = :Id_mangaka";
 
-    $values = [
-      'Id_mangaka' => $mangaka->Id_mangaka,
-      'img_mangaka' => $mangaka->img_mangaka,
-      'first_name' => $mangaka->first_name,
-      'last_name' => $mangaka->last_name,
-      'birthdate' => $mangaka->birthdate,
-      'texte' => $mangaka->texte,
-      'is_deleted' => $mangaka->is_deleted,
-    ];
+    $values = $mangaka->toArray();
 
     try {
       $this->db->query($query, $values);
