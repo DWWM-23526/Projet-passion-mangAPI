@@ -4,6 +4,10 @@ namespace Common\Core;
 
 use Common\Core\Router;
 use Common\Database\DatabaseManager;
+use Manga\Repository\MangaRepository;
+use Manga\Service\MangaService;
+use Mangaka\Repository\MangakaRepository;
+use Mangaka\Service\MangakaService;
 
 class App
 {
@@ -62,15 +66,18 @@ class App
 
     $app->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
 
+
+    self::initMainContainer();
+    self::initRepositoriesContainer();
+    self::initServicesContainer();
+
+
     if (!isset($_SESSION['initialized'])) {
 
       $_SESSION['initialized'] = true;
 
       $config = require __DIR__ . '/../../../config/db.config.php';
 
-      self::initMainContainer();
-      self::initRepositoriesContainer();
-      self::initServicesContainer();
 
       DatabaseManager::getInstance($config['database']);
 
@@ -92,17 +99,39 @@ class App
     self::setContainer($container);
   }
 
+
   private static function initRepositoriesContainer()
   {
     $containerRepositories = new Container();
+
+    $containerRepositories->setContainer(MangaRepository::class, function () {
+      return new MangaRepository();
+    });
+
+    $containerRepositories->setContainer(MangakaRepository::class, function () {
+      return new MangakaRepository();
+    });
+
     self::setRepositoriesContainer($containerRepositories);
   }
+
 
   private static function initServicesContainer()
   {
     $containerServices = new Container();
+
+    $containerServices->setContainer(MangaService::class, function () {
+      return new MangaService();
+    });
+
+    $containerServices->setContainer(MangakaService::class, function () {
+      return new MangakaService();
+    });
+
+
     self::setServiceContainer($containerServices);
   }
+
 
   private static function logMessage($message)
   {

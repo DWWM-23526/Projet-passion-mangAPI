@@ -55,12 +55,12 @@ class MangaRepository
       :Id_mangaka,
       :id_deleted)";
 
-    $values = Manga::toArray($manga);
+    $values = $manga->toArray();
 
     try {
       $this->db->query($query, $values);
     } catch (\PDOException $e) {
-      throw new \Exception("Error on manga" . $e->getMessage());
+      throw new \Exception("Error on Manga" . $e->getMessage());
     }
   }
 
@@ -78,18 +78,7 @@ class MangaRepository
                   id_deleted = :id_deleted
               WHERE Id_manga = :Id_manga";
 
-    $values = [
-      'Id_manga' => $manga->Id_manga,
-      'img_manga' => $manga->img_manga,
-      'manga_name' => $manga->manga_name,
-      'edition' => $manga->edition,
-      'total_tome_number' => $manga->total_tome_number,
-      'year_release' => $manga->year_release,
-      'tome_number' => $manga->tome_number,
-      'texte' => $manga->texte,
-      'Id_mangaka' => $manga->Id_mangaka,
-      'is_deleted' => $manga->is_deleted,
-    ];
+    $values = $manga->toArray();
 
     try {
       $this->db->query($query, $values);
@@ -98,9 +87,12 @@ class MangaRepository
     }
   }
 
-  public function deleteManga( int $id)
+  public function deleteManga(int $id)
   {
-    $this->db->query("DELETE FROM $this->table WHERE Id_Manga = :id", ['id'=>$id]);
+    try {
+      $this->db->query("DELETE FROM $this->table WHERE Id_Manga = :id", ['id' => $id]);
+    } catch (\PDOException $e) {
+      throw new \Exception("Erreur lors du delete du manga: " . $e->getMessage());
+    }
   }
-  
 }
