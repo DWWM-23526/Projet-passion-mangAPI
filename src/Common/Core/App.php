@@ -4,6 +4,8 @@ namespace Common\Core;
 
 use Common\Core\Router;
 use Common\Database\DatabaseManager;
+use Manga\Repository\MangaRepository;
+use Manga\Service\MangaService;
 
 class App
 {
@@ -66,13 +68,21 @@ class App
 
     // REPOSITORIES CONTAINER INIT
 
-    $containerRepositoties = new Container();
+    $containerRepositories = new Container();
 
-    App::setRepositoriesContainer($containerRepositoties);
+    $containerRepositories->setContainer(MangaRepository::class, function () {
+      return new MangaRepository();
+    });
+
+    App::setRepositoriesContainer($containerRepositories);
 
     // SERVICES CONTAINER INIT
 
     $containerServices = new Container();
+
+    $containerServices->setContainer(MangaService::class, function () {
+      return new MangaService();
+    });
 
     App::setServiceContainer($containerServices);
 
