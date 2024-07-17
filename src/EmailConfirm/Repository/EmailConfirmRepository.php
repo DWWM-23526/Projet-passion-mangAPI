@@ -20,7 +20,7 @@ class EmailConfirmRepository
 
   public function getAllEmail()
   {
-    $result = $this->db->query("SELECT * FROM $this->table")->fetchAll();
+    $result = $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
     return array_map(fn ($data) => new EmailConfirm($data), $result);
   }
 

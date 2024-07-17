@@ -20,7 +20,7 @@ class MangaRepository
 
   public function getAllMangas()
   {
-    $result = $this->db->query("SELECT * FROM $this->table")->fetchAll();
+    $result = $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
     return array_map(fn ($data) => new Manga($data), $result);
   }
 
