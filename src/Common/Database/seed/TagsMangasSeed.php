@@ -26,8 +26,8 @@ class TagsMangasSeed
                     (3, 4), (4, 4), (6, 4), (9, 4), (11, 4), (20, 4), 
                     (21, 4), (22, 4), (23, 4), (5, 5), (7, 5), (8, 5), 
                     (10, 5), (11, 5), (12, 5), (13, 5), (24, 5),(25, 5)");
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
+        } catch (\Throwable $e) {
+            throw new \Exception("Error Processing Request :" . $e->getMessage());
         }
         
     }

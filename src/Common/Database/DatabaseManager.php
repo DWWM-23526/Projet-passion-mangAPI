@@ -16,7 +16,6 @@ use Common\Database\Schemas\UsersSchema;
 
 use Common\Database\Migrations\AddIsDeletedToUsers;
 
-use Common\Database\Seed\EmailConfirmationSeed;
 use Common\Database\Seed\FavoritesSeed;
 use Common\Database\Seed\MangakasSeed;
 use Common\Database\Seed\MangasSeed;
@@ -52,7 +51,7 @@ class DatabaseManager
         TagsSeed::class,
         TagsMangasSeed::class,
         FavoritesSeed::class,
-        EmailConfirmationSeed::class,
+        
     ];
     
 
@@ -120,7 +119,6 @@ class DatabaseManager
     {
 
         $appliedMigration = $this->getAppliedMigrations();
-        var_dump($appliedMigration);
         $newMigrations = [];
 
 
@@ -146,8 +144,25 @@ class DatabaseManager
 
     private function seed()
     {
+        $appliedMigration = $this->getAppliedMigrations();
+        $newMigrations = [];
+
         foreach ($this->seeds as $seed) {
-            (new $seed())->up();
+            if (!in_array($seed, $appliedMigration)){
+                $newMigrations[] = $seed;
+                (new $seed())->up();  
+                $this->logMigrations($seed);             
+            }
+        }
+
+        if (empty($newMigrations))
+        {
+
+            echo "All migrations are applied.";
+
+        } else {
+
+            echo "Migrations applied: " . implode(', ', $newMigrations);
         }
     }
 

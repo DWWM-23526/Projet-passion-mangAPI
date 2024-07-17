@@ -22,8 +22,8 @@ class FavoritesSeed
                     (14, 3), (16, 3), (19, 3), (25, 3),(1, 4), (2, 4), 
                     (21, 4), (22, 4), (23, 4), (5, 5), (7, 5), (8, 5), 
                     (10, 5), (11, 5), (12, 5), (13, 5), (24, 5),(25, 5)");
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
+        } catch (\Throwable $e) {
+            throw new \Exception("Error Processing Request :" . $e->getMessage());
         }
         
     }

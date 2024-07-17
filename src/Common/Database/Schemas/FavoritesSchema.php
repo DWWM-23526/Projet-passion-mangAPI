@@ -1,4 +1,5 @@
 <?php
+
 namespace Common\Database\Schemas;
 
 use Common\Core\App;
@@ -13,12 +14,19 @@ class FavoritesSchema
       throw new \Exception("Database connection could not be established.");
     }
 
-    $db->query("CREATE TABLE IF NOT EXISTS favoris (
-    Id_manga INT,
-    Id_user INT,
-    PRIMARY KEY (Id_manga,Id_user),
-    FOREIGN KEY (Id_manga) REFERENCES mangas (Id_manga),
-    FOREIGN KEY (Id_user) REFERENCES users (Id_user)
-    )");
+
+    try {
+
+      $db->query("CREATE TABLE IF NOT EXISTS favoris (
+        Id_manga INT,
+        Id_user INT,
+        PRIMARY KEY (Id_manga,Id_user),
+        FOREIGN KEY (Id_manga) REFERENCES mangas (Id_manga),
+        FOREIGN KEY (Id_user) REFERENCES users (Id_user)
+        )");
+    } catch (\Throwable $e) {
+
+      throw new \Exception("Error Processing Request :" . $e->getMessage());
+    }
   }
 }

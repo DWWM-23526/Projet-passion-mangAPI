@@ -14,12 +14,18 @@ class TagsMangaSchema
       throw new \Exception("Database connection could not be established");
     }
 
-    $db->query("CREATE TABLE IF NOT EXISTS tags_manga (
-    Id_manga INT,
-    Id_tag INT,
-    PRIMARY KEY (Id_manga,Id_tag),
-    FOREIGN KEY (Id_manga) REFERENCES mangas (Id_manga),
-    FOREIGN KEY (Id_tag) REFERENCES tags (Id_tag)
-    )");
+    try {
+
+      $db->query("CREATE TABLE IF NOT EXISTS tags_manga (
+        Id_manga INT,
+        Id_tag INT,
+        PRIMARY KEY (Id_manga,Id_tag),
+        FOREIGN KEY (Id_manga) REFERENCES mangas (Id_manga),
+        FOREIGN KEY (Id_tag) REFERENCES tags (Id_tag)
+        )");
+    } catch (\Throwable $e) {
+
+      throw new \Exception("Error Processing Request :" . $e->getMessage());
+    }
   }
 }

@@ -23,8 +23,8 @@ class TagsSeed
                     (4, 'Shonen'),
                     (5, 'Drame');");
     
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
+        } catch (\Throwable $e) {
+            throw new \Exception("Error Processing Request :" . $e->getMessage());
         }
     }
         

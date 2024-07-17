@@ -1,4 +1,5 @@
 <?php
+
 namespace Common\Database\Schemas;
 
 use Common\Core\App;
@@ -13,11 +14,16 @@ class TagsSchema
       throw new \Exception("Database connection could not be established");
     }
 
- 
-    $db->query("CREATE TABLE IF NOT EXISTS tags (
-    Id_tag INT AUTO_INCREMENT PRIMARY KEY,
-    tag_name VARCHAR(50),
-    is_deleted BOOLEAN DEFAULT FALSE
-    )");
+    try {
+
+      $db->query("CREATE TABLE IF NOT EXISTS tags (
+        Id_tag INT AUTO_INCREMENT PRIMARY KEY,
+        tag_name VARCHAR(50),
+        is_deleted BOOLEAN DEFAULT FALSE
+        )");
+    } catch (\Throwable $e) {
+
+      throw new \Exception("Error Processing Request :" . $e->getMessage());
+    }
   }
 }

@@ -21,8 +21,8 @@ class UsersSeed
             (3, 'password789', 'user3@example.com', 'UserThree'),
             (4, 'password321', 'user4@example.com', 'UserFour'),
             (5, 'password654', 'user5@example.com', 'UserFive')");
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
+        } catch (\Throwable $e) {
+            throw new \Exception("Error Processing Request :" . $e->getMessage());
         }
         
     }

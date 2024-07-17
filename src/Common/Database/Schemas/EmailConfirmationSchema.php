@@ -14,10 +14,16 @@ class EmailConfirmationSchema
       throw new \Exception("Database connection could not be established.");
     }
 
-    $db->query("CREATE TABLE IF NOT EXISTS email_confirmation (
-    id_conf INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(50) NOT NULL,
-    cle INT
-    )");
+    try {
+
+      $db->query("CREATE TABLE IF NOT EXISTS email_confirmation (
+        id_conf INT AUTO_INCREMENT PRIMARY KEY,
+        email VARCHAR(50) NOT NULL,
+        cle INT
+        )");
+    } catch (\Throwable $e) {
+
+      throw new \Exception("Error Processing Request :" . $e->getMessage());
+    }
   }
 }

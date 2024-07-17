@@ -41,8 +41,8 @@ class MangakasSeed
             (23, 'img_mangaka23.jpg', 'Hiro', 'Mashima', '1977-05-03', 'Auteur de Fairy Tail.'),
             (24, 'img_mangaka24.jpg', 'Yoshitoki', 'Oima', '1989-03-15', 'Auteur de A Silent Voice.'),
             (25, 'img_mangaka25.jpg', 'Kaiu', 'Shirai', '1986-10-05', 'Auteur de The Promised Neverland.')");
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
+        } catch (\Throwable $e) {
+            throw new \Exception("Error Processing Request :" . $e->getMessage());
         }
         
     }

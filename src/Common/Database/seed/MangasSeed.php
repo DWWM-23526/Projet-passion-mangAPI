@@ -42,8 +42,8 @@ class MangasSeed
             (23, 'img_manga23.jpg', 'Fairy Tail', 'Kodansha', 63, '2006-08-02', 63, 'Les aventures d\'une guilde de mages.', 23),
             (24, 'img_manga24.jpg', 'A Silent Voice', 'Kodansha', 7, '2013-08-07', 7, 'L\'histoire d\'un garçon cherchant à se racheter après avoir harcelé une camarade sourde.', 24),
             (25, 'img_manga25.jpg', 'The Promised Neverland', 'Shueisha', 20, '2016-08-01', 20, 'Des enfants découvrent la sombre vérité de leur orphelinat.', 25)");
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
+        } catch (\Throwable $e) {
+            throw new \Exception("Error Processing Request :" . $e->getMessage());
         }
         
     }

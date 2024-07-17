@@ -14,12 +14,17 @@ class UsersSchema
             throw new \Exception('Database connection could not be established.');
         }
 
-        
-        $db->query("CREATE TABLE IF NOT EXISTS users (
-            Id_user INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL,
-            password VARCHAR(255) NOT NULL
-        )");
+        try {
+
+            $db->query("CREATE TABLE IF NOT EXISTS users (
+                Id_user INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                password VARCHAR(255) NOT NULL
+            )");
+        } catch (\Throwable $e) {
+
+            throw new \Exception("Error Processing Request :" . $e->getMessage());
+        }
     }
 }

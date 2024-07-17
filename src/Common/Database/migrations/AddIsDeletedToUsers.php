@@ -14,7 +14,13 @@ class AddIsDeletedToUsers
       throw new \Exception('Database connection could not be established.');
     }
 
-    $db->query("ALTER TABLE users ADD COLUMN is_deleted TINYINT(1) DEFAULT 0");
+    try {
+
+      $db->query("ALTER TABLE users ADD COLUMN is_deleted TINYINT(1) DEFAULT 0");
+    } catch (\Throwable $e) {
+
+      throw new \Exception("Error Processing Request :" . $e);
+    }
   }
 
   public function down()
@@ -24,6 +30,12 @@ class AddIsDeletedToUsers
       throw new \Exception('Database connection could not be established.');
     }
 
-    $db->query("ALTER TABLE users DROP COLUMN is_deleted");
+    try {
+
+      $db->query("ALTER TABLE users DROP COLUMN is_deleted");
+    } catch (\Throwable $e) {
+
+      throw new \Exception("Error Processing Request :" . $e->getMessage());
+    }
   }
 }
