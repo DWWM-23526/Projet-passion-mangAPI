@@ -4,7 +4,7 @@ namespace Common\Database;
 
 use Common\Core\App;
 use Common\Core\Database;
-
+use Common\Database\Migrations\AddDateToEmailConfirmation;
 use Common\Database\Schemas\EmailConfirmationSchema;
 use Common\Database\Schemas\FavoritesSchema;
 use Common\Database\Schemas\MangakaSchema;
@@ -42,6 +42,7 @@ class DatabaseManager
 
     private array $migrations = [
         AddIsDeletedToUsers::class,
+        AddDateToEmailConfirmation::class,
     ];
 
     private array $seeds = [
