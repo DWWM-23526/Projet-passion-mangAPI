@@ -6,6 +6,8 @@ use Common\Core\Router;
 use Common\Database\DatabaseManager;
 use EmailConfirm\Repository\EmailConfirmRepository;
 use EmailConfirm\Service\EmailConfirmService;
+use Favorites\Repository\FavoritesRepository;
+use Favorites\Service\FavoritesService;
 use Manga\Repository\MangaRepository;
 use Manga\Service\MangaService;
 use Mangaka\Repository\MangakaRepository;
@@ -64,14 +66,20 @@ class App
   public static function init()
   {
     self::getInstance();
+
+    // ROUTER INIT
+
     $app = Router::getInstance();
-
     $app->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
+    require __DIR__ . '/../../Favorites/favoritesEndPoint.php';
 
+    // CONTAINER INIT
 
     self::initMainContainer();
     self::initRepositoriesContainer();
     self::initServicesContainer();
+
+    // DATABASE INIT
 
     if (!isset($_SESSION['initialized'])) {
 
@@ -113,6 +121,10 @@ class App
       return new MangakaRepository();
     });
 
+    $containerRepositories->setContainer(FavoritesRepository::class, function () {
+      return new FavoritesRepository();
+    });
+
     $containerRepositories->setContainer(EmailConfirmRepository::class, function () {
       return new EmailConfirmRepository();
     });
@@ -132,6 +144,11 @@ class App
     $containerServices->setContainer(MangakaService::class, function () {
       return new MangakaService();
     });
+
+    $containerServices->setContainer(FavoritesService::class, function () {
+      return new FavoritesService();
+    });
+
 
     $containerServices->setContainer(EmailConfirmService::class, function () {
       return new EmailConfirmService();
