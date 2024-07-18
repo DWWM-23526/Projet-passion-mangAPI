@@ -31,13 +31,13 @@ class TagsMangaService
     }
 
 
-    public function createTagManga(array $tagsManga): void
+    public function createTagManga(array $data): void
     {
-        $this->tagsMangaRepository->createTagManga($tagsManga);
+        $this->tagsMangaRepository->createTagManga($data);
     }
 
-    public function deleteTagManga (array $tagsManga): void
+    public function deleteTagManga (int $tagId, int $mangaId): void
     {
-        $this->tagsMangaRepository->deleteTagManga($tagsManga);
+        $this->tagsMangaRepository->deleteTagManga($tagId, $mangaId);
     }
 }

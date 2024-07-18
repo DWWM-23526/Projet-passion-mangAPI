@@ -50,13 +50,13 @@ class TagsMangaRepository
         }
     }
 
-    public function deleteTagManga(array $tagsManga): void
+    public function deleteTagManga(int $tagId, int $mangaId): void
     {
         $query = "DELETE FROM $this->table WHERE Id_manga = :Id_manga AND Id_tag = :Id_tag";
 
         $values = [
-            ':Id_manga' => $tagsManga['Id_manga'],
-            ':Id_tag' => $tagsManga['Id_tag'],
+            ':Id_manga' => $mangaId,
+            ':Id_tag' => $tagId,
         ];
 
         try {

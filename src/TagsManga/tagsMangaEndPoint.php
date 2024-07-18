@@ -17,4 +17,4 @@ $app->addRoute(RequestMethod::POST, '/api/tags/mangas', 'TagsManga\Controller\Ta
 
 
 // // DELETE remove a favorite
-$app->addRoute(RequestMethod::DELETE, '/api/tag/{tagId}/manga/{mangaId}', 'TagsManga\Controller\TagsMangaController', 'delete');
+$app->addRoute(RequestMethod::DELETE, '/api/manga/{mangaId}/tag/{tagId}', 'TagsManga\Controller\TagsMangaController', 'delete');
