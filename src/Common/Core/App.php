@@ -12,6 +12,8 @@ use Manga\Repository\MangaRepository;
 use Manga\Service\MangaService;
 use Mangaka\Repository\MangakaRepository;
 use Mangaka\Service\MangakaService;
+use Tags\Repository\TagsRepository;
+use Tags\Service\TagsService;
 use TagsManga\Repository\TagsMangaRepository;
 use TagsManga\Service\TagsMangaService;
 
@@ -77,7 +79,10 @@ class App
     require __DIR__ . "/../../Manga/mangaEndPoint.php";
     require __DIR__ . "/../../Mangaka/mangakaEndPoint.php";
     require __DIR__ . '/../../Favorites/favoritesEndPoint.php';
+    require __DIR__ . '/../../Tags/tagEndPoint.php';
     require __DIR__ . '/../../TagsManga/tagsMangaEndPoint.php';
+
+    // TODO: Faire le fichier et dossier log / migration.log
 
     // CONTAINER INIT
 

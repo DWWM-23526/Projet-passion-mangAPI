@@ -27,19 +27,28 @@ class TagsController
     }
 
     public function addTag(HTTPRequest $request, HTTPResponse $response){
-        $tag = null;
-        // $tag = $this->tagsService->createTag();
-        $tag === null ? $response->abort() : $response->sendJsonResponse($tag);
+        $body = $request->getBody();
+        try {
+            $this->tagsService->createTag($body);
+            $response->sendJsonResponse(["Manga {$body['name']} créé"]);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
     }
 
     public function updateTag(HTTPRequest $request, HTTPResponse $response){
-        $tag = null;
-        // $tag = $this->tagsService->updateTag();
-        $tag === null ? $response->abort() : $response->sendJsonResponse($tag);
+        $body = $request->getBody();
+        try {
+            $this->tagsService->createTag($body);
+            $response->sendJsonResponse(["Manga {$body['name']} créé"]);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
     }
 
     public function deleteTag(HTTPRequest $request, HTTPResponse $response){
         $tag = null;
+        // TODO: Vérification des données
         // $tag = $this->tagsService->deleteTag();
         $tag === null ? $response->abort() : $response->sendJsonResponse($tag);
     }
