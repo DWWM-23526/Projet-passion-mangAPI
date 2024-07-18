@@ -70,8 +70,9 @@ class App
     // ROUTER INIT
 
     $app = Router::getInstance();
+    require __DIR__ . "/../../EmailConfirm/emailConfirmEndPoint.php";
     require __DIR__ . "/../../Manga/mangaEndPoint.php";
-    require __DIR__ ."/../../Mangaka/mangakaEndPoint.php";
+    require __DIR__ . "/../../Mangaka/mangakaEndPoint.php";
     require __DIR__ . '/../../Favorites/favoritesEndPoint.php';
 
     // CONTAINER INIT

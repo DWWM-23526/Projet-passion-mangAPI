@@ -15,8 +15,30 @@ class EmailConfirmController
     $this->emailConfirmService = App::injectService()->getContainer(EmailConfirmService::class);
   }
 
-  public function index(HTTPRequest $request, HTTPResponse $response)
+  public function getAllEmailConfirms(HTTPRequest $request, HTTPResponse $response)
   {
-    $response->sendJsonResponse(['response' => "Hello from EmailConfirm", "status" => 200]);
+    $email = $this->emailConfirmService->getAllEmails();
+    $response->sendJsonResponse($email);
+  }
+
+  public function getEmailByEmail(HTTPRequest $request, HTTPResponse $response, $params)
+  {
+    $emailId = $params["emailId"];
+    $emailConfirm = $this->emailConfirmService->getEmailByEmail($emailId);
+    if ($emailConfirm === null) {
+      $response->abort(404);
+    } else {
+      $response->sendJsonResponse($emailConfirm);
+    }
+  }
+
+  public function addEmailConfirm(HTTPRequest $request, HTTPResponse $response)
+  {
+    $response->sendJsonResponse(['response' => 'hello from emailConfirm'], 200);
+  }
+
+  public function deleteEmailConfirm(HTTPRequest $request, HTTPResponse $response)
+  {
+    $response->sendJsonResponse(['response' => 'hello from emailConfirm'], 200);
   }
 }

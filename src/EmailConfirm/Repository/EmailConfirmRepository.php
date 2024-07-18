@@ -18,7 +18,7 @@ class EmailConfirmRepository
 
   // CRUD
 
-  public function getAllEmail()
+  public function getAllEmails()
   {
     $result = $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
     return array_map(fn ($data) => new EmailConfirm($data), $result);

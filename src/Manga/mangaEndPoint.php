@@ -5,7 +5,7 @@ use Common\Core\RequestMethod;
 // GET all mangas
 $app->addRoute(RequestMethod::GET, "/api/manga", "Manga\Controller\MangaController", "getAllMangas");
 
-// GET manga by user ID
+// GET manga by ID
 $app->addRoute(RequestMethod::GET, '/api/manga/{mangaId}', 'Manga\Controller\MangaController', 'getMangaById');
 
 // POST add a new manga
