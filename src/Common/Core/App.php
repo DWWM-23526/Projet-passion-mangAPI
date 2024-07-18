@@ -16,6 +16,8 @@ use Tags\Repository\TagsRepository;
 use Tags\Service\TagsService;
 use TagsManga\Repository\TagsMangaRepository;
 use TagsManga\Service\TagsMangaService;
+use Users\Repository\UsersRespository;
+use Users\Service\UsersService;
 
 class App
 {
@@ -81,6 +83,7 @@ class App
     require __DIR__ . '/../../Favorites/favoritesEndPoint.php';
     require __DIR__ . '/../../Tags/tagEndPoint.php';
     require __DIR__ . '/../../TagsManga/tagsMangaEndPoint.php';
+    require __DIR__ . '/../../Users/usersEndPoint.php';
 
     // TODO: Faire le fichier et dossier log / migration.log
 
@@ -148,6 +151,10 @@ class App
       return new TagsRepository();
     });
 
+    $containerRepositories->setContainer(UsersRespository::class, function(){
+      return new UsersRespository();
+    });
+
     self::setRepositoriesContainer($containerRepositories);
   }
 
@@ -178,6 +185,10 @@ class App
 
     $containerServices->setContainer(TagsService::class, function(){
       return new TagsService();
+    });
+
+    $containerServices->setContainer(UsersService::class, function(){
+      return new UsersService();
     });
 
     self::setServiceContainer($containerServices);
