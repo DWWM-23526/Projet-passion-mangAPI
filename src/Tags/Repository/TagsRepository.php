@@ -17,13 +17,13 @@ class TagsRepository
 
     public function getAllTags()
     {
-        $results = $this->db->query("SELECT * FROM tags")->fetchAll();
+        $results = $this->db->query("SELECT * FROM tags")->fetchAllOrFail();
         return array_map(fn ($data) => new Tags($data), $results);
     }
 
     public function getTagById(int $id)
     {
-        $result = $this->db->query("SELECT * FROM tags WHERE Id_tag = :id", ['id' => $id]);
+        $result = $this->db->query("SELECT * FROM tags WHERE Id_tag = :id", ['id' => $id])->fetchOrFail();
         return $result ? new Tags($result) : null;
     }
 
