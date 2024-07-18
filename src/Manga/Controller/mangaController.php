@@ -41,7 +41,7 @@ class MangaController
         try {
             $this->mangaService->createManga($body);
         } catch (\Throwable $e) {
-            $response->abort();
+            $response->abort($e->getMessage());
         }
         $response->sendJsonResponse(["Manga bien crée !"]);
     }
@@ -52,7 +52,7 @@ class MangaController
         try {
             $this->mangaService->updateManga($body);
         } catch (\Throwable $e) {
-            $response->abort();
+            $response->abort("");
         }
         $response->sendJsonResponse(["Manga bien modifié !"]);
     }
@@ -63,7 +63,7 @@ class MangaController
         try {
             $this->mangaService->deleteManga($mangaId);
         } catch (\Throwable $th) {
-            $response->abort();
+            $response->abort("");
         }
         $response->sendJsonResponse(["Manga bien delete !"]);
     }

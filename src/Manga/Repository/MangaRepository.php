@@ -32,7 +32,7 @@ class MangaRepository
 
   public function mangaExists(string $title)
   {
-    $query = $this->db->query("SELECT * FROM mangas WHERE title = :title", ["title" => $title])->fetchAllOrFail();
+    $query = $this->db->query("SELECT * FROM mangas WHERE manga_name = :title", ["title" => $title])->fetchAllOrFail();
     if (isset($query)) {
       return $query;
     }
