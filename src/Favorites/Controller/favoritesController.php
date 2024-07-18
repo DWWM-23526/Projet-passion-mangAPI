@@ -43,12 +43,6 @@ class FavoritesController
         
     }
 
-    public function updateFavorite(HTTPRequest $request, HTTPResponse $response)
-    {
-        $response->sendJsonResponse(['response' => 'hello from favorites', 'status' => 200]);
-       
-    }
-
     public function removeFavorite(HTTPRequest $request, HTTPResponse $response)
     {
         $response->sendJsonResponse(['response' => 'hello from favorites', 'status' => 200]);

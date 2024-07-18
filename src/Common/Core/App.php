@@ -12,6 +12,8 @@ use Manga\Repository\MangaRepository;
 use Manga\Service\MangaService;
 use Mangaka\Repository\MangakaRepository;
 use Mangaka\Service\MangakaService;
+use TagsManga\Repository\TagsMangaRepository;
+use TagsManga\Service\TagsMangaService;
 
 class App
 {
@@ -70,10 +72,12 @@ class App
     // ROUTER INIT
 
     $app = Router::getInstance();
+    
     require __DIR__ . "/../../EmailConfirm/emailConfirmEndPoint.php";
     require __DIR__ . "/../../Manga/mangaEndPoint.php";
     require __DIR__ . "/../../Mangaka/mangakaEndPoint.php";
     require __DIR__ . '/../../Favorites/favoritesEndPoint.php';
+    require __DIR__ . '/../../TagsManga/tagsMangaEndPoint.php';
 
     // CONTAINER INIT
 
@@ -127,6 +131,10 @@ class App
       return new FavoritesRepository();
     });
 
+    $containerRepositories->setContainer(TagsMangaRepository::class, function () {
+      return new TagsMangaRepository();
+    });
+
     $containerRepositories->setContainer(EmailConfirmRepository::class, function () {
       return new EmailConfirmRepository();
     });
@@ -151,11 +159,13 @@ class App
       return new FavoritesService();
     });
 
+    $containerServices->setContainer(TagsMangaService::class, function () {
+      return new TagsMangaService();
+    });
 
     $containerServices->setContainer(EmailConfirmService::class, function () {
       return new EmailConfirmService();
     });
-
 
     self::setServiceContainer($containerServices);
   }

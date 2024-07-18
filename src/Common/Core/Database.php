@@ -67,7 +67,17 @@ class Database
         $result = $this->fetch();
 
         if (!$result) {
-            throw new \Exception('No results found.');
+            HTTPResponse::abort();
+        }
+        return $result;
+    }
+
+    public function fetchOrNull()
+    {
+        $result = $this->fetch();
+
+        if (!$result) {
+            return null;
         }
         return $result;
     }
@@ -76,7 +86,7 @@ class Database
     {
         $result = $this->fetchAll($fetchStyle, );
         if (!$result) {
-            throw new \Exception('No results found.');
+            HTTPResponse::abort();
         }
         return $result;
     }

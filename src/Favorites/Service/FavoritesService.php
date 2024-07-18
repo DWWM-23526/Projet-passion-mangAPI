@@ -32,13 +32,6 @@ class FavoritesService
         $this->favoritesRepository->createFavorites($favoriteData);
     }
 
-    public function updateFavorite(array $favoriteData): void
-    {
-        $this->validateFavoriteData($favoriteData);
-
-        $this->favoritesRepository->updateFavorites($favoriteData);
-    }
-
     public function removeFavorite(array $favoriteData): void
     {
         $this->validateFavoriteData($favoriteData);
