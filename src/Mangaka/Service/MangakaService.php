@@ -25,13 +25,15 @@ class MangakaService
     return $this->mangakaRepository->getMangakaById($id);
   }
 
-  public function createMangakas(Mangaka $mangaka)
+  public function createMangakas(mixed $dataMangaka)
   {
+    $mangaka = new Mangaka($dataMangaka);
     return $this->mangakaRepository->createMangaka($mangaka);
   }
 
-  public function updateMangaka(Mangaka $mangaka)
+  public function updateMangaka(mixed $dataMangaka)
   {
+    $mangaka = new Mangaka($dataMangaka);
     return $this->mangakaRepository->updateMangaka($mangaka);
   }
 
