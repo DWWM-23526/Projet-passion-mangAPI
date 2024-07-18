@@ -70,7 +70,7 @@ class App
     // ROUTER INIT
 
     $app = Router::getInstance();
-    $app->addRoute(RequestMethod::GET, '/manga', 'Manga\Controller\MangaController', 'index');
+    require __DIR__ . "/../../Manga/mangaEndPoint.php";
     require __DIR__ . '/../../Favorites/favoritesEndPoint.php';
 
     // CONTAINER INIT
