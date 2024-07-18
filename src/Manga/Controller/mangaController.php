@@ -18,9 +18,32 @@ class MangaController
         $this->mangaService = App::injectService()->getContainer(MangaService::class);
     }
 
-    public function index(HTTPRequest $request, HTTPResponse $response)
+    public function getAllMangas(HTTPRequest $request, HTTPResponse $response)
     {
-        
-        $response->sendJsonResponse(['response' => 'hello from manga', 'status' => 200]);
+        $mangas = $this->mangaService->getAllMangas();
+        $response->sendJsonResponse($mangas);
+    }
+
+    public function getMangaById(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $mangaId = $params['mangaId'];
+        $mangas = $this->mangaService->getMangaById($mangaId);
+        if ($mangas === null) {
+            $response->abort(404);
+        } else {
+            $response->sendJsonResponse($mangas);
+        }
+    }
+    public function addManga(HTTPRequest $request, HTTPResponse $response)
+    {
+        $response->sendJsonResponse(['response' => 'hello from manga'],200);
+    }
+    public function updateManga(HTTPRequest $request, HTTPResponse $response)
+    {
+        $response->sendJsonResponse(['response' => 'hello from manga'],200);
+    }
+    public function removeManga(HTTPRequest $request, HTTPResponse $response)
+    {
+        $response->sendJsonResponse(['response' => 'hello from manga'],200);
     }
 }
