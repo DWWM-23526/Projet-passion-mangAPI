@@ -45,28 +45,6 @@ class FavoritesRepository
         }
     }
 
-    public function updateFavorites(array $favorites): void
-    {
-        $query = "UPDATE $this->table
-              SET Id_manga = :Id_manga,
-                  Id_user = :Id_user
-              WHERE Id_manga = :Id_mangaS
-              AND Id_user = :Id_userS";
-
-        $values = [
-            ':Id_manga' => $favorites['Id_manga'],
-            ':Id_mangaS' => $favorites['Id_manga'],
-            ':Id_user' => $favorites['Id_user'],
-            ':Id_userS' => $favorites['Id_user'],
-        ];
-
-        try {
-            $this->db->query($query, $values);
-        } catch (\PDOException $e) {
-            throw new \Exception("Error updating favorites: " . $e->getMessage());
-        }
-    }
-
     public function deleteFavorites(array $favorites): void
     {
         $query = "DELETE FROM $this->table WHERE Id_manga = :Id_manga AND Id_user = :Id_user";
