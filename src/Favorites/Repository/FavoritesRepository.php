@@ -4,7 +4,7 @@ namespace Favorites\Repository;
 
 use Common\Core\App;
 use Common\Core\Database;
-use Manga\Model\Manga;
+
 
 
 class FavoritesRepository

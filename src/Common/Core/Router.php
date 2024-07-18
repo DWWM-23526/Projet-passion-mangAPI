@@ -6,7 +6,8 @@ use Common\Core\HTTPRequest;
 use Common\Core\HTTPResponse;
 use Exception;
 
-enum RequestMethod {
+enum RequestMethod
+{
     case GET;
     case POST;
     case DELETE;
@@ -19,7 +20,8 @@ class Router
     private static ?Router $instance = null;
     private array $routes = [];
 
-    private function __construct() {
+    private function __construct()
+    {
     }
 
     public static function getInstance(): Router
@@ -54,29 +56,52 @@ class Router
         $requestMethod = $request->getMethod();
 
         foreach ($this->routes as $route) {
-            if ($route['uri'] === $uri && $route['requestMethod'] === strtoupper($requestMethod)) {
+            if ($route['requestMethod'] === strtoupper($requestMethod)) {
+                $params = $this->matchUri($route['uri'], $uri);
+                if ($params !== null) {
 
-                // TODO : A faire avec Middleware
-                // if($route['middleware']){
-                //     echo "pas par là";
-                // }
+                    // TODO : A faire avec Middleware
+                    // if($route['middleware']){
+                    //     echo "pas par là";
+                    // }
 
 
-                if (class_exists($route['controller'])) {
-                    $controller = new $route['controller'];
-                    $method = $route['method'];
-                    if (method_exists($controller, $method)) {
-                        $controller->$method($request, $response);
-                        return;
+                    if (class_exists($route['controller'])) {
+                        $controller = new $route['controller'];
+                        $method = $route['method'];
+                        if (method_exists($controller, $method)) {
+                            $controller->$method($request, $response, $params);
+                            return;
+                        } else {
+                            throw new Exception("Method {$method} not found in class {$route['controller']}");
+                        }
                     } else {
-                        throw new Exception("Method {$method} not found in class {$route['controller']}");
+                        throw new Exception("Class {$route['controller']} does not exist");
                     }
-                } else {
-                    throw new Exception("Class {$route['controller']} does not exist");
                 }
             }
         }
 
-        // TODO : HTTPRequest::abord();
+        HTTPResponse::abort(404);
+    }
+
+    private function matchUri(string $routeUri, string $requestUri): ?array
+    {
+        $routeParts = explode('/', $routeUri);
+        $requestParts = explode('/', $requestUri);
+
+        if (count($routeParts) !== count($requestParts)) {
+            return null;
+        }
+
+        $params = [];
+        foreach ($routeParts as $index => $part) {
+            if (preg_match('/^\{(\w+)\}$/', $part, $matches)) {
+                $params[$matches[1]] = $requestParts[$index];
+            } elseif ($part !== $requestParts[$index]) {
+                return null;
+            }
+        }
+        return $params;
     }
 }
