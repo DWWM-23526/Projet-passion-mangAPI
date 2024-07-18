@@ -53,10 +53,9 @@ class MangaRepository
       :tome_number,
       :texte,
       :Id_mangaka,
-      :id_deleted)";
+      :is_deleted)";
 
     $values = $manga->toArray();
-
     try {
       $this->db->query($query, $values);
     } catch (\PDOException $e) {

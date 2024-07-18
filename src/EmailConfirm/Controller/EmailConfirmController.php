@@ -34,7 +34,13 @@ class EmailConfirmController
 
   public function addEmailConfirm(HTTPRequest $request, HTTPResponse $response)
   {
-    $response->sendJsonResponse(['response' => 'hello from emailConfirm'], 200);
+    $body = $request->getBody();
+    try {
+      $this->emailConfirmService->createEmailConfirm($body);
+    } catch (\Throwable $th) {
+      $response->abort();
+    }
+    $response->sendJsonResponse(['emailConfirm crée']);
   }
 
   public function deleteEmailConfirm(HTTPRequest $request, HTTPResponse $response)

@@ -25,13 +25,17 @@ class MangaService
     return $this->mangaRepository->getMangaById($id);
   }
 
-  public function createManga(Manga $manga)
+  public function createManga(mixed $data)
   {
-    return $this->mangaRepository->createManga($manga);
+    $manga = new Manga($data);
+    // TODO verification de donnée
+     $this->mangaRepository->createManga($manga);
   }
 
-  public function updateManga(Manga $manga)
+  public function updateManga(mixed $data)
   {
+    $manga = new Manga($data);
+     // TODO verification de donnée
     return $this->mangaRepository->updateManga($manga);
   }
 
