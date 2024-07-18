@@ -52,7 +52,8 @@ class TagsMangaController
 
     public function create(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $response->sendJsonResponse(['response' => 'hello from tags_mangas', 'status' => 200]);
+        $body = $request->getBody();
+        $response->sendJsonResponse(['response' => 'hello from tags_mangas', 'body' => $body]);
         
     }
 

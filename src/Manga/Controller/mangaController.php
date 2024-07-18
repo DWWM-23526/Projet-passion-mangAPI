@@ -34,16 +34,21 @@ class MangaController
             $response->sendJsonResponse($mangas);
         }
     }
-    public function addManga(HTTPRequest $request, HTTPResponse $response)
+
+    public function addManga(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $response->sendJsonResponse(['response' => 'hello from manga'],200);
+        $body = $request->getBody();
+        $response->sendJsonResponse(['response' => 'hello from manga', 'body' => $body], 200);
     }
-    public function updateManga(HTTPRequest $request, HTTPResponse $response)
+
+    public function updateManga(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $response->sendJsonResponse(['response' => 'hello from manga'],200);
+        $body = $request->getBody();
+        $response->sendJsonResponse(['response' => 'hello from manga', 'mangaId' => $params['mangaId'], 'body' => $body], 200);
     }
-    public function removeManga(HTTPRequest $request, HTTPResponse $response)
+
+    public function removeManga(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $response->sendJsonResponse(['response' => 'hello from manga'],200);
+        $response->sendJsonResponse(['response' => 'hello from manga', 'mangaId' => $params['mangaId']], 200);
     }
 }

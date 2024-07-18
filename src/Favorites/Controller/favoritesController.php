@@ -37,14 +37,15 @@ class FavoritesController
         }
     }
 
-    public function addFavorite(HTTPRequest $request, HTTPResponse $response)
+    public function addFavorite(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $response->sendJsonResponse(['response' => 'hello from favorites', 'status' => 200]);
+        $body = $request->getBody();
+        $response->sendJsonResponse(['response' => 'hello from favorites', 'body' => $body]);
         
     }
 
-    public function removeFavorite(HTTPRequest $request, HTTPResponse $response)
+    public function removeFavorite(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $response->sendJsonResponse(['response' => 'hello from favorites', 'status' => 200]);
+        $response->sendJsonResponse(['response' => 'hello from favorites', 'userId' => $params['userId'], 'mangaId' => $params['mangaId']]);
     }
 }
