@@ -39,7 +39,7 @@ class MangaController
     {
         $body = $request->getBody();
         try {
-         $this->mangaService->createManga($body);
+            $this->mangaService->createManga($body);
         } catch (\Throwable $e) {
             $response->abort();
         }
@@ -54,11 +54,17 @@ class MangaController
         } catch (\Throwable $e) {
             $response->abort();
         }
-        $response->sendJsonResponse(["Manga bien modifié"]);
+        $response->sendJsonResponse(["Manga bien modifié !"]);
     }
 
     public function removeManga(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $response->sendJsonResponse(['response' => 'hello from manga', 'mangaId' => $params['mangaId']], 200);
+        $mangaId = $params['mangasId'];
+        try {
+            $this->mangaService->deleteManga($mangaId);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
+        $response->sendJsonResponse(["Manga bien delete !"]);
     }
 }
