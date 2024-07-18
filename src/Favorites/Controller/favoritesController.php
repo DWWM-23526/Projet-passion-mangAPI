@@ -27,7 +27,7 @@ class FavoritesController
     public function getUserFavorites(HTTPRequest $request, HTTPResponse $response, $params)
     {
         
-        $userId = $params['userId'];    
+        $userId = $params['userId'];
         $favorites = $this->favoritesService->getAllUserFavorites($userId);
 
         if ($favorites === null) {

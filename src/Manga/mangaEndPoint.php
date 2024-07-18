@@ -6,7 +6,7 @@ use Common\Core\RequestMethod;
 $app->addRoute(RequestMethod::GET, "/api/manga", "Manga\Controller\MangaController", "getAllMangas");
 
 // GET manga by user ID
-$app->addRoute(RequestMethod::GET, '/api/manga/{userId}', 'Manga\Controller\MangaController', 'getUserMangas');
+$app->addRoute(RequestMethod::GET, '/api/manga/{mangaId}', 'Manga\Controller\MangaController', 'getMangaById');
 
 // POST add a new manga
 
@@ -14,7 +14,7 @@ $app->addRoute(RequestMethod::POST, '/api/manga', 'Manga\Controller\MangaControl
 
 // PUT update a manga
 
-$app->addRoute(RequestMethod::PUT, '/api/manga/{userId}/{mangaId}', 'Manga\Controller\MangaController', 'updateManga');
+$app->addRoute(RequestMethod::PUT, '/api/manga/{mangaId}', 'Manga\Controller\MangaController', 'updateManga');
 
 // DELETE remove a manga
-$app->addRoute(RequestMethod::DELETE, '/api/manga/{userId}/{mangaId}', 'Manga\Controller\MangaController', 'removeManga');
+$app->addRoute(RequestMethod::DELETE, '/api/manga/{mangaId}', 'Manga\Controller\MangaController', 'removeManga');

@@ -24,10 +24,10 @@ class MangaController
         $response->sendJsonResponse($mangas);
     }
 
-    public function getUserMangas(HTTPRequest $request, HTTPResponse $response, $params)
+    public function getMangaById(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $userId = $params['userId'];
-        $mangas = $this->mangaService->getMangaById($userId);
+        $mangaId = $params['mangaId'];
+        $mangas = $this->mangaService->getMangaById($mangaId);
         if ($mangas === null) {
             $response->abort(404);
         } else {
@@ -36,14 +36,14 @@ class MangaController
     }
     public function addManga(HTTPRequest $request, HTTPResponse $response)
     {
-        $response->sendJsonResponse(['response' => 'hello from manga', 'status' => 200]);
+        $response->sendJsonResponse(['response' => 'hello from manga'],200);
     }
     public function updateManga(HTTPRequest $request, HTTPResponse $response)
     {
-        $response->sendJsonResponse(['response' => 'hello from manga', 'status' => 200]);
+        $response->sendJsonResponse(['response' => 'hello from manga'],200);
     }
     public function removeManga(HTTPRequest $request, HTTPResponse $response)
     {
-        $response->sendJsonResponse(['response' => 'hello from manga', 'status' => 200]);
+        $response->sendJsonResponse(['response' => 'hello from manga'],200);
     }
 }
