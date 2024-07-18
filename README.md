@@ -55,12 +55,12 @@ Veillez également a créer un fichier migration.log dans un dossier log à la r
 
 Créez un fichier migration.log dans un dossier log a la racine du projet
 
-### Étape 4: Configurer le Virtual Host
+### Étape 5: Configurer le Virtual Host
 
 Ajoutez une configuration de virtual host dans votre serveur WAMP.
 
 
-### Étape 5: Initialiser la base de données
+### Étape 6: Initialiser la base de données
 
 MySQL est requis.
 
