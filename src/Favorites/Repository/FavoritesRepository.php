@@ -29,13 +29,13 @@ class FavoritesRepository
         return $this->db->query("SELECT * FROM $this->table WHERE Id_user = :id", [':id' => $id])->fetchAllOrFail();
     }
 
-    public function createFavorites(array $favorites): void
+    public function createFavorites(array $data): void
     {
         $query = "INSERT INTO $this->table (Id_manga, Id_user) VALUES (:Id_manga, :Id_user)";
 
         $values = [
-            ':Id_manga' => $favorites['Id_manga'],
-            ':Id_user' => $favorites['Id_user']
+            ':Id_manga' => $data['Id_manga'],
+            ':Id_user' => $data['Id_user']
         ];
 
         try {
@@ -45,13 +45,13 @@ class FavoritesRepository
         }
     }
 
-    public function deleteFavorites(array $favorites): void
+    public function deleteFavorites(int $userId, int $mangaId): void
     {
         $query = "DELETE FROM $this->table WHERE Id_manga = :Id_manga AND Id_user = :Id_user";
 
         $values = [
-            ':Id_manga' => $favorites['Id_manga'],
-            ':Id_user' => $favorites['Id_user'],
+            ':Id_manga' => $mangaId,
+            ':Id_user' => $userId
         ];
 
         try {

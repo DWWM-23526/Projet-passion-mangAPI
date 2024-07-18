@@ -13,22 +13,31 @@ class FavoritesController
 
     public function __construct()
     {
-        
+
         $this->favoritesService = App::injectService()->getContainer(FavoritesService::class);
     }
 
-    public function getAllFavorites(HTTPRequest $request, HTTPResponse $response)
+    public function getAll(HTTPRequest $request, HTTPResponse $response)
     {
-        
-        $favorites = $this->favoritesService->getAllFavorites();
+        try {
+            $favorites = $this->favoritesService->getAllFavorites();
+        } catch (\Throwable $th) {
+            $response->abort(404);
+        }
+
         $response->sendJsonResponse($favorites);
     }
 
     public function getUserFavorites(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        
+
         $userId = $params['userId'];
-        $favorites = $this->favoritesService->getAllUserFavorites($userId);
+
+        try {
+            $favorites = $this->favoritesService->getAllUserFavorites($userId);
+        } catch (\Throwable $th) {
+            $response->abort(404);
+        }
 
         if ($favorites === null) {
             $response->abort(404);
@@ -37,15 +46,28 @@ class FavoritesController
         }
     }
 
-    public function addFavorite(HTTPRequest $request, HTTPResponse $response, $params)
+    public function create(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $body = $request->getBody();
-        $response->sendJsonResponse(['response' => 'hello from favorites', 'body' => $body]);
-        
+        $data = $request->getBody();
+        try {
+            $this->favoritesService->addFavorite($data);
+        } catch (\Throwable $th) {
+            $response->abort(404);
+        }
+
+        $response->setStatusCode(200);
     }
 
-    public function removeFavorite(HTTPRequest $request, HTTPResponse $response, $params)
+    public function delete(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $response->sendJsonResponse(['response' => 'hello from favorites', 'userId' => $params['userId'], 'mangaId' => $params['mangaId']]);
+        $userId = $params['userId'];
+        $mangaId = $params['mangaId'];
+
+        try {
+            $this->favoritesService->deleteFavorite($userId, $mangaId);
+        } catch (\Throwable $th) {
+            $response->abort(404);
+        }
+        $response->setStatusCode(200);
     }
 }
