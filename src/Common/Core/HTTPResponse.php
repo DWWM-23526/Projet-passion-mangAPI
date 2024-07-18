@@ -15,11 +15,11 @@ class HTTPResponse
         return self::$instance;
     }
 
-    public static function abort(int $error = 404): void
+    public static function abort(string $message = "The requested resource could not be found.",int $error = 404): void
     {
         self::setStatusCode($error);
         self::setHeader('Content-Type: application/json');
-        $message = ["error" => "Error $error: The requested resource could not be found."];
+        $message = ["error" => "Error $error: $message"]; //
         echo json_encode($message);
         die();
     }
