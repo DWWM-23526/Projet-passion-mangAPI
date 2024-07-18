@@ -15,7 +15,7 @@ class TagsRepository
         $this->db = App::inject()->getContainer(Database::class);
     }
 
-    public function getAll()
+    public function getAllTags()
     {
         $results = $this->db->query("SELECT * FROM tags")->fetchAll();
         return array_map(fn ($data) => new Tags($data), $results);

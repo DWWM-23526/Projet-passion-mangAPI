@@ -39,7 +39,7 @@ class FavoritesController
 
     public function addFavorite(HTTPRequest $request, HTTPResponse $response)
     {
-        $response->sendJsonResponse(['response' => 'hello from favorites', 'status' => 200]);
+        $response->sendJsonResponse(['response' => 'hello from favorites', 'status' => 200],200);
         
     }
 
