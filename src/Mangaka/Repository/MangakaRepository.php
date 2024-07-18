@@ -18,7 +18,7 @@ class MangakaRepository
 
   public function getAllMangakas()
   {
-    $result = $this->db->query("SELECT * FROM $this->table")->fetchAll;
+    $result = $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
     return array_map(fn ($data) => new Mangaka($data), $result);
   }
 
@@ -30,7 +30,7 @@ class MangakaRepository
 
   public function createMangaka(Mangaka $mangaka)
   {
-    $query = "INSERT INTO mangakas(
+    $query = "INSERT INTO $this->table(
     Id_mangaka,
     img_mangaka,
     first_name,
@@ -58,7 +58,7 @@ class MangakaRepository
 
   public function updateMangaka(Mangaka $mangaka)
   {
-    $query = "UPDATE mangakas
+    $query = "UPDATE $this->table
     SET img_mangaka = :img_mangaka,
         first_name = :first_name,
         last_name = :last_name,

@@ -9,7 +9,7 @@ use Manga\Model\Manga;
 class MangaRepository
 {
   private string $table = 'mangas';
-  private mixed $db;
+  private Database $db;
 
   public function __construct()
   {
@@ -20,7 +20,7 @@ class MangaRepository
 
   public function getAllMangas()
   {
-    $result = $this->db->query("SELECT * FROM $this->table")->fetchAll();
+    $result = $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
     return array_map(fn ($data) => new Manga($data), $result);
   }
 
@@ -32,7 +32,7 @@ class MangaRepository
 
   public function createManga(Manga $manga)
   {
-    $query = "INSERT INTO mangas(
+    $query = "INSERT INTO $this->table(
       Id_manga,
       img_manga,
       manga_name,
@@ -66,7 +66,7 @@ class MangaRepository
 
   public function updateManga(Manga $manga)
   {
-    $query = "UPDATE mangas
+    $query = "UPDATE $this->table
               SET img_manga = :img_manga,
                   manga_name = :manga_name,
                   edition = :edition,

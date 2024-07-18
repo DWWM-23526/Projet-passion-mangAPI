@@ -2,20 +2,23 @@
 
 namespace Mangaka\Controller;
 
+use Common\Core\App;
 use Common\Core\HTTPRequest;
+use Common\core\HTTPResponse;
 use Mangaka\Service\MangakaService;
 
 class MangakaController
 {
-  private HTTPRequest $request;
+
   private MangakaService $mangakaService;
 
   public function __construct()
   {
-    $this->mangakaService = new MangakaService();
+    $this->mangakaService = App::injectService()->getContainer(MangakaService::class);
   }
 
-  public function index(HTTPRequest $request)
+  public function index(HTTPRequest $request, HTTPResponse $response)
   {
+    $response->sendJsonResponse(['response' => "Hello from mangaka", 'status' => 200]);
   }
 }

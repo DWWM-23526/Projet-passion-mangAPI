@@ -4,30 +4,34 @@ namespace Common\core;
 
 class HTTPResponse
 {
+    private static ?HTTPResponse $instance = null;
 
-    public static function abort(int $error = 404)
+    public static function getInstance(): HTTPResponse
     {
-        http_response_code($error);
-        $path = __DIR__ . "/../views/errors/{$error}.php";
-
-        if (file_exists($path)) {
-            require_once $path;
-        } else {
-            echo "Error $error: The requested resource could not be found.";
+        if (self::$instance === null) {
+            self::$instance = new self();
         }
 
+        return self::$instance;
+    }
+
+    public static function abort(int $error = 404): void
+    {
+        self::setStatusCode($error);
+        self::setHeader('Content-Type: application/json');
+        $message = ["error" => "Error $error: The requested resource could not be found."];
+        echo json_encode($message);
         die();
     }
 
-    public static function redirect(string $path, int $statusCode)
+    public static function redirect(string $path, int $statusCode = 302): void
     {
         http_response_code($statusCode);
         header("Location: $path");
-        // HTTPResponse::setHeader('Auth: heheh');
         die();
     }
 
-    public static function setStatusCode(int $code, string $message = '')
+    public static function setStatusCode(int $code, string $message = ''): void
     {
         http_response_code($code);
         if ($message) {
@@ -35,8 +39,32 @@ class HTTPResponse
         }
     }
 
-    public static function setHeader(string $header)
+    public static function setHeader(string $header): void
     {
         header($header);
+    }
+
+    public function sendJsonResponse(mixed $data, int $statusCode = 200): void
+    {
+        self::setStatusCode($statusCode);
+        self::setHeader('Content-Type: application/json');
+        echo json_encode($data);
+        die();
+    }
+
+    public function sendTextResponse(string $text, int $statusCode = 200): void
+    {
+        self::setStatusCode($statusCode);
+        self::setHeader('Content-Type: text/plain');
+        echo $text;
+        die();
+    }
+
+    public function sendHtmlResponse(string $html, int $statusCode = 200): void
+    {
+        self::setStatusCode($statusCode);
+        self::setHeader('Content-Type: text/html');
+        echo $html;
+        die();
     }
 }
