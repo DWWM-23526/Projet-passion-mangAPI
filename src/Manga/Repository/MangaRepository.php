@@ -30,6 +30,17 @@ class MangaRepository
     return $result ? new Manga($result) : null;
   }
 
+  public function mangaExists(string $title)
+  {
+    $query = $this->db->query("SELECT * FROM mangas WHERE title = :title", ["title" => $title])->fetchAllOrFail();
+    if (isset($query)) {
+      return $query;
+    }
+    else {
+      return null;
+    }
+  }
+
   public function createManga(Manga $manga)
   {
     $query = "INSERT INTO $this->table(

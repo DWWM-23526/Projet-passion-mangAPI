@@ -25,7 +25,7 @@ class EmailConfirmService
     return $this->emailRepository->getEmailByEmail($email);
   }
 
-  public function createEmailConfirm(mixed $data)
+  public function createEmailConfirm(array $data)
   {
     $emailConfirm = new EmailConfirm($data);
     // TODO verification de donnée

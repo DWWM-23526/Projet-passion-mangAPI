@@ -51,6 +51,10 @@ return [
 
 Veillez également a créer un fichier migration.log dans un dossier log à la racine de votre projet
 
+### Étape 4: Configurer le log
+
+Créez un fichier migration.log dans un dossier log a la racine du projet
+
 ### Étape 4: Configurer le Virtual Host
 
 Ajoutez une configuration de virtual host dans votre serveur WAMP.

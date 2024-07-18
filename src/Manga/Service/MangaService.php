@@ -25,17 +25,21 @@ class MangaService
     return $this->mangaRepository->getMangaById($id);
   }
 
-  public function createManga(mixed $data)
+  public function createManga(array $data)
   {
     $manga = new Manga($data);
-    // TODO verification de donnée
+    if ($this->mangaRepository->mangaExists($manga->manga_name)) {
+      throw new \Exception("Manga already exist");
+    }
      $this->mangaRepository->createManga($manga);
   }
 
-  public function updateManga(mixed $data)
+  public function updateManga(array $data)
   {
     $manga = new Manga($data);
-     // TODO verification de donnée
+    if (!$this->mangaRepository->mangaExists($manga->manga_name)) {
+      throw new \Exception("Manga does not exist");
+    }
     return $this->mangaRepository->updateManga($manga);
   }
 
