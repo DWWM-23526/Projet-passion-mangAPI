@@ -15,9 +15,9 @@ class EmailConfirmService
     $this->emailRepository = App::injectRepository()->getContainer(EmailConfirmRepository::class);
   }
 
-  public function getAllEmail()
+  public function getAllEmails()
   {
-    return $this->emailRepository->getAllEmail();
+    return $this->emailRepository->getAllEmails();
   }
 
   public function getEmailByEmail(string $email)
