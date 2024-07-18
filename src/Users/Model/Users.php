@@ -5,16 +5,28 @@ namespace Users\Model;
 class Users
 {
   public ?int $Id_user;
-  public ?string $password;
+  public ?string $name;
   public ?string $email;
-  public ?string $pseudo;
+  public ?string $password;
+  public int $is_deleted;
 
 
   public function __construct(array $data = [])
   {
     $this->Id_user = $data['Id_user'];
-    $this->password = $data['password'];
+    $this->name = $data['name'];
     $this->email = $data['email'];
-    $this->pseudo = $data['pseudo'];
+    $this->password = $data['password'];
+    $this->is_deleted = $data['is_deleted'];
+  }
+
+  public function toArray(){
+    return [
+      'Id_user' => $this->Id_user,
+      'name' => $this->name,
+      'email' => $this->email,
+      'password' => $this->password,
+      'is_deleted' => $this->is_deleted
+    ];
   }
 }

@@ -39,7 +39,7 @@ class TagsController
     public function updateTag(HTTPRequest $request, HTTPResponse $response){
         $body = $request->getBody();
         try {
-            $this->tagsService->createTag($body);
+            $this->tagsService->updateTag($body);
             $response->sendJsonResponse(["Manga {$body['name']} créé"]);
         } catch (\Throwable $th) {
             $response->abort();
