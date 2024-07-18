@@ -24,10 +24,10 @@ class FavoritesController
         $response->sendJsonResponse($favorites);
     }
 
-    public function getUserFavorites(HTTPRequest $request, HTTPResponse $response)
+    public function getUserFavorites(HTTPRequest $request, HTTPResponse $response, $params)
     {
         
-        $userId = 1;
+        $userId = $params['userId'];    
         $favorites = $this->favoritesService->getAllUserFavorites($userId);
 
         if ($favorites === null) {
