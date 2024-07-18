@@ -49,6 +49,8 @@ return [
 ```
 > Remarque : Ce fichier est ajouté au .gitignore pour des raisons de sécurité. Assurez-vous de ne pas inclure vos informations de connexion dans votre dépôt.
 
+Veillez également a créer un fichier migration.log dans un dossier log à la racine de votre projet
+
 ### Étape 4: Configurer le Virtual Host
 
 Ajoutez une configuration de virtual host dans votre serveur WAMP.
