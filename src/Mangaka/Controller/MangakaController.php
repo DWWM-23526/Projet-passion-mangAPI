@@ -17,8 +17,32 @@ class MangakaController
     $this->mangakaService = App::injectService()->getContainer(MangakaService::class);
   }
 
-  public function index(HTTPRequest $request, HTTPResponse $response)
-  {
-    $response->sendJsonResponse(['response' => "Hello from mangaka", 'status' => 200]);
-  }
+  public function getAllMangakas(HTTPRequest $request, HTTPResponse $response)
+    {
+        $mangakas = $this->mangakaService->getAllMangakas();
+        $response->sendJsonResponse($mangakas);
+    }
+
+    public function getMangakaById(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $mangakaId = $params['mangakaId'];
+        $mangakas = $this->mangakaService->getMangakaById($mangakaId);
+        if ($mangakas === null) {
+            $response->abort(404);
+        } else {
+            $response->sendJsonResponse($mangakas);
+        }
+    }
+    public function addMangaka(HTTPRequest $request, HTTPResponse $response)
+    {
+        $response->sendJsonResponse(['response' => 'hello from manga'], 200);
+    }
+    public function updateMangaka(HTTPRequest $request, HTTPResponse $response)
+    {
+        $response->sendJsonResponse(['response' => 'hello from manga'], 200);
+    }
+    public function removeMangaka(HTTPRequest $request, HTTPResponse $response)
+    {
+        $response->sendJsonResponse(['response' => 'hello from manga'], 200);
+    }
 }

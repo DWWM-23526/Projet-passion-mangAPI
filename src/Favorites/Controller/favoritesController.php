@@ -27,7 +27,7 @@ class FavoritesController
     public function getUserFavorites(HTTPRequest $request, HTTPResponse $response, $params)
     {
         
-        $userId = $params['userId'];    
+        $userId = $params['userId'];
         $favorites = $this->favoritesService->getAllUserFavorites($userId);
 
         if ($favorites === null) {
@@ -37,20 +37,15 @@ class FavoritesController
         }
     }
 
-    public function addFavorite(HTTPRequest $request, HTTPResponse $response)
+    public function addFavorite(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $response->sendJsonResponse(['response' => 'hello from favorites', 'status' => 200],200);
+        $body = $request->getBody();
+        $response->sendJsonResponse(['response' => 'hello from favorites', 'body' => $body]);
         
     }
 
-    public function updateFavorite(HTTPRequest $request, HTTPResponse $response)
+    public function removeFavorite(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $response->sendJsonResponse(['response' => 'hello from favorites', 'status' => 200]);
-       
-    }
-
-    public function removeFavorite(HTTPRequest $request, HTTPResponse $response)
-    {
-        $response->sendJsonResponse(['response' => 'hello from favorites', 'status' => 200]);
+        $response->sendJsonResponse(['response' => 'hello from favorites', 'userId' => $params['userId'], 'mangaId' => $params['mangaId']]);
     }
 }

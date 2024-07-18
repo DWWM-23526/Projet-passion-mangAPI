@@ -12,8 +12,6 @@ $app->addRoute(RequestMethod::GET, '/api/favorites/{userId}', 'Favorites\Control
 // POST add a new favorite
 $app->addRoute(RequestMethod::POST, '/api/favorites', 'Favorites\Controller\FavoritesController', 'addFavorite');
 
-// PUT update a favorite
-$app->addRoute(RequestMethod::PUT, '/api/favorites/{UserId}/{mangaId}', 'Favorites\Controller\FavoritesController', 'updateFavorite');
 
 // DELETE remove a favorite
-$app->addRoute(RequestMethod::DELETE, '/api/favorites/{UserId}/{mangaId}', 'Favorites\Controller\FavoritesController', 'removeFavorite');
+$app->addRoute(RequestMethod::DELETE, '/api/favorites/{userId}/{mangaId}', 'Favorites\Controller\FavoritesController', 'removeFavorite');
