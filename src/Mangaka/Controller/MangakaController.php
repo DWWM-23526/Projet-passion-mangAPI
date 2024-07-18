@@ -27,22 +27,32 @@ class MangakaController
     {
         $mangakaId = $params['mangakaId'];
         $mangakas = $this->mangakaService->getMangakaById($mangakaId);
-        if ($mangakas === null) {
-            $response->abort(404);
-        } else {
-            $response->sendJsonResponse($mangakas);
-        }
+        $mangakas === null ? $response->abort(404) : $response->sendJsonResponse($mangakas);
     }
     public function addMangaka(HTTPRequest $request, HTTPResponse $response)
     {
-        $response->sendJsonResponse(['response' => 'hello from manga'], 200);
+        $body = $request->getBody();
+        try{
+            $this->mangakaService->createMangakas($body);
+            $response->sendJsonResponse(["Magaka {$body['first_name']}{$body['last_name']} créé"]);
+        }catch(\Throwable $th){
+            $response->abort();
+        }
     }
     public function updateMangaka(HTTPRequest $request, HTTPResponse $response)
     {
-        $response->sendJsonResponse(['response' => 'hello from manga'], 200);
+        $body = $request->getBody();
+        try{
+            $this->mangakaService->createMangakas($body);
+            $response->sendJsonResponse(["Magaka {$body['first_name']}{$body['last_name']} créé"]);
+        }catch(\Throwable $th){
+            $response->abort();
+        }
     }
-    public function removeMangaka(HTTPRequest $request, HTTPResponse $response)
+    public function removeMangaka(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $response->sendJsonResponse(['response' => 'hello from manga'], 200);
+        $mangaka = null;
+        // $mangaka = $params['mangakaId'];
+        $mangaka === null ? $response->abort() : $response->sendJsonResponse([$mangaka]);
     }
 }
