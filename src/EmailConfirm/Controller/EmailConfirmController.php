@@ -23,8 +23,8 @@ class EmailConfirmController
 
   public function getEmailByEmail(HTTPRequest $request, HTTPResponse $response, $params)
   {
-    $emailId = $params["emailId"];
-    $emailConfirm = $this->emailConfirmService->getEmailByEmail($emailId);
+    $email = $params["email"];
+    $emailConfirm = $this->emailConfirmService->getEmailByEmail($email);
     if ($emailConfirm === null) {
       $response->abort(404);
     } else {
@@ -43,8 +43,14 @@ class EmailConfirmController
     $response->sendJsonResponse(['emailConfirm crée']);
   }
 
-  public function deleteEmailConfirm(HTTPRequest $request, HTTPResponse $response)
+  public function deleteEmailConfirm(HTTPRequest $request, HTTPResponse $response, $params)
   {
-    $response->sendJsonResponse(['response' => 'hello from emailConfirm'], 200);
+    $email = $params['email'];
+    try {
+      $this->emailConfirmService->deleteEmailConfirm($email);
+    } catch (\Throwable $th) {
+      $response->abort();
+    }
+    $response->sendJsonResponse(["emailConfirm bien delete !"]);
   }
 }

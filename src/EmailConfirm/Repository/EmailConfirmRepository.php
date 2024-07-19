@@ -30,6 +30,7 @@ class EmailConfirmRepository
     return $result ? new EmailConfirm($result) : null;
   }
 
+
   public function createEmailConfirm(EmailConfirm $emailConfirm)
   {
     $query = "INSERT INTO $this->table(
