@@ -26,6 +26,11 @@ class UsersService{
         $this->usersRespository->createUser($data);
     }
 
+    public function updateUser($data, $id)
+    {
+        $this->usersRespository->updateUser($data, $id);
+    }
+
 
    
 }

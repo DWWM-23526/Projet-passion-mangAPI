@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Core\ORM;
 
@@ -11,6 +11,7 @@ class Repository
     protected Database $db;
     protected $table;
     protected $modelClass;
+    protected $primaryKey;
 
     public function __construct()
     {
@@ -37,4 +38,18 @@ class Repository
         $this->db->query("INSERT INTO $this->table ($fields) VALUES ($values) ", $data);
     }
 
+    protected function update($data, $id)
+    {
+        $fields = '';
+
+        foreach ($data as $key => $value) {
+            if ($key != $this->primaryKey) {
+                $fields .= "$key = :$key,";
+            }
+        }
+        $fields = rtrim($fields, ',');
+
+        $data[$this->primaryKey] = $id;
+        $this->db->query("UPDATE {$this->table} SET $fields WHERE {$this->primaryKey} = :{$this->primaryKey}", $data);
+    }
 }

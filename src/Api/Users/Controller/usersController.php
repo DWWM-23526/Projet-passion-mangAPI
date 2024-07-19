@@ -35,7 +35,7 @@ class UsersController
         $response->sendJsonResponse($user);
     }
 
-    public function addUser(HTTPRequest $request, HTTPResponse $response)
+    public function addUser(HTTPRequest $request, HTTPResponse $response, $params)
     {
         $body = $request->getBody();
         try {
@@ -47,15 +47,18 @@ class UsersController
         $response->sendJsonResponse(["User {$body['name']} créé"]);
     }
 
-    // public function updateUser(HTTPRequest $request, HTTPResponse $response){
-    //     $body = $request->getBody();
-    //     try {
-    //         $this->usersService->updateUsers($body);
-    //         $response->sendJsonResponse(["User {$body['pseudo']} updated"]);
-    //     } catch (\Throwable $th) {
-    //         $response->abort();
-    //     }
-    // }
+    public function updateUser(HTTPRequest $request, HTTPResponse $response,  $params){
+
+        $userId = $params['UserId'];
+        $body = $request->getBody();
+        try {
+            $this->usersService->updateUser($body, $userId);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
+
+        $response->sendJsonResponse(["User {$body['name']} updated"]);
+    }
 
     // public function deleteUser(HTTPRequest $request, HTTPResponse $response, $params){
     //     $user = $params['UserId'];

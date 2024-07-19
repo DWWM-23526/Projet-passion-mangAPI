@@ -9,6 +9,7 @@ class UsersRespository extends Repository
 {
     protected $table = 'users';
     protected $modelClass = Users::class;
+    protected $primaryKey = 'Id_user';
 
     public function getAllUsers()
     {
@@ -23,6 +24,11 @@ class UsersRespository extends Repository
     public function createUser($data)
     {
         $this->create($data);
+    }
+
+    public function updateUser($data, $id)
+    {
+        $this->update($data, $id);
     }
 
 }
