@@ -4,7 +4,7 @@
 use Common\Core\RequestMethod;
 
 //  GET all 
-$app->addRoute(RequestMethod::GET, '/api/tags/mangas', 'TagsManga\Controller\TagsMangaController', 'getAll');
+$app->addRoute(RequestMethod::GET, '/api/tag/manga', 'TagsManga\Controller\TagsMangaController', 'getAll');
 
 //  GET all manga tags
 $app->addRoute(RequestMethod::GET, '/api/manga/{mangaId}/tags', 'TagsManga\Controller\TagsMangaController', 'getAllMangaTags');
