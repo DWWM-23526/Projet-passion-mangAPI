@@ -1,6 +1,6 @@
 <?php
 
-use Common\Core\RequestMethod;
+use Core\RequestMethod;
 
 // GET all mangas
 $app->addRoute(RequestMethod::GET, "/api/manga", "Manga\Controller\MangaController", "getAllMangas");

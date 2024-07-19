@@ -1,9 +1,9 @@
 <?php
 
-namespace Common\Database\Schemas;
+namespace Database\Schemas;
 
-use Common\Core\App;
-use Common\Core\Database;
+use Core\App;
+use Core\Database;
 
 class EmailConfirmationSchema
 {

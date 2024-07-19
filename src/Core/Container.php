@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\Core;
+namespace Core;
 use Exception;
 
 class Container

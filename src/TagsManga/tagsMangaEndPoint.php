@@ -1,7 +1,7 @@
 <?php
 
 
-use Common\Core\RequestMethod;
+use Core\RequestMethod;
 
 //  GET all 
 $app->addRoute(RequestMethod::GET, '/api/tag/manga', 'TagsManga\Controller\TagsMangaController', 'getAll');

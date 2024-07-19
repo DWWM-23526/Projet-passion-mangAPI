@@ -1,6 +1,6 @@
 <?php
 
-use Common\Core\RequestMethod;
+use Core\RequestMethod;
 
 // Get All
 $app->addRoute(RequestMethod::GET, '/api/users', 'Users\Controller\UsersController', 'getAllUsers');

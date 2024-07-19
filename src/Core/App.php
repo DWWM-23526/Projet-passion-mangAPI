@@ -1,8 +1,8 @@
 <?php
 
-namespace Common\Core;
+namespace Core;
 
-use Common\Core\Router;
+use Core\Router;
 use Common\Database\DatabaseManager;
 use EmailConfirm\Repository\EmailConfirmRepository;
 use EmailConfirm\Service\EmailConfirmService;
@@ -77,13 +77,13 @@ class App
 
     $app = Router::getInstance();
     
-    require __DIR__ . "/../../EmailConfirm/emailConfirmEndPoint.php";
-    require __DIR__ . "/../../Manga/mangaEndPoint.php";
-    require __DIR__ . "/../../Mangaka/mangakaEndPoint.php";
-    require __DIR__ . '/../../Favorites/favoritesEndPoint.php';
-    require __DIR__ . '/../../Tags/tagEndPoint.php';
-    require __DIR__ . '/../../TagsManga/tagsMangaEndPoint.php';
-    require __DIR__ . '/../../Users/usersEndPoint.php';
+    require __DIR__ . "/../EmailConfirm/emailConfirmEndPoint.php";
+    require __DIR__ . "/../Manga/mangaEndPoint.php";
+    require __DIR__ . "/../Mangaka/mangakaEndPoint.php";
+    require __DIR__ . '/../Favorites/favoritesEndPoint.php';
+    require __DIR__ . '/../Tags/tagEndPoint.php';
+    require __DIR__ . '/../TagsManga/tagsMangaEndPoint.php';
+    require __DIR__ . '/../Users/usersEndPoint.php';
 
     // TODO: Faire le fichier et dossier log / migration.log
 
@@ -99,7 +99,7 @@ class App
 
       $_SESSION['initialized'] = true;
 
-      $config = require __DIR__ . '/../../../config/db.config.php';
+      $config = require __DIR__ . '/../../config/db.config.php';
 
 
       DatabaseManager::getInstance($config['database']);
@@ -112,7 +112,7 @@ class App
 
   private static function initMainContainer()
   {
-    $config = require __DIR__ . '/../../../config/db.config.php';
+    $config = require __DIR__ . '/../../config/db.config.php';
     $container = new Container();
 
     $container->setContainer(Database::class, function () use ($config) {
@@ -197,7 +197,7 @@ class App
 
   private static function logMessage($message)
   {
-    $logFile = __DIR__ . '/../../../log/migration.log';
+    $logFile = __DIR__ . '/../../log/migration.log';
     $timestamp = date('Y-m-d H:i:s');
     $logEntry = "[$timestamp] $message\n";
     file_put_contents($logFile, $logEntry, FILE_APPEND);

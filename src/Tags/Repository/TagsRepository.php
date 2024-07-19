@@ -2,8 +2,8 @@
 
 namespace Tags\Repository;
 
-use Common\Core\App;
-use Common\Core\Database;
+use Core\App;
+use Core\Database;
 use Tags\Model\Tags;
 
 class TagsRepository

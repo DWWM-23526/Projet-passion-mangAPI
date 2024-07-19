@@ -2,7 +2,7 @@
 
 // GET all mangakas
 
-use Common\Core\RequestMethod;
+use Core\RequestMethod;
 
 $app->addRoute(RequestMethod::GET, "/api/mangaka", "Mangaka\Controller\MangakaController", "getAllMangakas");
 

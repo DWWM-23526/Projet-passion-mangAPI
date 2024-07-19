@@ -1,9 +1,9 @@
 <?php
 
-namespace Common\Core;
+namespace Core;
 
-use Common\Core\HTTPRequest;
-use Common\Core\HTTPResponse;
+use Core\HTTPRequest;
+use Core\HTTPResponse;
 use Exception;
 
 enum RequestMethod

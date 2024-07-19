@@ -2,8 +2,8 @@
 
 namespace Mangaka\Repository;
 
-use Common\Core\App;
-use Common\Core\Database;
+use Core\App;
+use Core\Database;
 use Mangaka\Model\Mangaka;
 
 class MangakaRepository

@@ -1,11 +1,11 @@
 <?php
 
-namespace Common\Database\Schemas;
+namespace Database\Schemas;
 
-use Common\Core\App;
-use Common\Core\Database;
+use Core\App;
+use Core\Database;
 
-class MigrationsSchema
+class UsersSchema
 {
     public function up()
     {
@@ -16,11 +16,12 @@ class MigrationsSchema
 
         try {
 
-            $db->query("CREATE TABLE IF NOT EXISTS migrations (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            migration VARCHAR(255) NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )");
+            $db->query("CREATE TABLE IF NOT EXISTS users (
+                Id_user INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                password VARCHAR(255) NOT NULL
+            )");
         } catch (\Throwable $e) {
 
             throw new \Exception("Error Processing Request :" . $e->getMessage());

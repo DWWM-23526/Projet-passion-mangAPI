@@ -1,6 +1,6 @@
 <?php
 
-use Common\Core\App;
+use Core\App;
 
 session_start(); 
 

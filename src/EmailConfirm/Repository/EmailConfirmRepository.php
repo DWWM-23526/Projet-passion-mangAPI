@@ -2,8 +2,8 @@
 
 namespace EmailConfirm\Repository;
 
-use Common\Core\App;
-use Common\Core\Database;
+use Core\App;
+use Core\Database;
 use EmailConfirm\Model\EmailConfirm;
 
 class EmailConfirmRepository

@@ -2,7 +2,7 @@
 
 namespace Users\Service;
 
-use Common\Core\App;
+use Core\App;
 use Users\Model\Users;
 use Users\Repository\UsersRespository;
 

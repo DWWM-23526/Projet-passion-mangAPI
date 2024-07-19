@@ -2,9 +2,9 @@
 
 namespace Users\Controller;
 
-use Common\Core\App;
-use Common\Core\HTTPRequest;
-use Common\core\HTTPResponse;
+use Core\App;
+use Core\HTTPRequest;
+use core\HTTPResponse;
 use Users\Service\UsersService;
 
 class UsersController

@@ -1,8 +1,8 @@
 <?php
 
-namespace Common\Core;
+namespace Core;
 
-use Common\core\HTTPResponse;
+use core\HTTPResponse;
 use PDO;
 
 class Database

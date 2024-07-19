@@ -1,9 +1,9 @@
 <?php
 
-namespace Common\Database\Migrations;
+namespace Database\Migrations;
 
-use Common\Core\App;
-use Common\Core\Database;
+use Core\App;
+use Core\Database;
 
 class BaseMigration
 {

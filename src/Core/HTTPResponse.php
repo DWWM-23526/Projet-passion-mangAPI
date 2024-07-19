@@ -1,6 +1,6 @@
 <?php
 
-namespace Common\core;
+namespace core;
 
 class HTTPResponse
 {

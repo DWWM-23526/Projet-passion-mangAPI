@@ -2,10 +2,10 @@
 
 namespace Manga\Controller;
 
-use Common\Core\App;
-use Common\Core\HTTPRequest;
+use Core\App;
+use Core\HTTPRequest;
 
-use Common\core\HTTPResponse;
+use core\HTTPResponse;
 use Manga\Service\MangaService;
 
 class MangaController

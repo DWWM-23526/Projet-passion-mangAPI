@@ -2,9 +2,9 @@
 
 namespace Favorites\Controller;
 
-use Common\Core\App;
-use Common\Core\HTTPRequest;
-use Common\Core\HTTPResponse;
+use Core\App;
+use Core\HTTPRequest;
+use Core\HTTPResponse;
 use Favorites\Service\FavoritesService;
 
 class FavoritesController

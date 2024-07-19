@@ -1,27 +1,27 @@
 <?php
 
-namespace Common\Database;
+namespace Database;
 
-use Common\Core\App;
-use Common\Core\Database;
-use Common\Database\Migrations\AddDateToEmailConfirmation;
-use Common\Database\Schemas\EmailConfirmationSchema;
-use Common\Database\Schemas\FavoritesSchema;
-use Common\Database\Schemas\MangakaSchema;
-use Common\Database\Schemas\MangaSchema;
-use Common\Database\Schemas\TagsMangaSchema;
-use Common\Database\Schemas\TagsSchema;
-use Common\Database\Schemas\MigrationsSchema;
-use Common\Database\Schemas\UsersSchema;
+use Core\App;
+use Core\Database;
+use Database\Migrations\AddDateToEmailConfirmation;
+use Database\Schemas\EmailConfirmationSchema;
+use Database\Schemas\FavoritesSchema;
+use Database\Schemas\MangakaSchema;
+use Database\Schemas\MangaSchema;
+use Database\Schemas\TagsMangaSchema;
+use Database\Schemas\TagsSchema;
+use Database\Schemas\MigrationsSchema;
+use Database\Schemas\UsersSchema;
 
-use Common\Database\Migrations\AddIsDeletedToUsers;
+use Database\Migrations\AddIsDeletedToUsers;
 
-use Common\Database\Seed\FavoritesSeed;
-use Common\Database\Seed\MangakasSeed;
-use Common\Database\Seed\MangasSeed;
-use Common\Database\Seed\TagsMangasSeed;
-use Common\Database\Seed\TagsSeed;
-use Common\Database\Seed\UsersSeed;
+use Database\Seed\FavoritesSeed;
+use Database\Seed\MangakasSeed;
+use Database\Seed\MangasSeed;
+use Database\Seed\TagsMangasSeed;
+use Database\Seed\TagsSeed;
+use Database\Seed\UsersSeed;
 
 class DatabaseManager
 {
@@ -192,7 +192,7 @@ class DatabaseManager
 
     private function logMessage($message)
     {
-        $logFile = __DIR__ . '/../../../log/migration.log';
+        $logFile = __DIR__ . '/../../log/migration.log';
         $timestamp = date('Y-m-d H:i:s');
         $logEntry = "[$timestamp] $message\n";
         file_put_contents($logFile, $logEntry, FILE_APPEND);
