@@ -1,6 +1,7 @@
 <?php
 
-use Common\Core\RequestMethod;
+use Core\RequestMethod;
+
 // GET all EmailConfirm
 $app->addRoute(RequestMethod::GET, "/api/emailConfirm", "EmailConfirm\Controller\EmailConfirmController", "getAllEmailConfirms");
 

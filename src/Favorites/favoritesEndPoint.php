@@ -2,7 +2,7 @@
 
 //  GET all favorites
 
-use Common\Core\RequestMethod;
+use Core\RequestMethod;
 
 $app->addRoute(RequestMethod::GET, '/api/favorites', 'Favorites\Controller\FavoritesController', 'getAll');
 

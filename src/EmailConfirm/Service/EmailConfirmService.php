@@ -2,7 +2,7 @@
 
 namespace EmailConfirm\Service;
 
-use Common\Core\App;
+use Core\App;
 use EmailConfirm\Model\EmailConfirm;
 use EmailConfirm\Repository\EmailConfirmRepository;
 

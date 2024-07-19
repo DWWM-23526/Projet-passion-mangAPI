@@ -2,7 +2,7 @@
 
 namespace Mangaka\Service;
 
-use Common\Core\App;
+use Core\App;
 use Mangaka\Model\Mangaka;
 use Mangaka\Repository\MangakaRepository;
 

@@ -2,7 +2,7 @@
 
 namespace Manga\Service;
 
-use Common\Core\App;
+use Core\App;
 use Manga\Model\Manga;
 use Manga\Repository\MangaRepository;
 

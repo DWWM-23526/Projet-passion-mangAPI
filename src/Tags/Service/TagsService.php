@@ -2,7 +2,7 @@
 
 namespace Tags\Service;
 
-use Common\Core\App;
+use Core\App;
 use Tags\Model\Tags;
 use Tags\Repository\TagsRepository;
 

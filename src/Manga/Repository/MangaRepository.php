@@ -2,8 +2,8 @@
 
 namespace Manga\Repository;
 
-use Common\Core\App;
-use Common\Core\Database;
+use Core\App;
+use Core\Database;
 use Manga\Model\Manga;
 
 class MangaRepository
@@ -14,6 +14,7 @@ class MangaRepository
   public function __construct()
   {
     $this->db = App::inject()->getContainer(Database::class);
+    
   }
 
   // CRUD

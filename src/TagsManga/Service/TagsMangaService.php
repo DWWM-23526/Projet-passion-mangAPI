@@ -2,7 +2,7 @@
 
 namespace TagsManga\Service;
 
-use Common\Core\App;
+use Core\App;
 use Favorites\Repository\FavoritesRepository;
 use TagsManga\Repository\TagsMangaRepository;
 

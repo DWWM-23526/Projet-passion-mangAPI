@@ -2,9 +2,9 @@
 
 namespace Mangaka\Controller;
 
-use Common\Core\App;
-use Common\Core\HTTPRequest;
-use Common\core\HTTPResponse;
+use Core\App;
+use Core\HTTPRequest;
+use core\HTTPResponse;
 use Mangaka\Service\MangakaService;
 
 class MangakaController
