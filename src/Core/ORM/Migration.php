@@ -1,11 +1,11 @@
 <?php
 
-namespace Database\Migrations;
+namespace Core\ORM;
 
 use Core\App;
 use Core\Database;
 
-class BaseMigration
+class Migration
 {
 
   protected $db;

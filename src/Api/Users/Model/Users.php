@@ -1,6 +1,6 @@
 <?php
 
-namespace Users\Model;
+namespace Api\Users\Model;
 
 class Users
 {

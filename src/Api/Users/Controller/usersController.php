@@ -1,11 +1,12 @@
 <?php
 
-namespace Users\Controller;
+namespace Api\Users\Controller;
 
+use Api\Users\Service\UsersService;
 use Core\App;
 use Core\HTTPRequest;
 use core\HTTPResponse;
-use Users\Service\UsersService;
+
 
 class UsersController
 {

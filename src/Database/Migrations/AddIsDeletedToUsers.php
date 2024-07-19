@@ -2,10 +2,9 @@
 
 namespace Database\Migrations;
 
-use Core\App;
-use Core\Database;
+use Core\ORM\Migration;
 
-class AddIsDeletedToUsers extends BaseMigration
+class AddIsDeletedToUsers extends Migration
 {
   public function up()
   {

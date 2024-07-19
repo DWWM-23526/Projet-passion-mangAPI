@@ -2,8 +2,12 @@
 
 namespace Core;
 
+use Api\Users\Repository\UsersRespository;
+use Api\Users\Service\UsersService;
+
+use Core\ORM\DatabaseManager;
 use Core\Router;
-use Common\Database\DatabaseManager;
+
 use EmailConfirm\Repository\EmailConfirmRepository;
 use EmailConfirm\Service\EmailConfirmService;
 use Favorites\Repository\FavoritesRepository;
@@ -16,8 +20,6 @@ use Tags\Repository\TagsRepository;
 use Tags\Service\TagsService;
 use TagsManga\Repository\TagsMangaRepository;
 use TagsManga\Service\TagsMangaService;
-use Users\Repository\UsersRespository;
-use Users\Service\UsersService;
 
 class App
 {
@@ -83,7 +85,7 @@ class App
     require __DIR__ . '/../Favorites/favoritesEndPoint.php';
     require __DIR__ . '/../Tags/tagEndPoint.php';
     require __DIR__ . '/../TagsManga/tagsMangaEndPoint.php';
-    require __DIR__ . '/../Users/usersEndPoint.php';
+    require __DIR__ . '/../Api/Users/usersEndPoint.php';
 
     // TODO: Faire le fichier et dossier log / migration.log
 
