@@ -92,7 +92,7 @@ class DatabaseManager
             $result = $this->pdo->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '{$this->config['db']}'")->fetchColumn();
 
             if (!$result) {
-                $this->pdo->exec("CREATE DATABASE `{$this->config['db']}` CHARSET {$this->config['charset']}");
+                $this->pdo->exec("CREATE DATABASE `{$this->config['db']}` CHARSET {$this->config['charset']} COLLATE {$this->config['collate']}");
             }
 
             if ($result > 1) {
