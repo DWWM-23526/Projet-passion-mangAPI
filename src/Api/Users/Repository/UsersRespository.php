@@ -23,12 +23,17 @@ class UsersRespository extends Repository
 
     public function createUser($data)
     {
-        $this->create($data);
+        return $this->create($data);
     }
 
     public function updateUser($data, $id)
     {
-        $this->update($data, $id);
+        return $this->update($data, $id);
+    }
+
+    public function deleteUser($id)
+    {
+        return $this->delete($id, 'Id_user');
     }
 
 }

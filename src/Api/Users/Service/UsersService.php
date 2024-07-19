@@ -23,14 +23,20 @@ class UsersService{
     
     public function createUser($data)
     {
-        $this->usersRespository->createUser($data);
+        return $this->usersRespository->createUser($data);
     }
 
     public function updateUser($data, $id)
     {
-        $this->usersRespository->updateUser($data, $id);
+        return $this->usersRespository->updateUser($data, $id);
     }
 
+    
+    public function deleteUser($id)
+    {
+        return $this->usersRespository->deleteUser($id);
+    }
+    
 
    
 }

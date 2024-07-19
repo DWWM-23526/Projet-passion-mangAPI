@@ -24,21 +24,21 @@ class Repository
         return array_map(fn ($data) => new $this->modelClass($data), $result);
     }
 
-    protected function getBy($id, $column)
+    protected function getBy(int $id, string $column)
     {
-        $result = $this->db->query("SELECT * FROM $this->table WHERE {$column} = ?", [$id])->fetchOrFail();
+        $result = $this->db->query("SELECT * FROM $this->table WHERE $column = ?", [$id])->fetchOrFail();
         return new $this->modelClass($result);
     }
 
-    protected function create($data)
+    protected function create(array $data)
     {
         $fields = implode(',', array_keys($data));
         $values = ':' . implode(',:', array_keys($data));
 
-        $this->db->query("INSERT INTO $this->table ($fields) VALUES ($values) ", $data);
+        return $this->db->query("INSERT INTO $this->table ($fields) VALUES ($values) ", $data);
     }
 
-    protected function update($data, $id)
+    protected function update(array $data, int $id)
     {
         $fields = '';
 
@@ -47,9 +47,15 @@ class Repository
                 $fields .= "$key = :$key,";
             }
         }
-        $fields = rtrim($fields, ',');
 
+        $fields = rtrim($fields, ',');
         $data[$this->primaryKey] = $id;
-        $this->db->query("UPDATE {$this->table} SET $fields WHERE {$this->primaryKey} = :{$this->primaryKey}", $data);
+
+        return $this->db->query("UPDATE {$this->table} SET $fields WHERE {$this->primaryKey} = :{$this->primaryKey}", $data);
+    }
+
+    protected function delete(int $id, string $column)
+    {
+        $this->db->query("DELETE FROM $this->table WHERE $column = ?", [$id]);
     }
 }

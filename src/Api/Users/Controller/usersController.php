@@ -56,14 +56,17 @@ class UsersController
         } catch (\Throwable $th) {
             $response->abort();
         }
-
         $response->sendJsonResponse(["User {$body['name']} updated"]);
     }
 
-    // public function deleteUser(HTTPRequest $request, HTTPResponse $response, $params){
-    //     $user = $params['UserId'];
-    //     // TODO: Vérification des données à supprimer
-    //     $this->usersService->deleteUser($user);
-    //     $user === null ? $response->abort() : $response->sendJsonResponse($user);
-    // }
+    public function deleteUser(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $userId = $params['UserId'];
+        try {
+            $this->usersService->deleteUser($userId);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
+        $response->sendJsonResponse(["User with id: {$userId} deleted"]);
+    }
 }
