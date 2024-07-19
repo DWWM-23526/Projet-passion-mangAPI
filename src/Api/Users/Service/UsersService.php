@@ -3,7 +3,6 @@
 namespace Api\Users\Service;
 
 use Core\App;
-use Api\Users\Model\Users;
 use Api\Users\Repository\UsersRespository;
 
 class UsersService{
@@ -21,6 +20,12 @@ class UsersService{
     {
         return $this->usersRespository->getUserById($id);
     }
+    
+    public function createUser($data)
+    {
+        $this->usersRespository->createUser($data);
+    }
+
 
    
 }

@@ -35,15 +35,17 @@ class UsersController
         $response->sendJsonResponse($user);
     }
 
-    // public function addUser(HTTPRequest $request, HTTPResponse $response){
-    //     $body = $request->getBody();
-    //     try {
-    //         $this->usersService->createUser($body);
-    //         $response->sendJsonResponse(["User {$body['pseudo']} créé"]);
-    //     } catch (\Throwable $th) {
-    //         $response->abort();
-    //     }
-    // }
+    public function addUser(HTTPRequest $request, HTTPResponse $response)
+    {
+        $body = $request->getBody();
+        try {
+            $this->usersService->createUser($body);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
+
+        $response->sendJsonResponse(["User {$body['name']} créé"]);
+    }
 
     // public function updateUser(HTTPRequest $request, HTTPResponse $response){
     //     $body = $request->getBody();

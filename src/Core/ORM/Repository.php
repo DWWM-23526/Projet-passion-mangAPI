@@ -10,6 +10,7 @@ class Repository
 
     protected Database $db;
     protected $table;
+    protected $modelClass;
 
     public function __construct()
     {
@@ -18,11 +19,22 @@ class Repository
 
     protected function getAll()
     {
-        return $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
+        $result = $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
+        return array_map(fn ($data) => new $this->modelClass($data), $result);
     }
 
     protected function getBy($id, $column)
     {
-        return $this->db->query("SELECT * FROM $this->table WHERE {$column} = ?", [$id])->fetchOrFail(); 
+        $result = $this->db->query("SELECT * FROM $this->table WHERE {$column} = ?", [$id])->fetchOrFail();
+        return new $this->modelClass($result);
     }
+
+    protected function create($data)
+    {
+        $fields = implode(',', array_keys($data));
+        $values = ':' . implode(',:', array_keys($data));
+
+        $this->db->query("INSERT INTO $this->table ($fields) VALUES ($values) ", $data);
+    }
+
 }
