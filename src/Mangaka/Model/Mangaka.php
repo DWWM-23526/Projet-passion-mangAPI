@@ -4,7 +4,7 @@ namespace Mangaka\Model;
 
 class Mangaka
 {
-  public int $Id_mangaka;
+  public ?int $Id_mangaka;
   public string $img_mangaka;
   public ?string $first_name;
   public ?string $last_name;
@@ -14,7 +14,7 @@ class Mangaka
 
   public function __construct(array $data = [])
   {
-    $this->Id_mangaka = $data['Id_mangaka'] ?? 0;
+    $this->Id_mangaka = $data['Id_mangaka'];
     $this->img_mangaka = $data['img_mangaka'] ?? '';
     $this->first_name = $data['first_name'] ?? null;
     $this->last_name = $data['last_name'] ?? null;
