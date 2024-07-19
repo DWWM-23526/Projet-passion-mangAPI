@@ -17,5 +17,10 @@ class UsersService{
         return $this->usersRespository->getAllUsers();
     }
 
+    public function getUserById(int $id)
+    {
+        return $this->usersRespository->getUserById($id);
+    }
+
    
 }

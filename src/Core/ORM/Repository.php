@@ -20,4 +20,9 @@ class Repository
     {
         return $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
     }
+
+    protected function getBy($id, $column)
+    {
+        return $this->db->query("SELECT * FROM $this->table WHERE {$column} = ?", [$id])->fetchOrFail(); 
+    }
 }

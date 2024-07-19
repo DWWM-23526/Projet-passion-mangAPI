@@ -14,4 +14,9 @@ class UsersRespository extends Repository
         return $this->getAll();
     }
 
+    public function getUserById(int $userId)
+    {
+        return $this->getBy($userId, 'Id_user');
+    }
+
 }
