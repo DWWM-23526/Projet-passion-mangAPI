@@ -15,4 +15,4 @@ $app->addRoute(RequestMethod::POST, '/api/tags', 'Tags\Controller\TagsController
 $app->addRoute(RequestMethod::PUT,'/api/tags', 'Tags\Controller\TagsController', 'updateTag');
 
 // Delete
-$app->addRoute(RequestMethod::DELETE,'/api/tags/{tagId}', 'Tags\Controller\TagsController', 'updateTag');
+$app->addRoute(RequestMethod::DELETE,'/api/tags/{tagId}', 'Tags\Controller\TagsController', 'deleteTag');

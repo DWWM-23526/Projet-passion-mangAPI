@@ -38,7 +38,7 @@ class TagsRepository
         $values = $tag->toArray();
 
         try {
-            $this->db->query($sql, $values);
+            return $this->db->query($sql, $values);
         } catch (\PDOException $e) {
             throw new \Exception("Error on Tag creation" . $e->getMessage());
         }
@@ -47,13 +47,13 @@ class TagsRepository
     public function updateTag(Tags $tag)
     {
         $sql = "UPDATE tags
-                SET tag_name = :tag_name
+                SET tag_name = :tag_name,
                     is_deleted = :is_deleted
                 WHERE Id_tag = :Id_tag";
         $values = $tag->toArray();
 
         try {
-            $this->db->query($sql, $values);
+            return $this->db->query($sql, $values);
         } catch (\PDOException $e) {
             throw new \Exception("Error on Tag update" . $e->getMessage());
         }

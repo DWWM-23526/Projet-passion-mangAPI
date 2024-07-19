@@ -30,7 +30,7 @@ class TagsController
         $body = $request->getBody();
         try {
             $this->tagsService->createTag($body);
-            $response->sendJsonResponse(["Manga {$body['name']} créé"]);
+            $response->sendJsonResponse(["Tag {$body['tag_name']} créé"]);
         } catch (\Throwable $th) {
             $response->abort();
         }
@@ -40,9 +40,9 @@ class TagsController
         $body = $request->getBody();
         try {
             $this->tagsService->updateTag($body);
-            $response->sendJsonResponse(["Manga {$body['name']} créé"]);
+            $response->sendJsonResponse(["Tag {$body['tag_name']} updated"]);
         } catch (\Throwable $th) {
-            $response->abort();
+            $response->abort($th->getMessage());
         }
     }
 
