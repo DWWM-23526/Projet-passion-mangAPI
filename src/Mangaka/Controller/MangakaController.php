@@ -51,8 +51,8 @@ class MangakaController
     }
     public function removeMangaka(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $mangaka = null;
-        // $mangaka = $params['mangakaId'];
+        $mangaka = $params['mangakaId'];
+        $this->mangakaService->deleteMangaka($mangaka);
         $mangaka === null ? $response->abort() : $response->sendJsonResponse([$mangaka]);
     }
 }

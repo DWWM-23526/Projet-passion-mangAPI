@@ -46,10 +46,10 @@ class TagsController
         }
     }
 
-    public function deleteTag(HTTPRequest $request, HTTPResponse $response){
-        $tag = null;
+    public function deleteTag(HTTPRequest $request, HTTPResponse $response, $params){
+        $tag = $params['tagId'];
         // TODO: Vérification des données
-        // $tag = $this->tagsService->deleteTag();
+        $this->tagsService->deleteTag($tag);
         $tag === null ? $response->abort() : $response->sendJsonResponse($tag);
     }
 }
