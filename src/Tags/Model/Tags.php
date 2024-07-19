@@ -11,7 +11,7 @@ class Tags
 
   public function __construct(array $data = [])
   {
-    $this->Id_tag = $data["Id_tag"];
+    $this->Id_tag = $data["Id_tag"] ?? null;
     $this->tag_name = $data["tag_name"] ?? '';
     $this->is_deleted = $data["is_deleted"] ?? 0;
   }
