@@ -28,18 +28,12 @@ class MangaService
   public function createManga(array $data)
   {
     $manga = new Manga($data);
-    if ($this->mangaRepository->mangaExists($manga->manga_name)) {
-      throw new \Exception("Manga already exist");
-    }
     $this->mangaRepository->createManga($manga);
   }
 
   public function updateManga(array $data)
   {
     $manga = new Manga($data);
-    // if (!$this->mangaRepository->mangaExists($manga->manga_name)) {
-    //   throw new \Exception("Manga does not exist");
-    // }
     return $this->mangaRepository->updateManga($manga);
   }
 

@@ -26,4 +26,6 @@ class EmailConfirm
       'date'=> $this->date,
     ];
   }
+
+  
 }
