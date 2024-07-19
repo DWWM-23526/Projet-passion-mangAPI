@@ -21,7 +21,7 @@ class UsersController
     }
 
     public function getUserById(HTTPRequest $request, HTTPResponse $response, $params){
-        $userId = $params['userId'];
+        $userId = $params['UserId'];
         $user = $this->usersService->getUserById($userId);
         $user === null ? $response->abort() : $response->sendJsonResponse($user);
     }
@@ -46,10 +46,10 @@ class UsersController
         }
     }
 
-    public function deleteUser(HTTPRequest $request, HTTPResponse $response){
-        $user = null;
+    public function deleteUser(HTTPRequest $request, HTTPResponse $response, $params){
+        $user = $params['UserId'];
         // TODO: Vérification des données à supprimer
-        // $tag = $this->usersService->deleteUser($tag);
+        $this->usersService->deleteUser($user);
         $user === null ? $response->abort() : $response->sendJsonResponse($user);
     }
 }

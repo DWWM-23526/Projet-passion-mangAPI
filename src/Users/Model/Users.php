@@ -14,10 +14,10 @@ class Users
   public function __construct(array $data = [])
   {
     $this->Id_user = $data['Id_user'];
-    $this->name = $data['name'];
-    $this->email = $data['email'];
-    $this->password = $data['password'];
-    $this->is_deleted = $data['is_deleted'];
+    $this->name = $data['name'] ?? '';
+    $this->email = $data['email'] ?? '';
+    $this->password = $data['password'] ?? "";
+    $this->is_deleted = $data['is_deleted'] ?? 0;
   }
 
   public function toArray(){
