@@ -20,6 +20,11 @@ class MangakaService
     return $this->mangakaRepository->getAllMangakas();
   }
 
+  public function getAllRelatedManga($id)
+  {
+    return $this->mangakaRepository->getAllRelatedManga($id);
+  }
+
   public function getMangakaById(int $id)
   {
     return $this->mangakaRepository->getMangakaById($id);

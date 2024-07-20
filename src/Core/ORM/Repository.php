@@ -18,6 +18,9 @@ class Repository
         $this->db = App::inject()->getContainer(Database::class);
     }
 
+
+    // BASIC CRUD
+
     protected function getAll()
     {
         $result = $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
@@ -57,5 +60,25 @@ class Repository
     protected function delete(mixed $id, string $column)
     {
         $this->db->query("DELETE FROM $this->table WHERE $column = ?", [$id]);
+    }
+
+    // ONE TO MANY
+
+    protected function hasMany(mixed $relatedClass, string $relatedTable, string $foreingKey, int $localKey)
+    {
+        $relatedModel = new $relatedClass();
+        $result = $this->db->query("SELECT * FROM {$relatedTable} WHERE {$foreingKey} = ?", [$localKey])->fetchAllOrFail();
+
+        return array_map(fn ($data) => new $relatedModel($data), $result);
+    }
+
+    // MANY TO ONE
+
+    protected function belongTo(mixed $relatedClass, string $relatedTable, string $foreingKey, int $ownerKey)
+    {
+        $relatedModel = new $relatedClass();
+        $result = $this->db->query("SELECT * FROM {$relatedTable} WHERE {$foreingKey} = ?", [$ownerKey])->fetchOrFail();
+
+        return new $relatedModel($result);
     }
 }

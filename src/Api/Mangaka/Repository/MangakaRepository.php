@@ -2,8 +2,7 @@
 
 namespace Api\Mangaka\Repository;
 
-use Core\App;
-use Core\Database;
+use Api\Manga\Model\Manga;
 use Api\Mangaka\Model\Mangaka;
 use Core\ORM\Repository;
 
@@ -21,6 +20,11 @@ class MangakaRepository extends Repository
   public function getMangakaById(int $mangakaId)
   {
     return $this->getBy($mangakaId, 'Id_mangaka');
+  }
+
+  public function getAllRelatedManga($id)
+  {
+    return $this->hasMany(Manga::class, 'mangas', $this->primaryKey, $id );
   }
 
   public function createMangaka($data)

@@ -14,13 +14,13 @@ class Mangaka
 
   public function __construct(array $data = [])
   {
-    $this->Id_mangaka = $data['Id_mangaka'];
+    $this->Id_mangaka = $data['Id_mangaka'] ?? null;
     $this->img_mangaka = $data['img_mangaka'] ?? '';
     $this->first_name = $data['first_name'] ?? null;
     $this->last_name = $data['last_name'] ?? null;
     $this->birthdate = $data['birthdate'] ?? null;
     $this->texte = $data['texte'] ?? null;
-    $this->is_deleted = $data['id_deleted'] ?? 0;
+    $this->is_deleted = $data['is_deleted'] ?? false;
   }
 
   public function toArray(): array

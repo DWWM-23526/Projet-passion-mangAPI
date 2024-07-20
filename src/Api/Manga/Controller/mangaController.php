@@ -35,6 +35,18 @@ class MangaController
         $response->sendJsonResponse($mangas);
     }
 
+    public function getRelatedMangaka(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $mangaId = $params['mangaId'];
+        try {
+            $mangaka = $this->mangaService->getRelatedMangaka($mangaId);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
+        $response->sendJsonResponse($mangaka);
+
+    }
+
     public function addManga(HTTPRequest $request, HTTPResponse $response)
     {
         $body = $request->getBody();

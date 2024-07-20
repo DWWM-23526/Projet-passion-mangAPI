@@ -8,8 +8,10 @@ $app->addRoute(RequestMethod::GET, "/api/manga", "Api\Manga\Controller\MangaCont
 // GET manga by ID
 $app->addRoute(RequestMethod::GET, '/api/manga/{mangaId}', 'Api\Manga\Controller\MangaController', 'getMangaById');
 
-// POST add a new manga
+// GET related mangaka by manga by ID
+$app->addRoute(RequestMethod::GET, '/api/manga/mangaka/{mangaId}', 'Api\Manga\Controller\MangaController', 'getRelatedMangaka');
 
+// POST add a new manga
 $app->addRoute(RequestMethod::POST, '/api/manga', 'Api\Manga\Controller\MangaController', 'addManga');
 
 // PUT update a manga

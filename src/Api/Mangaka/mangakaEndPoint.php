@@ -6,8 +6,11 @@ use Core\RequestMethod;
 
 $app->addRoute(RequestMethod::GET, "/api/mangaka", "Api\Mangaka\Controller\MangakaController", "getAllMangakas");
 
-// GET manga by Id
+// GET mangaka by Id
 $app->addRoute(RequestMethod::GET, '/api/mangaka/{mangakaId}', 'Api\Mangaka\Controller\MangakaController', 'getMangakaById');
+
+// GET related mangas by mangaka Id
+$app->addRoute(RequestMethod::GET, '/api/mangas/mangaka/{mangakaId}', 'Api\Mangaka\Controller\MangakaController', 'getAllRelatedManga');
 
 // POST add a new manga
 
