@@ -3,6 +3,7 @@
 namespace Api\Manga\Repository;
 
 use Api\Manga\Model\Manga;
+use Api\Mangaka\Model\Mangaka;
 use Core\ORM\Repository;
 
 class MangaRepository extends Repository
@@ -20,8 +21,21 @@ class MangaRepository extends Repository
 
   public function getMangaById(int $mangaId)
   {
-    return $this->getBy($mangaId, 'Id_manga');
+    return $this->getBy($mangaId, $this->primaryKey);
   }
+
+  public function getRelatedMangaka(int $mangaId)
+  {
+    $manga = $this->getBy($mangaId, $this->primaryKey);
+
+    if (!$manga) {
+      throw new \Exception("Manga not found");
+    }
+
+    return $this->belongTo(Mangaka::class, 'mangakas', 'Id_mangaka', $manga->Id_mangaka);
+  }
+
+
   public function createManga($data)
   {
     return $this->create($data);
