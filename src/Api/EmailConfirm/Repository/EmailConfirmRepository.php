@@ -13,7 +13,7 @@ class EmailConfirmRepository extends Repository
 
   protected $modelClass = EmailConfirm::class;
 
-  protected $primaryKey = "email";
+  protected $primaryKey = "id_conf";
 
 
 
@@ -35,8 +35,8 @@ class EmailConfirmRepository extends Repository
     return $this->create($data);
   }
 
-  public function deleteEmailConfirm($email)
+  public function deleteEmailConfirm($id)
   {
-    return $this->delete($email, "email");
+    return $this->delete($id, "email");
   }
 }
