@@ -31,7 +31,6 @@ class EmailConfirmController
       $response->abort();
     }
     $response->sendJsonResponse($emailConfirm);
-
   }
 
   public function addEmailConfirm(HTTPRequest $request, HTTPResponse $response)

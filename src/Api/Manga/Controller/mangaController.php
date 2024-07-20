@@ -34,7 +34,6 @@ class MangaController
             $response->abort();
         }
         $response->sendJsonResponse($mangas);
-
     }
 
     public function addManga(HTTPRequest $request, HTTPResponse $response)

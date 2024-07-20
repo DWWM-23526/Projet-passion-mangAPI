@@ -1,10 +1,10 @@
 <?php
 
-namespace Mangaka\Service;
+namespace Api\Mangaka\Service;
 
 use Core\App;
-use Mangaka\Model\Mangaka;
-use Mangaka\Repository\MangakaRepository;
+use Api\Mangaka\Model\Mangaka;
+use Api\Mangaka\Repository\MangakaRepository;
 
 class MangakaService
 {
@@ -25,19 +25,17 @@ class MangakaService
     return $this->mangakaRepository->getMangakaById($id);
   }
 
-  public function createMangakas(mixed $dataMangaka)
+  public function createMangakas($data)
   {
-    $mangaka = new Mangaka($dataMangaka);
-    return $this->mangakaRepository->createMangaka($mangaka);
+    return $this->mangakaRepository->createMangaka($data);
   }
 
-  public function updateMangaka(mixed $dataMangaka)
+  public function updateMangaka($data, $id)
   {
-    $mangaka = new Mangaka($dataMangaka);
-    return $this->mangakaRepository->updateMangaka($mangaka);
+    return $this->mangakaRepository->updateMangaka($data, $id);
   }
 
-  public function deleteMangaka(int $id)
+  public function deleteMangaka($id)
   {
     return $this->mangakaRepository->deleteMangaka($id);
   }

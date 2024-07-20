@@ -1,11 +1,11 @@
 <?php
 
-namespace Mangaka\Controller;
+namespace Api\Mangaka\Controller;
 
 use Core\App;
 use Core\HTTPRequest;
 use core\HTTPResponse;
-use Mangaka\Service\MangakaService;
+use Api\Mangaka\Service\MangakaService;
 
 class MangakaController
 {
@@ -26,9 +26,14 @@ class MangakaController
     public function getMangakaById(HTTPRequest $request, HTTPResponse $response, $params)
     {
         $mangakaId = $params['mangakaId'];
-        $mangakas = $this->mangakaService->getMangakaById($mangakaId);
-        $mangakas === null ? $response->abort(404) : $response->sendJsonResponse($mangakas);
+        try {
+            $mangakas = $this->mangakaService->getMangakaById($mangakaId);
+        } catch (\Throwable $th) {
+            $response->abort()
+        }
+        $response->sendJsonResponse($mangakas);
     }
+    
     public function addMangaka(HTTPRequest $request, HTTPResponse $response)
     {
         $body = $request->getBody();
@@ -38,21 +43,31 @@ class MangakaController
         }catch(\Throwable $th){
             $response->abort();
         }
+        $response->sendJsonResponse(["Mangaka {$body['first_name']} créé"]);
+
     }
     public function updateMangaka(HTTPRequest $request, HTTPResponse $response)
     {
+        $mangakaId = $params['mangakaId'];
+
         $body = $request->getBody();
         try{
-            $this->mangakaService->createMangakas($body);
+            $this->mangakaService->updateMangaka($body, $mangakaId);
             $response->sendJsonResponse(["Magaka {$body['first_name']}{$body['last_name']} créé"]);
         }catch(\Throwable $th){
             $response->abort();
         }
+        $response->sendJsonResponse(["Mangaka {$body['first_name']} updated"]);
     }
     public function removeMangaka(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $mangaka = $params['mangakaId'];
-        $this->mangakaService->deleteMangaka($mangaka);
-        $mangaka === null ? $response->abort() : $response->sendJsonResponse([$mangaka]);
+        $mangakaId = $params['mangakaId'];
+        try {
+            $this->mangakaService->deleteMangaka($mangaka);
+        } catch (\Throwable $th) {
+            $response->abort()
+        }
+        $response->sendJsonResponse(["Mangaka {$mangakaId} deleted"]);
     }
+}
 }
