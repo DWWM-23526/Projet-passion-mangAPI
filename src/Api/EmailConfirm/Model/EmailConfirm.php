@@ -1,10 +1,10 @@
 <?php
 
-namespace EmailConfirm\Model;
+namespace Api\EmailConfirm\Model;
 
 class EmailConfirm
 {
-  public int $id_conf;
+  public ?int $id_conf;
   public string $email;
   public int $cle;
   public string $date;

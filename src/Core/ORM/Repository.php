@@ -24,7 +24,7 @@ class Repository
         return array_map(fn ($data) => new $this->modelClass($data), $result);
     }
 
-    protected function getBy(int $id, string $column)
+    protected function getBy(mixed $id, string $column)
     {
         $result = $this->db->query("SELECT * FROM $this->table WHERE $column = ?", [$id])->fetchOrFail();
         return new $this->modelClass($result);
@@ -54,7 +54,7 @@ class Repository
         return $this->db->query("UPDATE {$this->table} SET $fields WHERE {$this->primaryKey} = :{$this->primaryKey}", $data);
     }
 
-    protected function delete(int $id, string $column)
+    protected function delete(mixed $id, string $column)
     {
         $this->db->query("DELETE FROM $this->table WHERE $column = ?", [$id]);
     }

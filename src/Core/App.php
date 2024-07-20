@@ -8,14 +8,14 @@ use Api\Users\Service\UsersService;
 use Core\ORM\DatabaseManager;
 use Core\Router;
 
-use EmailConfirm\Repository\EmailConfirmRepository;
-use EmailConfirm\Service\EmailConfirmService;
+use Api\EmailConfirm\Repository\EmailConfirmRepository;
+use Api\EmailConfirm\Service\EmailConfirmService;
 use Favorites\Repository\FavoritesRepository;
 use Favorites\Service\FavoritesService;
-use Manga\Repository\MangaRepository;
-use Manga\Service\MangaService;
-use Mangaka\Repository\MangakaRepository;
-use Mangaka\Service\MangakaService;
+use Api\Manga\Repository\MangaRepository;
+use Api\Manga\Service\MangaService;
+use Api\Mangaka\Repository\MangakaRepository;
+use Api\Mangaka\Service\MangakaService;
 use Tags\Repository\TagsRepository;
 use Tags\Service\TagsService;
 use TagsManga\Repository\TagsMangaRepository;
@@ -79,9 +79,9 @@ class App
 
     $app = Router::getInstance();
     
-    require __DIR__ . "/../EmailConfirm/emailConfirmEndPoint.php";
-    require __DIR__ . "/../Manga/mangaEndPoint.php";
-    require __DIR__ . "/../Mangaka/mangakaEndPoint.php";
+    require __DIR__ . "/../Api/EmailConfirm/emailConfirmEndPoint.php";
+    require __DIR__ . "/../Api/Manga/mangaEndPoint.php";
+    require __DIR__ . "/../Api/Mangaka/mangakaEndPoint.php";
     require __DIR__ . '/../Favorites/favoritesEndPoint.php';
     require __DIR__ . '/../Tags/tagEndPoint.php';
     require __DIR__ . '/../TagsManga/tagsMangaEndPoint.php';

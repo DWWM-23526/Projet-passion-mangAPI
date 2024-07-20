@@ -1,12 +1,12 @@
 <?php
 
-namespace Manga\Controller;
+namespace Api\Manga\Controller;
 
 use Core\App;
 use Core\HTTPRequest;
 
 use core\HTTPResponse;
-use Manga\Service\MangaService;
+use Api\Manga\Service\MangaService;
 
 class MangaController
 {
@@ -27,12 +27,13 @@ class MangaController
     public function getMangaById(HTTPRequest $request, HTTPResponse $response, $params)
     {
         $mangaId = $params['mangaId'];
-        $mangas = $this->mangaService->getMangaById($mangaId);
-        if ($mangas === null) {
-            $response->abort(404);
-        } else {
-            $response->sendJsonResponse($mangas);
+        try {
+            $mangas = $this->mangaService->getMangaById($mangaId);
+
+        } catch (\Throwable $th) {
+            $response->abort();
         }
+        $response->sendJsonResponse($mangas);
     }
 
     public function addManga(HTTPRequest $request, HTTPResponse $response)
@@ -43,18 +44,19 @@ class MangaController
         } catch (\Throwable $e) {
             $response->abort($e->getMessage());
         }
-        $response->sendJsonResponse(["Manga bien crée !"]);
+        $response->sendJsonResponse(["Manga {$body['manga_name']} bien crée !"]);
     }
 
-    public function updateManga(HTTPRequest $request, HTTPResponse $response)
+    public function updateManga(HTTPRequest $request, HTTPResponse $response, $params)
     {
+        $mangaId = $params['mangasId'];
         $body = $request->getBody();
         try {
-            $this->mangaService->updateManga($body);
+            $this->mangaService->updateManga($body, $params);
         } catch (\Throwable $e) {
             $response->abort("");
         }
-        $response->sendJsonResponse(["Manga bien modifié !"]);
+        $response->sendJsonResponse(["Manga {$body['manga_name']} bien modifié !"]);
     }
 
     public function removeManga(HTTPRequest $request, HTTPResponse $response, $params)
@@ -65,6 +67,6 @@ class MangaController
         } catch (\Throwable $th) {
             $response->abort("");
         }
-        $response->sendJsonResponse(["Manga bien delete !"]);
+        $response->sendJsonResponse(["Manga {$mangaId['Id_manga']} bien delete !"]);
     }
 }

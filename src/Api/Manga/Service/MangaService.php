@@ -1,10 +1,10 @@
 <?php
 
-namespace Manga\Service;
+namespace Api\Manga\Service;
 
 use Core\App;
-use Manga\Model\Manga;
-use Manga\Repository\MangaRepository;
+use Api\Manga\Model\Manga;
+use Api\Manga\Repository\MangaRepository;
 
 class MangaService
 {
@@ -25,19 +25,17 @@ class MangaService
     return $this->mangaRepository->getMangaById($id);
   }
 
-  public function createManga(array $data)
+  public function createManga($data)
   {
-    $manga = new Manga($data);
-    $this->mangaRepository->createManga($manga);
+    $this->mangaRepository->createManga($data);
   }
 
-  public function updateManga(array $data)
+  public function updateManga($data, $id)
   {
-    $manga = new Manga($data);
-    return $this->mangaRepository->updateManga($manga);
+    return $this->mangaRepository->updateManga($data, $id);
   }
 
-  public function deleteManga(int $id)
+  public function deleteManga($id)
   {
     return $this->mangaRepository->deleteManga($id);
   }

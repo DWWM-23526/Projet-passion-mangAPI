@@ -1,10 +1,10 @@
 <?php
 
-namespace EmailConfirm\Service;
+namespace Api\EmailConfirm\Service;
 
 use Core\App;
-use EmailConfirm\Model\EmailConfirm;
-use EmailConfirm\Repository\EmailConfirmRepository;
+use Api\EmailConfirm\Model\EmailConfirm;
+use Api\EmailConfirm\Repository\EmailConfirmRepository;
 
 class EmailConfirmService
 {
@@ -25,13 +25,12 @@ class EmailConfirmService
     return $this->emailRepository->getEmailByEmail($email);
   }
 
-  public function createEmailConfirm(array $data)
+  public function createEmailConfirm($data)
   {
-    $emailConfirm = new EmailConfirm($data);
-    $this->emailRepository->createEmailConfirm($emailConfirm);
+    $this->emailRepository->createEmailConfirm($data);
   }
 
-  public function deleteEmailConfirm(string $email)
+  public function deleteEmailConfirm($email)
   {
     return $this->emailRepository->deleteEmailConfirm($email);
   }

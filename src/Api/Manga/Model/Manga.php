@@ -1,6 +1,6 @@
 <?php
 
-namespace Manga\Model;
+namespace Api\Manga\Model;
 
 class Manga
 {
