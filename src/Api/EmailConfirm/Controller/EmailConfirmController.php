@@ -24,12 +24,14 @@ class EmailConfirmController
   public function getEmailByEmail(HTTPRequest $request, HTTPResponse $response, $params)
   {
     $email = $params["email"];
-    $emailConfirm = $this->emailConfirmService->getEmailByEmail($email);
-    if ($emailConfirm === null) {
-      $response->abort(404);
-    } else {
-      $response->sendJsonResponse($emailConfirm);
+    try {
+      $emailConfirm = $this->emailConfirmService->getEmailByEmail($email);
+
+    } catch (\Throwable $th) {
+      $response->abort();
     }
+    $response->sendJsonResponse($emailConfirm);
+
   }
 
   public function addEmailConfirm(HTTPRequest $request, HTTPResponse $response)
