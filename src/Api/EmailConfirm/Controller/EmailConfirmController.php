@@ -1,11 +1,11 @@
 <?php
 
-namespace EmailConfirm\Controller;
+namespace Api\EmailConfirm\Controller;
 
 use Core\App;
 use Core\HTTPRequest;
 use core\HTTPResponse;
-use EmailConfirm\Service\EmailConfirmService;
+use Api\EmailConfirm\Service\EmailConfirmService;
 
 class EmailConfirmController
 {
@@ -40,7 +40,7 @@ class EmailConfirmController
     } catch (\Throwable $th) {
       $response->abort();
     }
-    $response->sendJsonResponse(['emailConfirm crée']);
+    $response->sendJsonResponse(["email {$body['email']} crée"]);
   }
 
   public function deleteEmailConfirm(HTTPRequest $request, HTTPResponse $response, $params)
@@ -51,6 +51,6 @@ class EmailConfirmController
     } catch (\Throwable $th) {
       $response->abort();
     }
-    $response->sendJsonResponse(["emailConfirm bien delete !"]);
+    $response->sendJsonResponse(["email {$email['email']} bien delete !"]);
   }
 }

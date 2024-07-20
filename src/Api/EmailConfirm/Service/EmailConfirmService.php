@@ -1,10 +1,10 @@
 <?php
 
-namespace EmailConfirm\Service;
+namespace Api\EmailConfirm\Service;
 
 use Core\App;
-use EmailConfirm\Model\EmailConfirm;
-use EmailConfirm\Repository\EmailConfirmRepository;
+use Api\EmailConfirm\Model\EmailConfirm;
+use Api\EmailConfirm\Repository\EmailConfirmRepository;
 
 class EmailConfirmService
 {

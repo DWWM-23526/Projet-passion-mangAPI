@@ -1,6 +1,6 @@
 <?php
 
-namespace EmailConfirm\Model;
+namespace Api\EmailConfirm\Model;
 
 class EmailConfirm
 {

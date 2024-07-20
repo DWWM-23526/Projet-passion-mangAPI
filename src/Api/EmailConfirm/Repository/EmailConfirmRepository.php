@@ -1,14 +1,17 @@
 <?php
 
-namespace EmailConfirm\Repository;
+namespace Api\EmailConfirm\Repository;
 
+use Api\EmailConfirm\Model\EmailConfirm;
 use Core\App;
 use Core\Database;
-use EmailConfirm\Model\EmailConfirm;
+use Core\ORM\Repository;
 
-class EmailConfirmRepository
+class EmailConfirmRepository extends Repository
 {
-  private string $table = 'email_confirmation';
+  protected string $table = 'email_confirmation';
+
+
   private mixed $db;
 
   public function __construct()
