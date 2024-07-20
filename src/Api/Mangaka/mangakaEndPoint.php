@@ -4,18 +4,18 @@
 
 use Core\RequestMethod;
 
-$app->addRoute(RequestMethod::GET, "/api/mangaka", "Mangaka\Controller\MangakaController", "getAllMangakas");
+$app->addRoute(RequestMethod::GET, "/api/mangaka", "Api\Mangaka\Controller\MangakaController", "getAllMangakas");
 
 // GET manga by Id
-$app->addRoute(RequestMethod::GET, '/api/mangaka/{mangakaId}', 'Mangaka\Controller\MangakaController', 'getMangakaById');
+$app->addRoute(RequestMethod::GET, '/api/mangaka/{mangakaId}', 'Api\Mangaka\Controller\MangakaController', 'getMangakaById');
 
 // POST add a new manga
 
-$app->addRoute(RequestMethod::POST, '/api/mangaka', 'Mangaka\Controller\MangakaController', 'addMangaka');
+$app->addRoute(RequestMethod::POST, '/api/mangaka', 'Api\Mangaka\Controller\MangakaController', 'addMangaka');
 
 // PUT update a manga
 
-$app->addRoute(RequestMethod::PUT, '/api/mangaka/{mangakaId}', 'Mangaka\Controller\MangakaController', 'updateMangaka');
+$app->addRoute(RequestMethod::PUT, '/api/mangaka/{mangakaId}', 'Api\Mangaka\Controller\MangakaController', 'updateMangaka');
 
 // DELETE remove a manga
-$app->addRoute(RequestMethod::DELETE, '/api/mangaka/{mangakaId}', 'Mangaka\Controller\MangakaController', 'removeMangaka');
+$app->addRoute(RequestMethod::DELETE, '/api/mangaka/{mangakaId}', 'Api\Mangaka\Controller\MangakaController', 'removeMangaka');

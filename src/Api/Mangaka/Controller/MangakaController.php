@@ -29,7 +29,7 @@ class MangakaController
         try {
             $mangakas = $this->mangakaService->getMangakaById($mangakaId);
         } catch (\Throwable $th) {
-            $response->abort()
+            $response->abort();
         }
         $response->sendJsonResponse($mangakas);
     }
@@ -46,14 +46,14 @@ class MangakaController
         $response->sendJsonResponse(["Mangaka {$body['first_name']} créé"]);
 
     }
-    public function updateMangaka(HTTPRequest $request, HTTPResponse $response)
+    public function updateMangaka(HTTPRequest $request, HTTPResponse $response, $params)
     {
         $mangakaId = $params['mangakaId'];
 
         $body = $request->getBody();
         try{
             $this->mangakaService->updateMangaka($body, $mangakaId);
-            $response->sendJsonResponse(["Magaka {$body['first_name']}{$body['last_name']} créé"]);
+            $response->sendJsonResponse(["Mangaka {$body['first_name']}{$body['last_name']} créé"]);
         }catch(\Throwable $th){
             $response->abort();
         }
@@ -63,11 +63,10 @@ class MangakaController
     {
         $mangakaId = $params['mangakaId'];
         try {
-            $this->mangakaService->deleteMangaka($mangaka);
+            $this->mangakaService->deleteMangaka($mangakaId);
         } catch (\Throwable $th) {
-            $response->abort()
+            $response->abort();
         }
         $response->sendJsonResponse(["Mangaka {$mangakaId} deleted"]);
     }
-}
 }

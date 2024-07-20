@@ -9,60 +9,34 @@ use Core\ORM\Repository;
 
 class EmailConfirmRepository extends Repository
 {
-  protected string $table = 'email_confirmation';
+  protected $table = 'email_confirmation';
+
+  protected $modelClass = EmailConfirm::class;
+
+  protected $primaryKey = "email";
 
 
-  private mixed $db;
-
-  public function __construct()
-  {
-    $this->db = App::inject()->getContainer(Database::class);
-  }
 
   // CRUD
 
   public function getAllEmails()
   {
-    $result = $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
-    return array_map(fn ($data) => new EmailConfirm($data), $result);
+    return $this->getAll();
   }
 
-  public function getEmailByEmail(string $email)
+  public function getEmailByEmail($email)
   {
-    $result = $this->db->query("SELECT * FROM $this->table WHERE email = :email", ['email' => $email])->fetchOrFail();
-    return $result ? new EmailConfirm($result) : null;
+    return $this->getBy($email, "email");
   }
 
 
-  public function createEmailConfirm(EmailConfirm $emailConfirm)
+  public function createEmailConfirm($data)
   {
-    $query = "INSERT INTO $this->table(
-    id_conf,
-    email,
-    cle,
-    date)
-    VALUES (
-    :id_conf,
-    :email,
-    :cle,
-    :date
-    )";
-
-    $values = $emailConfirm->toArray();
-
-    try {
-      $this->db->query($query, $values);
-    } catch (\PDOException $e) {
-      throw new \Exception("Error on EmailConfirm" . $e->getMessage());
-    }
+    return $this->create($data);
   }
 
-  public function deleteEmailConfirm(string $email)
+  public function deleteEmailConfirm($email)
   {
-    try {
-      $this->db->query("DELETE FROM $this->table WHERE email = :email", ["email" => $email]);
-    } catch (\PDOException $e) {
-      throw new \Exception("Erreur lors du delete du mail" . $e->getMessage());
-    }
+    return $this->delete($email, "email");
   }
 }

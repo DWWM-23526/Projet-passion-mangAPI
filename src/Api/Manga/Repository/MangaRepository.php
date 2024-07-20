@@ -2,16 +2,13 @@
 
 namespace Api\Manga\Repository;
 
-use Api\Users\Model\Users;
-use Core\App;
-use Core\Database;
 use Api\Manga\Model\Manga;
 use Core\ORM\Repository;
 
 class MangaRepository extends Repository
 {
-  private string $table = 'mangas';
-  protected $modelClass = Users::class;
+  protected $table = 'mangas';
+  protected $modelClass = Manga::class;
   protected $primaryKey = 'Id_manga';
 
   // CRUD

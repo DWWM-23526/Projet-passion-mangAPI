@@ -3,18 +3,18 @@
 use Core\RequestMethod;
 
 // GET all mangas
-$app->addRoute(RequestMethod::GET, "/api/manga", "Manga\Controller\MangaController", "getAllMangas");
+$app->addRoute(RequestMethod::GET, "/api/manga", "Api\Manga\Controller\MangaController", "getAllMangas");
 
 // GET manga by ID
-$app->addRoute(RequestMethod::GET, '/api/manga/{mangaId}', 'Manga\Controller\MangaController', 'getMangaById');
+$app->addRoute(RequestMethod::GET, '/api/manga/{mangaId}', 'Api\Manga\Controller\MangaController', 'getMangaById');
 
 // POST add a new manga
 
-$app->addRoute(RequestMethod::POST, '/api/manga', 'Manga\Controller\MangaController', 'addManga');
+$app->addRoute(RequestMethod::POST, '/api/manga', 'Api\Manga\Controller\MangaController', 'addManga');
 
 // PUT update a manga
 
-$app->addRoute(RequestMethod::PUT, '/api/manga/{mangaId}', 'Manga\Controller\MangaController', 'updateManga');
+$app->addRoute(RequestMethod::PUT, '/api/manga/{mangaId}', 'Api\Manga\Controller\MangaController', 'updateManga');
 
 // DELETE remove a manga
-$app->addRoute(RequestMethod::DELETE, '/api/manga/{mangaId}', 'Manga\Controller\MangaController', 'removeManga');
+$app->addRoute(RequestMethod::DELETE, '/api/manga/{mangaId}', 'Api\Manga\Controller\MangaController', 'removeManga');
