@@ -52,6 +52,6 @@ class EmailConfirmController
     } catch (\Throwable $th) {
       $response->abort();
     }
-    $response->sendJsonResponse(["email {$email['email']} bien delete !"]);
+    $response->sendJsonResponse(["email {$email} bien delete !"]);
   }
 }
