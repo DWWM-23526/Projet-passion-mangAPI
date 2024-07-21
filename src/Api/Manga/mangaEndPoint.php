@@ -11,6 +11,11 @@ $app->addRoute(RequestMethod::GET, '/api/manga/{mangaId}', 'Api\Manga\Controller
 // GET related mangaka by manga by ID
 $app->addRoute(RequestMethod::GET, '/api/manga/mangaka/{mangaId}', 'Api\Manga\Controller\MangaController', 'getRelatedMangaka');
 
+
+// GET  All anga related tags by manga by ID
+$app->addRoute(RequestMethod::GET, '/api/manga/tags/{mangaId}', 'Api\Manga\Controller\MangaController', 'getAllMangaRelatedTags');
+
+
 // POST add a new manga
 $app->addRoute(RequestMethod::POST, '/api/manga', 'Api\Manga\Controller\MangaController', 'addManga');
 

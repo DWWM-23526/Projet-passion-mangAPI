@@ -47,6 +47,17 @@ class MangaController
 
     }
 
+    public function getAllMangaRelatedTags(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $mangaId = $params['mangaId'];
+        try {
+            $tags = $this->mangaService->getAllMangaRelatedTags($mangaId);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
+        $response->sendJsonResponse($tags);
+    }
+
     public function addManga(HTTPRequest $request, HTTPResponse $response)
     {
         $body = $request->getBody();

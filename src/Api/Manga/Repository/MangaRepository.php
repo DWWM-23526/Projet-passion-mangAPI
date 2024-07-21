@@ -5,6 +5,7 @@ namespace Api\Manga\Repository;
 use Api\Manga\Model\Manga;
 use Api\Mangaka\Model\Mangaka;
 use Core\ORM\Repository;
+use Tags\Model\Tags;
 
 class MangaRepository extends Repository
 {
@@ -35,6 +36,10 @@ class MangaRepository extends Repository
     return $this->belongTo(Mangaka::class, 'mangakas', 'Id_mangaka', $manga->Id_mangaka);
   }
 
+  public function getAllMangaRelatedTags($mangaId)
+  {
+    return $this->belongToMany(Tags::class, 'tags', 'tags_manga', 'Id_tag', $mangaId);
+  }
 
   public function createManga($data)
   {
