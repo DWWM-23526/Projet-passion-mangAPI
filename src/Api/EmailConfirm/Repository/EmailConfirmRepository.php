@@ -21,7 +21,7 @@ class EmailConfirmRepository extends Repository
 
   public function getAllEmails()
   {
-    return $this->getAll();
+    return $this->getAll($this->table);
   }
 
   public function getEmailByEmail($email)

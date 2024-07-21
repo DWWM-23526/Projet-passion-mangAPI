@@ -13,7 +13,7 @@ class UsersRespository extends Repository
 
     public function getAllUsers()
     {
-        return $this->getAll();
+        return $this->getAll($this->table);
     }
 
     public function getUserById(int $userId)

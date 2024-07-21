@@ -44,7 +44,6 @@ class MangaController
             $response->abort();
         }
         $response->sendJsonResponse($mangaka);
-
     }
 
     public function getAllMangaRelatedTags(HTTPRequest $request, HTTPResponse $response, $params)
@@ -58,7 +57,19 @@ class MangaController
         $response->sendJsonResponse($tags);
     }
 
-    public function addManga(HTTPRequest $request, HTTPResponse $response)
+    public function addTagToManga(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $mangaId = $params['mangaId'];
+        $tagId = $params['tagId'];
+        try {
+            $this->mangaService->addTagToManga($mangaId, $tagId);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
+        $response->sendJsonResponse(["tag id : $tagId  succesfuly added to manga id : $mangaId "]);
+    }
+
+    public function addManga(HTTPRequest $request, HTTPResponse $response,  $params)
     {
         $body = $request->getBody();
         try {

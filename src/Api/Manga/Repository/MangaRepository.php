@@ -17,7 +17,7 @@ class MangaRepository extends Repository
 
   public function getAllMangas()
   {
-    return $this->getAll();
+    return $this->getAll($this->table);
   }
 
   public function getMangaById(int $mangaId)
@@ -41,12 +41,17 @@ class MangaRepository extends Repository
     return $this->belongToMany(Tags::class, 'tags', 'tags_manga', 'Id_tag', $mangaId);
   }
 
-  public function createManga($data)
+  public function addTagToManga(int $mangaId, int $tagId)
+  {
+    return $this->attach('tags_manga', $this->primaryKey, 'Id_tag', $mangaId, $tagId );
+  }
+
+  public function createManga(array $data)
   {
     return $this->create($data);
   }
 
-  public function updateManga($data, $id)
+  public function updateManga(array $data, int $id)
   {
     return $this->update($data, $id);
   }

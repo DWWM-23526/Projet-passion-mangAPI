@@ -21,9 +21,9 @@ class Repository
 
     // BASIC CRUD
 
-    protected function getAll()
+    protected function getAll($table)
     {
-        $result = $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
+        $result = $this->db->query("SELECT * FROM $table")->fetchAllOrFail();
         return array_map(fn ($data) => new $this->modelClass($data), $result);
     }
 
@@ -81,14 +81,14 @@ class Repository
 
     // MANY TO MANY
 
-    protected function belongToMany(mixed $relatedClass, string $relatedTable, string $pivotTable, string $foreingkey, int $primaryKeyId)
+    protected function belongToMany(mixed $relatedClass, string $relatedTable, string $pivotTable, string $relatedkey, int $primaryKeyId)
     {
-        $result = $this->db->query("SELECT r.* FROM $relatedTable r JOIN $pivotTable p ON r.{$foreingkey} = p.{$foreingkey} WHERE p.{$this->primaryKey} = ?", [$primaryKeyId])->fetchAllOrFail();
+        $result = $this->db->query("SELECT r.* FROM $relatedTable r JOIN $pivotTable p ON r.{$relatedkey} = p.{$relatedkey} WHERE p.{$this->primaryKey} = ?", [$primaryKeyId])->fetchAllOrFail();
         return array_map(fn ($data) => new $relatedClass($data), $result);
     }
 
-    protected function attach()
+    protected function attach(string $pivotTable, string $foreignKey, string $relatedKey, int $foreingkeyId, int $relatedKeyId)
     {
-        
+        return $this->db->query("INSERT INTO $pivotTable ({$foreignKey}, {$relatedKey}) VALUES (:foreingkeyId, :relatedKeyId)", [ ':foreingkeyId' => $foreingkeyId, ':relatedKeyId' => $relatedKeyId ]);
     }
 }
