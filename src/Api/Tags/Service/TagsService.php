@@ -1,10 +1,10 @@
 <?php
 
-namespace Tags\Service;
+namespace Api\Tags\Service;
 
 use Core\App;
-use Tags\Model\Tags;
-use Tags\Repository\TagsRepository;
+use Api\Tags\Model\Tags;
+use Api\Tags\Repository\TagsRepository;
 
 class TagsService
 {
@@ -25,16 +25,14 @@ class TagsService
         return $this->tagsRepository->getTagById($id);
     }
 
-    public function createTag(mixed $dataTag)
+    public function createTag($data)
     {
-        $tag = new Tags($dataTag);
-        return $this->tagsRepository->createTag($tag);
+        return $this->tagsRepository->createTag($data);
     }
 
-    public function updateTag(mixed $dataTag)
+    public function updateTag($data, $id)
     {
-        $tag = new Tags($dataTag);
-        return $this->tagsRepository->updateTag($tag);
+        return $this->tagsRepository->updateTag($data, $id);
     }
 
     public function deleteTag(int $id)

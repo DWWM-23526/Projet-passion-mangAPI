@@ -5,7 +5,7 @@ namespace Api\Manga\Repository;
 use Api\Manga\Model\Manga;
 use Api\Mangaka\Model\Mangaka;
 use Core\ORM\Repository;
-use Tags\Model\Tags;
+use Api\Tags\Model\Tags;
 
 class MangaRepository extends Repository
 {

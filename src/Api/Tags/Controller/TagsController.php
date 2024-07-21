@@ -1,11 +1,11 @@
 <?php
 
-namespace Tags\Controller;
+namespace Api\Tags\Controller;
 
 use Core\App;
 use Core\HTTPRequest;
 use core\HTTPResponse;
-use Tags\Service\TagsService;
+use Api\Tags\Service\TagsService;
 
 class TagsController
 {
@@ -22,34 +22,42 @@ class TagsController
 
     public function getTagById(HTTPRequest $request, HTTPResponse $response, $params){
         $tagId = $params['tagId'];
-        $tag = $this->tagsService->getTagById($tagId);
-        $tag === null ? $response->abort() : $response->sendJsonResponse($tag);
+        try {
+            $tag = $this->tagsService->getTagById($tagId);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
+        $response->sendJsonResponse($tag);
     }
 
     public function addTag(HTTPRequest $request, HTTPResponse $response){
         $body = $request->getBody();
         try {
             $this->tagsService->createTag($body);
-            $response->sendJsonResponse(["Tag {$body['tag_name']} créé"]);
         } catch (\Throwable $th) {
             $response->abort();
         }
+        $response->sendJsonResponse(["Tag {$body['tag_name']} créé"]);
     }
 
-    public function updateTag(HTTPRequest $request, HTTPResponse $response){
+    public function updateTag(HTTPRequest $request, HTTPResponse $response, $params){
+        $tagId = $params["tagId"];
         $body = $request->getBody();
         try {
-            $this->tagsService->updateTag($body);
-            $response->sendJsonResponse(["Tag {$body['tag_name']} updated"]);
+            $this->tagsService->updateTag($body, $tagId);
         } catch (\Throwable $th) {
-            $response->abort($th->getMessage());
+            $response->abort();
         }
+        $response->sendJsonResponse(["Tag {$tagId} updated"]);
     }
 
     public function deleteTag(HTTPRequest $request, HTTPResponse $response, $params){
-        $tag = $params['tagId'];
-        // TODO: Vérification des données
-        $this->tagsService->deleteTag($tag);
-        $tag === null ? $response->abort() : $response->sendJsonResponse($tag);
+        $tagId = $params['tagId'];
+        try {
+            $this->tagsService->deleteTag($tagId);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
+       $response->sendJsonResponse(["Tag {$tagId} bien delete"]);
     }
 }

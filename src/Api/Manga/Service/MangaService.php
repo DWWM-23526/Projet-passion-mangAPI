@@ -3,7 +3,6 @@
 namespace Api\Manga\Service;
 
 use Core\App;
-use Api\Manga\Model\Manga;
 use Api\Manga\Repository\MangaRepository;
 
 class MangaService

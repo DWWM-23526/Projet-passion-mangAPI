@@ -24,7 +24,7 @@ class MangakaRepository extends Repository
 
   public function getAllRelatedManga($id)
   {
-    return $this->hasMany(Manga::class, 'mangas', $this->primaryKey, $id );
+    return $this->hasMany(Manga::class, 'mangas', $this->primaryKey, $id);
   }
 
   public function createMangaka($data)
