@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Api\Users\Repository\UsersRespository;
+use Api\Users\Repository\UsersRepository;
 use Api\Users\Service\UsersService;
 
 use Core\ORM\DatabaseManager;
@@ -145,8 +145,8 @@ class App
       return new TagsRepository();
     });
 
-    $containerRepositories->setContainer(UsersRespository::class, function(){
-      return new UsersRespository();
+    $containerRepositories->setContainer(UsersRepository::class, function(){
+      return new UsersRepository();
     });
 
     self::setRepositoriesContainer($containerRepositories);

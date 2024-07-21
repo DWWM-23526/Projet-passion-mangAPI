@@ -5,7 +5,7 @@ namespace Api\Users\Repository;
 use Api\Users\Model\Users;
 use Core\ORM\Repository;
 
-class UsersRespository extends Repository
+class UsersRepository extends Repository
 {
     protected $table = 'users';
     protected $modelClass = Users::class;
@@ -20,6 +20,8 @@ class UsersRespository extends Repository
     {
         return $this->getBy($userId, 'Id_user');
     }
+
+    
 
     public function createUser($data)
     {

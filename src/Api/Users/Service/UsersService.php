@@ -3,38 +3,38 @@
 namespace Api\Users\Service;
 
 use Core\App;
-use Api\Users\Repository\UsersRespository;
+use Api\Users\Repository\UsersRepository;
 
 class UsersService{
-    private UsersRespository $usersRespository;
+    private UsersRepository $usersRepository;
 
     public function __construct(){
-        $this->usersRespository = App::injectRepository()->getContainer(UsersRespository::class);
+        $this->usersRepository = App::injectRepository()->getContainer(UsersRepository::class);
     }
 
     public function getAllUsers(){
-        return $this->usersRespository->getAllUsers();
+        return $this->usersRepository->getAllUsers();
     }
 
     public function getUserById(int $id)
     {
-        return $this->usersRespository->getUserById($id);
+        return $this->usersRepository->getUserById($id);
     }
     
     public function createUser($data)
     {
-        return $this->usersRespository->createUser($data);
+        return $this->usersRepository->createUser($data);
     }
 
     public function updateUser($data, $id)
     {
-        return $this->usersRespository->updateUser($data, $id);
+        return $this->usersRepository->updateUser($data, $id);
     }
 
     
     public function deleteUser($id)
     {
-        return $this->usersRespository->deleteUser($id);
+        return $this->usersRepository->deleteUser($id);
     }
     
 

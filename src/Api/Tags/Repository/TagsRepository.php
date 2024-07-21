@@ -16,18 +16,13 @@ class TagsRepository extends Repository
 
     public function getAllTags()
     {
-        return $this->getAll();
+        return $this->getAll($this->table);
     }
 
     public function getTagById(int $tagsId)
     {
         return $this->getBy($tagsId, $this->primaryKey);
     }
-    // TODO Corriger :
-    // public function getAllRelatedManga($id)
-    // {
-    //     return $this->hasMany(Manga::class, 'mangas', $this->primaryKey, $id);
-    // }
 
     public function createTag($data)
     {

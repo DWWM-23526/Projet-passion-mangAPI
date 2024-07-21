@@ -19,11 +19,6 @@ class TagsService
     {
         return $this->tagsRepository->getAllTags();
     }
-    //TODO Corriger :
-    // public function getAllRelatedManga($id)
-    // {
-    //     return $this->tagsRepository->getAllRelatedManga($id);
-    // }
 
     public function getTagById(int $id)
     {
