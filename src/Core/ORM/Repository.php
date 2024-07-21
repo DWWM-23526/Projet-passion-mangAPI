@@ -64,18 +64,18 @@ class Repository
 
     // ONE TO MANY
 
-    protected function hasMany(mixed $relatedClass, string $relatedTable, string $foreingKey, int $localKeyId)
+    protected function hasMany(mixed $relatedClass, string $relatedTable, string $foreignKey, int $localKeyId)
     {
 
-        $result = $this->db->query("SELECT * FROM {$relatedTable} WHERE {$foreingKey} = ?", [$localKeyId])->fetchAllOrFail();
+        $result = $this->db->query("SELECT * FROM {$relatedTable} WHERE {$foreignKey} = ?", [$localKeyId])->fetchAllOrFail();
         return array_map(fn ($data) => new $relatedClass($data), $result);
     }
 
     // MANY TO ONE
 
-    protected function belongTo(mixed $relatedClass, string $relatedTable, string $foreingKey, int $ownerKeyId)
+    protected function belongTo(mixed $relatedClass, string $relatedTable, string $foreignKey, int $ownerKeyId)
     {
-        $result = $this->db->query("SELECT * FROM {$relatedTable} WHERE {$foreingKey} = ?", [$ownerKeyId])->fetchOrFail();
+        $result = $this->db->query("SELECT * FROM {$relatedTable} WHERE {$foreignKey} = ?", [$ownerKeyId])->fetchOrFail();
         return new $relatedClass($result);
     }
 
@@ -87,14 +87,14 @@ class Repository
         return array_map(fn ($data) => new $relatedClass($data), $result);
     }
 
-    protected function attach(string $pivotTable, string $foreignKey, string $relatedKey, int $foreingkeyId, int $relatedKeyId)
+    protected function attach(string $pivotTable, string $foreignKey, string $relatedKey, int $foreignkeyId, int $relatedKeyId)
     {
-        return $this->db->query("INSERT INTO $pivotTable ({$foreignKey}, {$relatedKey}) VALUES (:foreingkeyId, :relatedKeyId)", [':foreingkeyId' => $foreingkeyId, ':relatedKeyId' => $relatedKeyId]);
+        return $this->db->query("INSERT INTO $pivotTable ({$foreignKey}, {$relatedKey}) VALUES (:foreignkeyId, :relatedKeyId)", [':foreignkeyId' => $foreignkeyId, ':relatedKeyId' => $relatedKeyId]);
     }
 
 
-    protected function detach(string $pivotTable, string $foreignKey, string $relatedKey, int $foreingkeyId, int $relatedKeyId)
+    protected function detach(string $pivotTable, string $foreignKey, string $relatedKey, int $foreignkeyId, int $relatedKeyId)
     {
-        return $this->db->query("DELETE FROM $pivotTable WHERE {$foreignKey} = :foreingkeyId AND {$relatedKey} = :relatedKeyId", [':foreingkeyId' => $foreingkeyId, ':relatedKeyId' => $relatedKeyId]);
+        return $this->db->query("DELETE FROM $pivotTable WHERE {$foreignKey} = :foreignkeyId AND {$relatedKey} = :relatedKeyId", [':foreignkeyId' => $foreignkeyId, ':relatedKeyId' => $relatedKeyId]);
     }
 }

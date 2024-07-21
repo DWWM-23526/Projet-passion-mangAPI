@@ -16,6 +16,21 @@ class UsersService{
         return $this->usersRepository->getAllUsers();
     }
 
+    public function getAllUserRelatedManga(int $id)
+    {
+        return $this->usersRepository->getAllUserRelatedManga($id);
+    }
+
+    public function addMangaToUser(int $userId, int $mangaId)
+    {
+        return $this->usersRepository->addMangaToUser($userId, $mangaId);
+    }
+
+    public function removeMangaFromUser(int $userId, int $mangaId)
+    {
+        return $this->usersRepository->removeMangaFromUser($userId, $mangaId);
+    }
+
     public function getUserById(int $id)
     {
         return $this->usersRepository->getUserById($id);
