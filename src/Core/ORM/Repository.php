@@ -21,9 +21,9 @@ class Repository
 
     // BASIC CRUD
 
-    protected function getAll()
+    protected function getAll($table)
     {
-        $result = $this->db->query("SELECT * FROM $this->table")->fetchAllOrFail();
+        $result = $this->db->query("SELECT * FROM $table")->fetchAllOrFail();
         return array_map(fn ($data) => new $this->modelClass($data), $result);
     }
 
@@ -59,26 +59,42 @@ class Repository
 
     protected function delete(mixed $id, string $column)
     {
-        $this->db->query("DELETE FROM $this->table WHERE $column = ?", [$id]);
+        return $this->db->query("DELETE FROM $this->table WHERE $column = ?", [$id]);
     }
 
     // ONE TO MANY
 
-    protected function hasMany(mixed $relatedClass, string $relatedTable, string $foreingKey, int $localKey)
+    protected function hasMany(mixed $relatedClass, string $relatedTable, string $foreingKey, int $localKeyId)
     {
-        $relatedModel = new $relatedClass();
-        $result = $this->db->query("SELECT * FROM {$relatedTable} WHERE {$foreingKey} = ?", [$localKey])->fetchAllOrFail();
 
-        return array_map(fn ($data) => new $relatedModel($data), $result);
+        $result = $this->db->query("SELECT * FROM {$relatedTable} WHERE {$foreingKey} = ?", [$localKeyId])->fetchAllOrFail();
+        return array_map(fn ($data) => new $relatedClass($data), $result);
     }
 
     // MANY TO ONE
 
-    protected function belongTo(mixed $relatedClass, string $relatedTable, string $foreingKey, int $ownerKey)
+    protected function belongTo(mixed $relatedClass, string $relatedTable, string $foreingKey, int $ownerKeyId)
     {
-        $relatedModel = new $relatedClass();
-        $result = $this->db->query("SELECT * FROM {$relatedTable} WHERE {$foreingKey} = ?", [$ownerKey])->fetchOrFail();
+        $result = $this->db->query("SELECT * FROM {$relatedTable} WHERE {$foreingKey} = ?", [$ownerKeyId])->fetchOrFail();
+        return new $relatedClass($result);
+    }
 
-        return new $relatedModel($result);
+    // MANY TO MANY
+
+    protected function belongToMany(mixed $relatedClass, string $relatedTable, string $pivotTable, string $relatedkey, int $primaryKeyId)
+    {
+        $result = $this->db->query("SELECT r.* FROM $relatedTable r JOIN $pivotTable p ON r.{$relatedkey} = p.{$relatedkey} WHERE p.{$this->primaryKey} = ?", [$primaryKeyId])->fetchAllOrFail();
+        return array_map(fn ($data) => new $relatedClass($data), $result);
+    }
+
+    protected function attach(string $pivotTable, string $foreignKey, string $relatedKey, int $foreingkeyId, int $relatedKeyId)
+    {
+        return $this->db->query("INSERT INTO $pivotTable ({$foreignKey}, {$relatedKey}) VALUES (:foreingkeyId, :relatedKeyId)", [':foreingkeyId' => $foreingkeyId, ':relatedKeyId' => $relatedKeyId]);
+    }
+
+
+    protected function detach(string $pivotTable, string $foreignKey, string $relatedKey, int $foreingkeyId, int $relatedKeyId)
+    {
+        return $this->db->query("DELETE FROM $pivotTable WHERE {$foreignKey} = :foreingkeyId AND {$relatedKey} = :relatedKeyId", [':foreingkeyId' => $foreingkeyId, ':relatedKeyId' => $relatedKeyId]);
     }
 }

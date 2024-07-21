@@ -137,14 +137,6 @@ class App
       return new MangakaRepository();
     });
 
-    $containerRepositories->setContainer(FavoritesRepository::class, function () {
-      return new FavoritesRepository();
-    });
-
-    $containerRepositories->setContainer(TagsMangaRepository::class, function () {
-      return new TagsMangaRepository();
-    });
-
     $containerRepositories->setContainer(EmailConfirmRepository::class, function () {
       return new EmailConfirmRepository();
     });
@@ -171,14 +163,6 @@ class App
 
     $containerServices->setContainer(MangakaService::class, function () {
       return new MangakaService();
-    });
-
-    $containerServices->setContainer(FavoritesService::class, function () {
-      return new FavoritesService();
-    });
-
-    $containerServices->setContainer(TagsMangaService::class, function () {
-      return new TagsMangaService();
     });
 
     $containerServices->setContainer(EmailConfirmService::class, function () {

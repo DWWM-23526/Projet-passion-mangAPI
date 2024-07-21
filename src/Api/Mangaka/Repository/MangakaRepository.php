@@ -14,7 +14,7 @@ class MangakaRepository extends Repository
 
   public function getAllMangakas()
   {
-    return $this->getAll();
+    return $this->getAll($this->table);
   }
 
   public function getMangakaById(int $mangakaId)
