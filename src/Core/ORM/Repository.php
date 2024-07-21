@@ -89,6 +89,12 @@ class Repository
 
     protected function attach(string $pivotTable, string $foreignKey, string $relatedKey, int $foreingkeyId, int $relatedKeyId)
     {
-        return $this->db->query("INSERT INTO $pivotTable ({$foreignKey}, {$relatedKey}) VALUES (:foreingkeyId, :relatedKeyId)", [ ':foreingkeyId' => $foreingkeyId, ':relatedKeyId' => $relatedKeyId ]);
+        return $this->db->query("INSERT INTO $pivotTable ({$foreignKey}, {$relatedKey}) VALUES (:foreingkeyId, :relatedKeyId)", [':foreingkeyId' => $foreingkeyId, ':relatedKeyId' => $relatedKeyId]);
+    }
+
+
+    protected function detach(string $pivotTable, string $foreignKey, string $relatedKey, int $foreingkeyId, int $relatedKeyId)
+    {
+        return $this->db->query("DELETE FROM $pivotTable WHERE {$foreignKey} = :foreingkeyId AND {$relatedKey} = :relatedKeyId", [':foreingkeyId' => $foreingkeyId, ':relatedKeyId' => $relatedKeyId]);
     }
 }

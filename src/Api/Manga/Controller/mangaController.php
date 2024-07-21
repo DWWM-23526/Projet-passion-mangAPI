@@ -69,6 +69,18 @@ class MangaController
         $response->sendJsonResponse(["tag id : $tagId  succesfuly added to manga id : $mangaId "]);
     }
 
+    public function removeMangaTag(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $mangaId = $params['mangaId'];
+        $tagId = $params['tagId'];
+        try {
+            $this->mangaService->removeMangaTag($mangaId, $tagId);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
+        $response->sendJsonResponse(["tag id : $tagId  succesfuly removed from manga id : $mangaId "]);
+    }
+
     public function addManga(HTTPRequest $request, HTTPResponse $response,  $params)
     {
         $body = $request->getBody();

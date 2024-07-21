@@ -46,6 +46,11 @@ class MangaRepository extends Repository
     return $this->attach('tags_manga', $this->primaryKey, 'Id_tag', $mangaId, $tagId );
   }
 
+  public function removeMangaTag(int $mangaId, int $tagId)
+  {
+    return $this->detach('tags_manga', $this->primaryKey, 'Id_tag', $mangaId, $tagId);
+  }
+
   public function createManga(array $data)
   {
     return $this->create($data);

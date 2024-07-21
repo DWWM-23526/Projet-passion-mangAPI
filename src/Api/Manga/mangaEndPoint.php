@@ -32,3 +32,8 @@ $app->addRoute(RequestMethod::PUT, '/api/manga/{mangaId}', 'Api\Manga\Controller
 
 // DELETE remove a manga
 $app->addRoute(RequestMethod::DELETE, '/api/manga/{mangaId}', 'Api\Manga\Controller\MangaController', 'removeManga');
+
+
+// DELETE tag from  manga
+$app->addRoute(RequestMethod::DELETE, '/api/manga/tags/{mangaId}/{tagId}', 'Api\Manga\Controller\MangaController', 'removeMangaTag');
+

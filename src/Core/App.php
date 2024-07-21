@@ -82,9 +82,7 @@ class App
     require __DIR__ . "/../Api/EmailConfirm/emailConfirmEndPoint.php";
     require __DIR__ . "/../Api/Manga/mangaEndPoint.php";
     require __DIR__ . "/../Api/Mangaka/mangakaEndPoint.php";
-    require __DIR__ . '/../Favorites/favoritesEndPoint.php';
     require __DIR__ . '/../Tags/tagEndPoint.php';
-    require __DIR__ . '/../TagsManga/tagsMangaEndPoint.php';
     require __DIR__ . '/../Api/Users/usersEndPoint.php';
 
     // TODO: Faire le fichier et dossier log / migration.log
