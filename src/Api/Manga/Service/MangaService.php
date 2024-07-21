@@ -25,6 +25,22 @@ class MangaService
     return $this->mangaRepository->getRelatedMangaka($id);
   }
 
+  public function getAllMangaRelatedTags(int $id)
+  {
+    return $this->mangaRepository->getAllMangaRelatedTags($id);
+  }
+
+  public function addTagToManga(int $mangaId, int $tagId)
+  {
+    return $this->mangaRepository->addTagToManga($mangaId, $tagId);
+  }
+
+  public function removeMangaTag(int $mangaId, int $tagId)
+  {
+
+    return $this->mangaRepository->removeMangaTag($mangaId, $tagId);
+  }
+
   public function getMangaById(int $id)
   {
     return $this->mangaRepository->getMangaById($id);

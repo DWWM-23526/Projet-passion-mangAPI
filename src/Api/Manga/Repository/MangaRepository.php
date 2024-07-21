@@ -5,6 +5,7 @@ namespace Api\Manga\Repository;
 use Api\Manga\Model\Manga;
 use Api\Mangaka\Model\Mangaka;
 use Core\ORM\Repository;
+use Tags\Model\Tags;
 
 class MangaRepository extends Repository
 {
@@ -16,7 +17,7 @@ class MangaRepository extends Repository
 
   public function getAllMangas()
   {
-    return $this->getAll();
+    return $this->getAll($this->table);
   }
 
   public function getMangaById(int $mangaId)
@@ -35,13 +36,27 @@ class MangaRepository extends Repository
     return $this->belongTo(Mangaka::class, 'mangakas', 'Id_mangaka', $manga->Id_mangaka);
   }
 
+  public function getAllMangaRelatedTags($mangaId)
+  {
+    return $this->belongToMany(Tags::class, 'tags', 'tags_manga', 'Id_tag', $mangaId);
+  }
 
-  public function createManga($data)
+  public function addTagToManga(int $mangaId, int $tagId)
+  {
+    return $this->attach('tags_manga', $this->primaryKey, 'Id_tag', $mangaId, $tagId );
+  }
+
+  public function removeMangaTag(int $mangaId, int $tagId)
+  {
+    return $this->detach('tags_manga', $this->primaryKey, 'Id_tag', $mangaId, $tagId);
+  }
+
+  public function createManga(array $data)
   {
     return $this->create($data);
   }
 
-  public function updateManga($data, $id)
+  public function updateManga(array $data, int $id)
   {
     return $this->update($data, $id);
   }

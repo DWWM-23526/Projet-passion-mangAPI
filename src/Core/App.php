@@ -82,9 +82,7 @@ class App
     require __DIR__ . "/../Api/EmailConfirm/emailConfirmEndPoint.php";
     require __DIR__ . "/../Api/Manga/mangaEndPoint.php";
     require __DIR__ . "/../Api/Mangaka/mangakaEndPoint.php";
-    require __DIR__ . '/../Favorites/favoritesEndPoint.php';
     require __DIR__ . '/../Tags/tagEndPoint.php';
-    require __DIR__ . '/../TagsManga/tagsMangaEndPoint.php';
     require __DIR__ . '/../Api/Users/usersEndPoint.php';
 
     // TODO: Faire le fichier et dossier log / migration.log
@@ -137,14 +135,6 @@ class App
       return new MangakaRepository();
     });
 
-    $containerRepositories->setContainer(FavoritesRepository::class, function () {
-      return new FavoritesRepository();
-    });
-
-    $containerRepositories->setContainer(TagsMangaRepository::class, function () {
-      return new TagsMangaRepository();
-    });
-
     $containerRepositories->setContainer(EmailConfirmRepository::class, function () {
       return new EmailConfirmRepository();
     });
@@ -171,14 +161,6 @@ class App
 
     $containerServices->setContainer(MangakaService::class, function () {
       return new MangakaService();
-    });
-
-    $containerServices->setContainer(FavoritesService::class, function () {
-      return new FavoritesService();
-    });
-
-    $containerServices->setContainer(TagsMangaService::class, function () {
-      return new TagsMangaService();
     });
 
     $containerServices->setContainer(EmailConfirmService::class, function () {
