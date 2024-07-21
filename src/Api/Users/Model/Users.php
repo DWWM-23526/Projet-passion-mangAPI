@@ -8,7 +8,6 @@ class Users
   public ?string $name;
   public ?string $email;
   public ?string $password;
-  public int $is_deleted;
 
 
   public function __construct(array $data = [])
@@ -17,7 +16,6 @@ class Users
     $this->name = $data['name'] ?? '';
     $this->email = $data['email'] ?? '';
     $this->password = $data['password'] ?? "";
-    $this->is_deleted = $data['is_deleted'] ?? 0;
   }
 
   public function toArray(){
@@ -26,7 +24,6 @@ class Users
       'name' => $this->name,
       'email' => $this->email,
       'password' => $this->password,
-      'is_deleted' => $this->is_deleted
     ];
   }
 }

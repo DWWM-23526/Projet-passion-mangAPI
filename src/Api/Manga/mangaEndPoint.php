@@ -14,7 +14,7 @@ $app->addRoute(RequestMethod::GET, '/api/manga/{mangaId}', 'Api\Manga\Controller
 $app->addRoute(RequestMethod::GET, '/api/manga/mangaka/{mangaId}', 'Api\Manga\Controller\MangaController', 'getRelatedMangaka');
 
 
-// GET  All anga related tags by manga by ID
+// GET  All manga related tags by manga by ID
 $app->addRoute(RequestMethod::GET, '/api/manga/tags/{mangaId}', 'Api\Manga\Controller\MangaController', 'getAllMangaRelatedTags');
 
 

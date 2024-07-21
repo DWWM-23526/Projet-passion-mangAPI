@@ -2,6 +2,7 @@
 
 namespace Api\Users\Repository;
 
+use Api\Manga\Model\Manga;
 use Api\Users\Model\Users;
 use Core\ORM\Repository;
 
@@ -21,7 +22,20 @@ class UsersRepository extends Repository
         return $this->getBy($userId, 'Id_user');
     }
 
-    
+    public function getAllUserRelatedManga(int $userId)
+    {
+        return $this->belongToMany(Manga::class, 'mangas', 'favoris', 'Id_manga', $userId);
+    }
+
+    public function addMangaToUser(int $userId, int $mangaId)
+    {
+        return $this->attach('favoris', $this->primaryKey, 'Id_manga', $userId, $mangaId);
+    }
+
+    public function removeMangaFromUser(int $userId, int $mangaId)
+    {
+        return $this->detach('favoris', $this->primaryKey, 'Id_manga', $userId, $mangaId);
+    }
 
     public function createUser($data)
     {
@@ -37,5 +51,4 @@ class UsersRepository extends Repository
     {
         return $this->delete($id, 'Id_user');
     }
-
 }
