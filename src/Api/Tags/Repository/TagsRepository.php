@@ -2,11 +2,11 @@
 
 namespace Api\Tags\Repository;
 
-use Api\Manga\Model\Manga;
-use Api\Tags\Model\Tags;
-use Core\ORM\Repository;
 
-class TagsRepository extends Repository
+use Api\Tags\Model\Tags;
+use Core\ORM\BaseRepository;
+
+class TagsRepository extends BaseRepository
 {
     protected $table = "tags";
 

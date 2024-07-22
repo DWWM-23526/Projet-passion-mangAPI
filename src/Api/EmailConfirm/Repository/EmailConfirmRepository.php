@@ -3,19 +3,14 @@
 namespace Api\EmailConfirm\Repository;
 
 use Api\EmailConfirm\Model\EmailConfirm;
-use Core\App;
-use Core\Database;
-use Core\ORM\Repository;
+use Core\ORM\BaseRepository;
 
-class EmailConfirmRepository extends Repository
+
+class EmailConfirmRepository extends BaseRepository
 {
   protected $table = 'email_confirmation';
-
   protected $modelClass = EmailConfirm::class;
-
   protected $primaryKey = "id_conf";
-
-
 
   // CRUD
 

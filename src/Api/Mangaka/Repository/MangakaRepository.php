@@ -4,9 +4,10 @@ namespace Api\Mangaka\Repository;
 
 use Api\Manga\Model\Manga;
 use Api\Mangaka\Model\Mangaka;
-use Core\ORM\Repository;
+use Core\ORM\BaseRepository;
 
-class MangakaRepository extends Repository
+
+class MangakaRepository extends BaseRepository
 {
   protected $table = 'mangakas';
   protected $modelClass = Mangaka::class;

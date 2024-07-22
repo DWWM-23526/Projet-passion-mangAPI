@@ -4,9 +4,10 @@ namespace Api\Users\Repository;
 
 use Api\Manga\Model\Manga;
 use Api\Users\Model\Users;
-use Core\ORM\Repository;
+use Core\ORM\BaseRepository;
 
-class UsersRepository extends Repository
+
+class UsersRepository extends BaseRepository
 {
     protected $table = 'users';
     protected $modelClass = Users::class;

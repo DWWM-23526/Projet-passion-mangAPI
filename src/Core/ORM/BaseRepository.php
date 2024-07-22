@@ -5,7 +5,7 @@ namespace Core\ORM;
 use Core\App;
 use Core\Database;
 
-class Repository
+class BaseRepository
 {
 
     protected Database $db;

@@ -4,10 +4,10 @@ namespace Api\Manga\Repository;
 
 use Api\Manga\Model\Manga;
 use Api\Mangaka\Model\Mangaka;
-use Core\ORM\Repository;
 use Api\Tags\Model\Tags;
+use Core\ORM\BaseRepository;
 
-class MangaRepository extends Repository
+class MangaRepository extends BaseRepository
 {
   protected $table = 'mangas';
   protected $modelClass = Manga::class;
