@@ -11,5 +11,8 @@
             "email": "147519666+Aetherum97@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "firebase/php-jwt": "^6.10"
+    }
 }
