@@ -27,10 +27,39 @@ abstract class BaseRepository
         return array_map(fn ($data) => new $this->modelClass($data), $result);
     }
 
-    protected function getBy(mixed $id, string $column)
-    {
-        $result = $this->db->query("SELECT * FROM $this->table WHERE $column = ?", [$id])->fetchOrFail();
+    protected function getById(int $id){
+        $result = $this->db->query("SELECT * FROM $this->table WHERE $this->primaryKey = ?", [$id])->fetchOrFail();
         return new $this->modelClass($result);
+    }
+
+    protected function getBy(mixed $value, string $column)
+    {
+        $result = $this->db->query("SELECT * FROM $this->table WHERE $column = ?", [$value])->fetchOrFail();
+        return new $this->modelClass($result);
+    }
+
+    /**
+     * Summary of checkIfExists
+     * @param string $table
+     * @param array $values
+     * @param array $columns
+     * @return array
+     */
+    protected function checkIfExists(string $table, array $values, array $columns){
+        if(count($values) == count($columns)){
+            $begin = "SELECT COUNT(*) FROM $table";
+            $wheres = "";
+            for($i = 0 ; $i < count($values); $i++){
+                if($i == 0){
+                    $wheres = $wheres." WHERE ".$columns[$i]." = ?";
+                } else {
+                    $wheres = $wheres." AND ".$columns[$i]." = ?";
+                }
+            }
+            $result = $this->db->query($begin.$wheres, $values)->fetchAllOrFail();
+            return $result;
+        }
+        throw new \Exception("Invalid Request");
     }
 
     protected function create(array $data)
@@ -111,6 +140,8 @@ abstract class BaseRepository
         $result = $this->db->query("SELECT r.* FROM $relatedTable r JOIN $pivotTable p ON r.{$relatedkey} = p.{$relatedkey} WHERE p.{$this->primaryKey} = ?", [$primaryKeyId])->fetchAllOrFail();
         return array_map(fn ($data) => new $relatedClass($data), $result);
     }
+    
+    
 
     /**
      * Summary of attach

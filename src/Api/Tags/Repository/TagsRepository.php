@@ -21,7 +21,7 @@ class TagsRepository extends BaseRepository
 
     public function getTagById(int $tagsId)
     {
-        return $this->getBy($tagsId, $this->primaryKey);
+        return $this->getById($tagsId);
     }
 
     public function createTag($data)

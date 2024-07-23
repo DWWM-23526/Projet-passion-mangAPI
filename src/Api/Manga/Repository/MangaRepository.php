@@ -22,7 +22,7 @@ class MangaRepository extends BaseRepository
 
   public function getMangaById(int $mangaId)
   {
-    return $this->getBy($mangaId, $this->primaryKey);
+    return $this->getById($mangaId);
   }
 
   public function getRelatedMangaka(int $mangaId)
@@ -39,6 +39,10 @@ class MangaRepository extends BaseRepository
   public function getAllMangaRelatedTags($mangaId)
   {
     return $this->belongToMany(Tags::class, 'tags', 'tags_manga', 'Id_tag', $mangaId);
+  }
+
+  public function checkIfIsUserFavorite($mangaId, $UserId){
+    return $this->checkIfExists('favoris',[$mangaId, $UserId],['Id_manga', 'Id_user']);
   }
 
   public function addTagToManga(int $mangaId, int $tagId)
