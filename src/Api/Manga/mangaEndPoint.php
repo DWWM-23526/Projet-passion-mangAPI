@@ -17,6 +17,9 @@ $app->addRoute(RequestMethod::GET, '/api/manga/mangaka/{mangaId}', 'Api\Manga\Co
 // GET  All manga related tags by manga by ID
 $app->addRoute(RequestMethod::GET, '/api/manga/tags/{mangaId}', 'Api\Manga\Controller\MangaController', 'getAllMangaRelatedTags');
 
+// GET if is favorite from one User
+$app->addRoute(RequestMethod::GET, '/api/manga/user/{mangaId}/{userId}', 'Api\Manga\Controller\MangaController', 'checkIfIsUserFavorite');
+
 
 // POST add new tag to  manga
 $app->addRoute(RequestMethod::POST, '/api/manga/tags/{mangaId}/{tagId}', 'Api\Manga\Controller\MangaController', 'addTagToManga');

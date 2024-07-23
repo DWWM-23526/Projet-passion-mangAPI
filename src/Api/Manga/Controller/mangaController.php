@@ -57,6 +57,17 @@ class MangaController
         $response->sendJsonResponse($tags);
     }
 
+    public function checkIfIsUserFavorite(HTTPRequest $request, HTTPResponse $response, $params){
+        $mangaId = $params['mangaId'];
+        $userId = $params['userId'];
+        try{
+            $check = $this->mangaService->checkIfIsUserFavorite($userId, $mangaId);
+        } catch(\Throwable $th){
+            $response->abort("Heeeuuuu Problemes !");
+        }
+        $response->sendJsonResponse($check);
+    }
+
     public function addTagToManga(HTTPRequest $request, HTTPResponse $response, $params)
     {
         $mangaId = $params['mangaId'];

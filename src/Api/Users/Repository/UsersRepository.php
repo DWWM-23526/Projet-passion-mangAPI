@@ -20,7 +20,7 @@ class UsersRepository extends BaseRepository
 
     public function getUserById(int $userId)
     {
-        return $this->getBy($userId, 'Id_user');
+        return $this->getById($userId);
     }
 
     public function getAllUserRelatedManga(int $userId)
