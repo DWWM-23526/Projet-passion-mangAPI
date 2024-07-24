@@ -9,6 +9,10 @@ $app->addRoute(RequestMethod::GET, '/api/users', 'Api\Users\Controller\UsersCont
 $app->addRoute(RequestMethod::GET, '/api/users/{UserId}', 'Api\Users\Controller\UsersController', 'getUserById');
 
 // GET All user related manga
+$app->addRoute(RequestMethod::GET, '/api/users/login', 'Api\Users\Controller\UsersController', 'login');
+
+
+// GET All user related manga
 $app->addRoute(RequestMethod::GET, '/api/users/manga/{UserId}', 'Api\Users\Controller\UsersController', 'getAllUserRelatedManga');
 
 // POST add new manga to user

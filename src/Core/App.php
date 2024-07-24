@@ -17,7 +17,7 @@ use Api\Mangaka\Repository\MangakaRepository;
 use Api\Mangaka\Service\MangakaService;
 use Api\Tags\Repository\TagsRepository;
 use Api\Tags\Service\TagsService;
-
+use Api\Auth\Service\AuthService;
 
 class App
 {
@@ -82,6 +82,7 @@ class App
     require __DIR__ . "/../Api/Mangaka/mangakaEndPoint.php";
     require __DIR__ . '/../Api/Tags/tagEndPoint.php';
     require __DIR__ . '/../Api/Users/usersEndPoint.php';
+    require __DIR__ . '/../Api/Auth/authEndPoint.php';
 
     // TODO: Faire le fichier et dossier log / migration.log
 
@@ -145,6 +146,7 @@ class App
       return new UsersRepository();
     });
 
+
     self::setRepositoriesContainer($containerRepositories);
   }
 
@@ -171,6 +173,10 @@ class App
 
     $containerServices->setContainer(UsersService::class, function(){
       return new UsersService();
+    });
+
+    $containerServices->setContainer(AuthService::class, function(){
+      return new AuthService();
     });
 
     self::setServiceContainer($containerServices);
