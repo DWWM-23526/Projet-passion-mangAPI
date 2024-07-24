@@ -23,6 +23,11 @@ class UsersRepository extends BaseRepository
         return $this->getById($userId);
     }
 
+    public function getUserByEmail(string $email)
+    {
+        return $this->getBy($email, 'email');
+    }
+
     public function getAllUserRelatedManga(int $userId)
     {
         return $this->belongToMany(Manga::class, 'mangas', 'favoris', 'Id_manga', $userId);
