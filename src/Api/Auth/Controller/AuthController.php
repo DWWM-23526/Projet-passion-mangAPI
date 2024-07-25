@@ -25,11 +25,28 @@ class AuthController
         $password = $body['password'];
 
         try {
-            $user = $this->authService->authentication($email, $password);
+            $autentification = $this->authService->authentication($email, $password);
         } catch (\Throwable $th) {
             $response->abort();
         }
-        $response->sendJsonResponse($user);
+        $response->sendJsonResponse($autentification);
+
+    }
+
+    public function validate(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $body = $request->getBody();
+
+        $token = $body['token'];
+        
+
+        try {
+            $tokenValidated = $this->authService->validateToken($token);
+        } catch (\Throwable $th) {
+            // $response->abort();
+        }
+        $response->sendJsonResponse($tokenValidated);
+
 
     }
 
