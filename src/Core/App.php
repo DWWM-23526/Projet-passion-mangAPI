@@ -18,6 +18,7 @@ use Api\Mangaka\Service\MangakaService;
 use Api\Tags\Repository\TagsRepository;
 use Api\Tags\Service\TagsService;
 use Api\Auth\Service\AuthService;
+use Services\JwtService;
 
 class App
 {
@@ -76,7 +77,7 @@ class App
     // ROUTER INIT
 
     $app = Router::getInstance();
-    
+
     require __DIR__ . "/../Api/EmailConfirm/emailConfirmEndPoint.php";
     require __DIR__ . "/../Api/Manga/mangaEndPoint.php";
     require __DIR__ . "/../Api/Mangaka/mangakaEndPoint.php";
@@ -138,11 +139,11 @@ class App
       return new EmailConfirmRepository();
     });
 
-    $containerRepositories->setContainer(TagsRepository::class, function(){
+    $containerRepositories->setContainer(TagsRepository::class, function () {
       return new TagsRepository();
     });
 
-    $containerRepositories->setContainer(UsersRepository::class, function(){
+    $containerRepositories->setContainer(UsersRepository::class, function () {
       return new UsersRepository();
     });
 
@@ -167,16 +168,20 @@ class App
       return new EmailConfirmService();
     });
 
-    $containerServices->setContainer(TagsService::class, function(){
+    $containerServices->setContainer(TagsService::class, function () {
       return new TagsService();
     });
 
-    $containerServices->setContainer(UsersService::class, function(){
+    $containerServices->setContainer(UsersService::class, function () {
       return new UsersService();
     });
 
-    $containerServices->setContainer(AuthService::class, function(){
+    $containerServices->setContainer(AuthService::class, function () {
       return new AuthService();
+    });
+
+    $containerServices->setContainer(JwtService::class, function () {
+      return new JwtService();
     });
 
     self::setServiceContainer($containerServices);
