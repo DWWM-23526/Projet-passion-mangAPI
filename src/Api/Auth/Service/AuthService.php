@@ -39,9 +39,11 @@ class AuthService
         }
     }
 
-    public function validateToken(string $token)
+    public function validateToken(array $headers)
     {
         try {
+
+            $token = str_replace('Bearer ', '', $headers['Authorization']);
 
             $decodedToken = $this->jwtService->validateToken($token);
 

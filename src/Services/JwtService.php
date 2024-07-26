@@ -18,7 +18,7 @@ class JwtService
         $payload = [
             'iss' => "passionmanga",
             'iat' => time(),
-            'exp' => time() + (60 * 60),
+            'exp' => time() + (365 * 24 * 60 * 60),
             'Id_user' => $user->Id_user,
             'email' => $user->email,
         ];
@@ -32,6 +32,8 @@ class JwtService
             $decoded = JWT::decode($token, new Key($this->key['SECRET_KEY'], 'HS256'));
             return (array) $decoded;
         } catch (\Exception $e) {
+            throw new \Exception("token decode failed");
+            
             return null;
         }
     }

@@ -46,6 +46,8 @@ class Router
             'method' => $method,
             'middleware' => null
         ];
+        
+        return $this;
     }
 
     public function route()
@@ -60,10 +62,10 @@ class Router
                 $params = $this->matchUri($route['uri'], $uri);
                 if ($params !== null) {
 
-                    // TODO : A faire avec Middleware
-                    // if($route['middleware']){
-                    //     echo "pas par là";
-                    // }
+                    if ($route['middleware']) {
+                        $middleware = BaseMiddleware::MAP[$route['middleware']];
+                        (new $middleware)->handle($request, $response);
+                    }
 
 
                     if (class_exists($route['controller'])) {
