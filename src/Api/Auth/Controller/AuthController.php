@@ -37,11 +37,11 @@ class AuthController
     {
         $body = $request->getBody();
 
-        $token = $body['token'];
+        $headers = $request->getHeaders();
         
 
         try {
-            $tokenValidated = $this->authService->validateToken($token);
+            $tokenValidated = $this->authService->validateToken($headers);
         } catch (\Throwable $th) {
             // $response->abort();
         }
