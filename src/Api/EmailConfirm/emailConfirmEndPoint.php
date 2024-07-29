@@ -11,5 +11,7 @@ $app->addRoute(RequestMethod::GET, "/api/emailConfirm/{email}", "Api\EmailConfir
 // POST add a new emailConfirm
 $app->addRoute(RequestMethod::POST, "/api/emailConfirm", "Api\EmailConfirm\Controller\EmailConfirmController", "addEmailConfirm");
 
+$app->addRoute(RequestMethod::POST, "api/createAccountToEmailConfirm", "..\src\Services\MailerService", "sendEmailToConfirmAccount");
+
 //DELETE remove an emailConfirm
 $app->addRoute(RequestMethod::DELETE, "/api/emailConfirm/{email}", "Api\EmailConfirm\Controller\EmailConfirmController", "deleteEmailConfirm");

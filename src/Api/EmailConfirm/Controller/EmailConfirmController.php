@@ -6,12 +6,15 @@ use Core\App;
 use Core\HTTPRequest;
 use core\HTTPResponse;
 use Api\EmailConfirm\Service\EmailConfirmService;
+use Services\MailerService;
 
 class EmailConfirmController
 {
+  private MailerService $mailerService;
   private EmailConfirmService $emailConfirmService;
   public function __construct()
   {
+    $this->mailerService = App::injectService()->getContainer(MailerService::class);
     $this->emailConfirmService = App::injectService()->getContainer(EmailConfirmService::class);
   }
 
@@ -26,7 +29,6 @@ class EmailConfirmController
     $email = $params["email"];
     try {
       $emailConfirm = $this->emailConfirmService->getEmailByEmail($email);
-
     } catch (\Throwable $th) {
       $response->abort();
     }
@@ -42,6 +44,25 @@ class EmailConfirmController
       $response->abort();
     }
     $response->sendJsonResponse(["email {$body['email']} crée"]);
+  }
+
+  public function sendEmailToConfirmAccount(HTTPRequest $request, HTTPResponse $response, $params)
+  {
+    $body = $request->getBody();
+    $email = $body['email'];
+
+    try {
+      $user = $this->emailConfirmService->getEmailByEmail($email);
+
+      if ($user) {
+        $this->mailerService->sendConfirmationEmail($user);
+        $response->sendJsonResponse(["message" => "Email de confirmation envoyé à {$email}."]);
+      } else {
+        $response->sendJsonResponse(["error" => "Utilisateur non trouvé."]);
+      }
+    } catch (\Throwable $th) {
+      $response->sendJsonResponse(["error" => "Erreur lors de l'envoi de l'e-mail de confirmation."]);
+    }
   }
 
   public function deleteEmailConfirm(HTTPRequest $request, HTTPResponse $response, $params)
