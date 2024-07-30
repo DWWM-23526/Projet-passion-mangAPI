@@ -35,6 +35,11 @@ class TagsService
         return $this->tagsRepository->updateTag($data, $id);
     }
 
+    public function getAllTagsRelatedManga($id)
+    {
+        return $this->tagsRepository->getAllTagsRelated($id);
+    }
+
     public function deleteTag(int $id)
     {
         return $this->tagsRepository->deleteTag($id);

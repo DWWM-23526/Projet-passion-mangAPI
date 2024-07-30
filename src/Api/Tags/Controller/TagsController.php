@@ -30,6 +30,17 @@ class TagsController
         $response->sendJsonResponse($tag);
     }
 
+    public function getAllTagsRelatedManga(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $tagId = $params['tagId'];
+        try {
+           $relatedTagsMangas = $this->tagsService->getAllTagsRelatedManga($tagId);
+        } catch (\Throwable $th) {
+            $response->abort();
+        }
+        $response->sendJsonResponse($relatedTagsMangas);
+    }
+
     public function addTag(HTTPRequest $request, HTTPResponse $response){
         $body = $request->getBody();
         try {

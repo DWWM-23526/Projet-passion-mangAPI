@@ -14,11 +14,11 @@ $app->addRoute(RequestMethod::GET, '/api/mangas/mangaka/{mangakaId}', 'Api\Manga
 
 // POST add a new manga
 
-$app->addRoute(RequestMethod::POST, '/api/mangaka', 'Api\Mangaka\Controller\MangakaController', 'addMangaka');
+$app->addRoute(RequestMethod::POST, '/api/mangaka', 'Api\Mangaka\Controller\MangakaController', 'addMangaka')->middleware('auth');
 
 // PUT update a manga
 
-$app->addRoute(RequestMethod::PUT, '/api/mangaka/{mangakaId}', 'Api\Mangaka\Controller\MangakaController', 'updateMangaka');
+$app->addRoute(RequestMethod::PUT, '/api/mangaka/{mangakaId}', 'Api\Mangaka\Controller\MangakaController', 'updateMangaka')->middleware('auth');
 
 // DELETE remove a manga
-$app->addRoute(RequestMethod::DELETE, '/api/mangaka/{mangakaId}', 'Api\Mangaka\Controller\MangakaController', 'removeMangaka');
+$app->addRoute(RequestMethod::DELETE, '/api/mangaka/{mangakaId}', 'Api\Mangaka\Controller\MangakaController', 'removeMangaka')->middleware('auth');

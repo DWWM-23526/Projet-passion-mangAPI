@@ -2,7 +2,7 @@
 
 namespace Api\Tags\Repository;
 
-
+use Api\Manga\Model\Manga;
 use Api\Tags\Model\Tags;
 use Core\ORM\BaseRepository;
 
@@ -21,7 +21,7 @@ class TagsRepository extends BaseRepository
 
     public function getTagById(int $tagsId)
     {
-        return $this->getBy($tagsId, $this->primaryKey);
+        return $this->getById($tagsId);
     }
 
     public function createTag($data)
@@ -32,6 +32,11 @@ class TagsRepository extends BaseRepository
     public function updateTag($data, $id)
     {
         return $this->update($data, $id);
+    }
+
+    public function getAllTagsRelated(int $tagsId)
+    {
+        return $this->belongToMany(Manga::class, 'mangas', 'tags_manga', 'Id_manga', $tagsId);
     }
 
     public function deleteTag($id)

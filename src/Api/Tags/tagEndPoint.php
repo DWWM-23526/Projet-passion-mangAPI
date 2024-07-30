@@ -8,11 +8,14 @@ $app->addRoute(RequestMethod::GET, '/api/tags', 'Api\Tags\Controller\TagsControl
 // Get by ID
 $app->addRoute(RequestMethod::GET, '/api/tags/{tagId}', 'Api\Tags\Controller\TagsController', 'getTagById');
 
+// GET All related tags_manga
+$app->addRoute(RequestMethod::GET, '/api/tags/manga/{tagId}', 'Api\Tags\Controller\TagsController', 'getAllTagsRelatedManga');
+
 // Create
-$app->addRoute(RequestMethod::POST, '/api/tags', 'Api\Tags\Controller\TagsController', 'addTag');
+$app->addRoute(RequestMethod::POST, '/api/tags', 'Api\Tags\Controller\TagsController', 'addTag')->middleware('auth');
 
 // Update 
-$app->addRoute(RequestMethod::PUT,'/api/tags/{tagId}', 'Api\Tags\Controller\TagsController', 'updateTag');
+$app->addRoute(RequestMethod::PUT,'/api/tags/{tagId}', 'Api\Tags\Controller\TagsController', 'updateTag')->middleware('auth');
 
 // Delete
-$app->addRoute(RequestMethod::DELETE,'/api/tags/{tagId}', 'Api\Tags\Controller\TagsController', 'deleteTag');
+$app->addRoute(RequestMethod::DELETE,'/api/tags/{tagId}', 'Api\Tags\Controller\TagsController', 'deleteTag')->middleware('auth');

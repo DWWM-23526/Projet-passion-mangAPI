@@ -29,6 +29,10 @@ class MangaService
     return $this->mangaRepository->getAllMangaRelatedTags($id);
   }
 
+  public function checkIfIsUserFavorite(int $userId, int $mangaId){
+    return $this->mangaRepository->checkIfIsUserFavorite($mangaId,$userId);
+  }
+
   public function addTagToManga(int $mangaId, int $tagId)
   {
     return $this->mangaRepository->addTagToManga($mangaId, $tagId);

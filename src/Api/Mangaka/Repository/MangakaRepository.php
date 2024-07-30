@@ -20,7 +20,7 @@ class MangakaRepository extends BaseRepository
 
   public function getMangakaById(int $mangakaId)
   {
-    return $this->getBy($mangakaId, 'Id_mangaka');
+    return $this->getById($mangakaId);
   }
 
   public function getAllRelatedManga($id)
