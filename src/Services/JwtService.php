@@ -1,4 +1,5 @@
 <?php
+
 namespace Services;
 
 use Firebase\JWT\JWT;
@@ -6,16 +7,16 @@ use Firebase\JWT\Key;
 
 class JwtService
 {
-  private array $key;
-  private $cle;
+    private array $key;
+    private $cle;
 
-  public function __construct()
-  {
-    $this->key = require_once __DIR__ ."/../../config/jwt.config.php";
-    $this->cle = rand(1000000, 9000000);
-  }
+    public function __construct()
+    {
+        $this->key = require_once __DIR__ . "/../../config/jwt.config.php";
+        $this->cle = rand(1000000, 9000000);
+    }
 
-  public function generateToken($user)
+    public function generateToken($user)
     {
         $payload = [
             'iss' => "passionmanga",
@@ -30,15 +31,17 @@ class JwtService
 
     public function generateEmailToken($user)
     {
-       $payload = [
-        'iss' => "passionmanga",
-        'iat' => time(),
-        'exp' => time() + 60 * 60,
-        'pseudo' => $user->pseudo,
-        'email' => $user->email,
-        'password' => $user->password,
-        'cle' => $this->generateRandomKey(),
-       ];
+        $payload = [
+            'iss' => "passionmanga",
+            'iat' => time(),
+            'exp' => time() + 60 * 60,
+            'pseudo' => $user->pseudo,
+            'email' => $user->email,
+            'password' => $user->password,
+            'cle' => $this->generateRandomKey(),
+        ];
+
+        return JWT::encode($payload, $this->key['SECRET_KEY'], 'HS256');
     }
     private function generateRandomKey()
     {
