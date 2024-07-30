@@ -6,19 +6,16 @@ use Core\App;
 use Core\HTTPRequest;
 use core\HTTPResponse;
 use Api\EmailConfirm\Service\EmailConfirmService;
+use Services\MailerService;
 
 class EmailConfirmController
 {
+  private MailerService $mailerService;
   private EmailConfirmService $emailConfirmService;
   public function __construct()
   {
+    $this->mailerService = App::injectService()->getContainer(MailerService::class);
     $this->emailConfirmService = App::injectService()->getContainer(EmailConfirmService::class);
-  }
-
-  public function getAllEmailConfirms(HTTPRequest $request, HTTPResponse $response)
-  {
-    $email = $this->emailConfirmService->getAllEmails();
-    $response->sendJsonResponse($email);
   }
 
   public function getEmailByEmail(HTTPRequest $request, HTTPResponse $response, $params)
@@ -26,7 +23,6 @@ class EmailConfirmController
     $email = $params["email"];
     try {
       $emailConfirm = $this->emailConfirmService->getEmailByEmail($email);
-
     } catch (\Throwable $th) {
       $response->abort();
     }
@@ -42,6 +38,17 @@ class EmailConfirmController
       $response->abort();
     }
     $response->sendJsonResponse(["email {$body['email']} crée"]);
+  }
+
+  public function sendEmailToConfirmAccount(HTTPRequest $request, HTTPResponse $response)
+  {
+    $body = $request->getBody();
+    try {
+      $newUser = $this->emailConfirmService->createEmailConfirm($body);
+      $response->sendJsonResponse($newUser);
+    } catch (\Throwable $th) {
+      $response->abort($th);
+    }
   }
 
   public function deleteEmailConfirm(HTTPRequest $request, HTTPResponse $response, $params)

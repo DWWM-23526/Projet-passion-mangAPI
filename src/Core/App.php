@@ -19,6 +19,7 @@ use Api\Tags\Repository\TagsRepository;
 use Api\Tags\Service\TagsService;
 use Api\Auth\Service\AuthService;
 use Services\JwtService;
+use Services\MailerService;
 
 class App
 {
@@ -182,6 +183,10 @@ class App
 
     $containerServices->setContainer(JwtService::class, function () {
       return new JwtService();
+    });
+
+    $containerServices->setContainer(MailerService::class, function () {
+      return new MailerService();
     });
 
     self::setServiceContainer($containerServices);
