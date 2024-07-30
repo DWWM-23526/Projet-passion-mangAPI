@@ -36,9 +36,9 @@ class MailerService
       'iss' => "passionmanga",
       'iat' => time(),
       'exp' => time() + (60 * 60),
-      'pseudo' => $user->pseudo,
-      'email' => $user->email,
-      'password' => $user->password,
+      // 'pseudo' => $user->pseudo,
+      // 'email' => $user->email,
+      // 'password' => $user->password,
       'cle' => $this->cle,
     ];
 
@@ -70,14 +70,13 @@ class MailerService
     }
   }
 
-  public function sendConfirmationEmail($user)
+  public function sendConfirmationEmail($email, $token)
   {
-    $token = $this->generateToken($user);
     $verificationLink = "http://passionmanga/confirmMail?token=$token";
     $subject = 'Email de confirmation de compte';
     $msg = "Cliquez sur ce bouton pour confirmer votre compte :
     <button><a href='$verificationLink'
     >Confirmer mon compte</a></button>";
-    return $this->sendEmail($subject, $msg, $user->email);
+    return $this->sendEmail($subject, $msg, $email);
   }
 }

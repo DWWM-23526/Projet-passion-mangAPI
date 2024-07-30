@@ -46,31 +46,32 @@ class EmailConfirmController
     $response->sendJsonResponse(["email {$body['email']} crée"]);
   }
 
-  public function sendEmailToConfirmAccount(HTTPRequest $request, HTTPResponse $response, $params)
+  public function sendEmailToConfirmAccount(HTTPRequest $request, HTTPResponse $response)
   {
     $body = $request->getBody();
-    $email = $body['email'];
+    //TODO: mettre tous ça dans le service
+    // $email = $body['email'];
+    // $response->sendJsonResponse($body);
+    // if (empty($email)) {
+    //   $response->sendJsonResponse(['message' => 'Email requis']);
+    //   return;
+    // }
 
-    if (empty($email)) {
-      $response->sendJsonResponse(['message' => 'Email requis']);
-      return;
-    }
+    // try {
+    //   $user = $this->emailConfirmService->getEmailByEmail($email);
+    //   // $response->sendJsonResponse($user);
+    //   if ($user['COUNT'] >= 1) {
+    //     $response->sendJsonResponse(["message" => "L'adresse {$email} existe déjà."]);
+    //     return;
+    //   }
 
-    try {
-      $user = $this->emailConfirmService->getEmailByEmail($email);
+      $newUser = $this->emailConfirmService->createEmailConfirm($body);
 
-      if ($user) {
-        $response->sendJsonResponse(["message" => "L'adresse {$email} existe déjà."]);
-        return;
-      }
-
-      $newUser = $this->emailConfirmService->createEmailConfirm(['email' => $email]);
-
-      $this->mailerService->sendConfirmationEmail($newUser);
-      $response->sendJsonResponse(["message" => "Email de confirmation envoyé à {$email}."]);
-    } catch (\Exception $e) {
-      $response->sendJsonResponse(["error" => "Erreur lors de l'envoi de l'e-mail: " . $e->getMessage()]);
-    }
+      // $this->mailerService->sendConfirmationEmail($newUser);
+      $response->sendJsonResponse(["message" => "Email de confirmation envoyé à }."]);
+    // } catch (\Exception $e) {
+    //   $response->sendJsonResponse(["error" => "Erreur lors de l'envoi de l'e-mail: " . $e->getMessage()]);
+    // }
   }
 
   public function deleteEmailConfirm(HTTPRequest $request, HTTPResponse $response, $params)

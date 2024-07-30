@@ -26,6 +26,11 @@ class JwtService
         return JWT::encode($payload, $this->key['SECRET_KEY'], 'HS256');
     }
 
+    public function generateEmailToken()
+    {
+
+    }
+
     public function validateToken($token)
     {
         try {
@@ -33,7 +38,6 @@ class JwtService
             return (array) $decoded;
         } catch (\Exception $e) {
             throw new \Exception("token decode failed");
-            
             return null;
         }
     }

@@ -26,7 +26,8 @@ class EmailConfirmService
   }
 
   public function createEmailConfirm(array $data)
-  {
+  { // Import jwt service & crée token 
+    // Entre dans la bdd l'email 
     $this->emailRepository->createEmailConfirm($data);
   }
 
