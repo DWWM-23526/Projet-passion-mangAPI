@@ -18,12 +18,6 @@ class EmailConfirmController
     $this->emailConfirmService = App::injectService()->getContainer(EmailConfirmService::class);
   }
 
-  public function getAllEmailConfirms(HTTPRequest $request, HTTPResponse $response)
-  {
-    $email = $this->emailConfirmService->getAllEmails();
-    $response->sendJsonResponse($email);
-  }
-
   public function getEmailByEmail(HTTPRequest $request, HTTPResponse $response, $params)
   {
     $email = $params["email"];
@@ -49,29 +43,12 @@ class EmailConfirmController
   public function sendEmailToConfirmAccount(HTTPRequest $request, HTTPResponse $response)
   {
     $body = $request->getBody();
-    //TODO: mettre tous ça dans le service
-    // $email = $body['email'];
-    // $response->sendJsonResponse($body);
-    // if (empty($email)) {
-    //   $response->sendJsonResponse(['message' => 'Email requis']);
-    //   return;
-    // }
-
-    // try {
-    //   $user = $this->emailConfirmService->getEmailByEmail($email);
-    //   // $response->sendJsonResponse($user);
-    //   if ($user['COUNT'] >= 1) {
-    //     $response->sendJsonResponse(["message" => "L'adresse {$email} existe déjà."]);
-    //     return;
-    //   }
-
+    try {
       $newUser = $this->emailConfirmService->createEmailConfirm($body);
-
-      // $this->mailerService->sendConfirmationEmail($newUser);
-      $response->sendJsonResponse(["message" => "Email de confirmation envoyé à }."]);
-    // } catch (\Exception $e) {
-    //   $response->sendJsonResponse(["error" => "Erreur lors de l'envoi de l'e-mail: " . $e->getMessage()]);
-    // }
+      $response->sendJsonResponse($newUser);
+    } catch (\Throwable $th) {
+      $response->abort($th);
+    }
   }
 
   public function deleteEmailConfirm(HTTPRequest $request, HTTPResponse $response, $params)

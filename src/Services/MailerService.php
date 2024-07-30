@@ -2,20 +2,17 @@
 namespace Services;
 
 use Exception;
-use Firebase\JWT\JWT;
 use PHPMailer\PHPMailer\PHPMailer;
 
 class MailerService
 {
   private $conf;
-  private $cle;
   private $mail;
 
   public function __construct()
   {
     $this->mail = new PHPMailer();
     $this->conf = require_once __DIR__ ."/../../.env/mailServiceConfig.php";
-    $this->cle = rand(1000000, 9000000);
     $this->mail->isSMTP();
     $this->mail->SMTPAuth = true;
     $this->mail->SMTPSecure = "ssl";
@@ -28,21 +25,6 @@ class MailerService
     $this->mail->FromName = 'Passion-Manga';
     $this->mail->Sender = '';
     $this->mail->addReplyTo($this->mail->From, $this->mail->FromName);
-  }
-
-  private function generateToken($user)
-  {
-    $payload = [
-      'iss' => "passionmanga",
-      'iat' => time(),
-      'exp' => time() + (60 * 60),
-      // 'pseudo' => $user->pseudo,
-      // 'email' => $user->email,
-      // 'password' => $user->password,
-      'cle' => $this->cle,
-    ];
-
-    return JWT::encode($payload, $this->conf['key'], 'HS256');
   }
 
   private function setRecipient($email)

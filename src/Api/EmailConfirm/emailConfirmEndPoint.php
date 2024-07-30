@@ -2,8 +2,6 @@
 
 use Core\RequestMethod;
 
-// GET all EmailConfirm
-// $app->addRoute(RequestMethod::GET, "/api/emailConfirm", "Api\EmailConfirm\Controller\EmailConfirmController", "getAllEmailConfirms");
 
 // GET emailConfirm by email
 $app->addRoute(RequestMethod::GET, "/api/emailConfirm/{email}", "Api\EmailConfirm\Controller\EmailConfirmController", "getEmailByEmail");

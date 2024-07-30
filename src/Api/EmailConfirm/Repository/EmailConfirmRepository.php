@@ -14,11 +14,6 @@ class EmailConfirmRepository extends BaseRepository
 
   // CRUD
 
-  public function getAllEmails()
-  {
-    return $this->getAll($this->table);
-  }
-
   public function getEmailByEmail($email)
   {
     return $this->checkIfExists($this->table, [$email], ['email']);

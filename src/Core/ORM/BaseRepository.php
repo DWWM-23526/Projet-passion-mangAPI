@@ -27,7 +27,8 @@ abstract class BaseRepository
         return array_map(fn ($data) => new $this->modelClass($data), $result);
     }
 
-    protected function getById(int $id){
+    protected function getById(int $id)
+    {
         $result = $this->db->query("SELECT * FROM $this->table WHERE $this->primaryKey = ?", [$id])->fetchOrFail();
         return new $this->modelClass($result);
     }
@@ -45,18 +46,19 @@ abstract class BaseRepository
      * @param array $columns
      * @return array
      */
-    protected function checkIfExists(string $table, array $values, array $columns){
-        if(count($values) == count($columns)){
-            $begin = "SELECT COUNT(*) FROM $table";
+    protected function checkIfExists(string $table, array $values, array $columns)
+    {
+        if (count($values) == count($columns)) {
+            $begin = "SELECT COUNT(*) AS result FROM $table";
             $wheres = "";
-            for($i = 0 ; $i < count($values); $i++){
-                if($i == 0){
-                    $wheres = $wheres." WHERE ".$columns[$i]." = ?";
+            for ($i = 0; $i < count($values); $i++) {
+                if ($i == 0) {
+                    $wheres = $wheres . " WHERE " . $columns[$i] . " = ?";
                 } else {
-                    $wheres = $wheres." AND ".$columns[$i]." = ?";
+                    $wheres = $wheres . " AND " . $columns[$i] . " = ?";
                 }
             }
-            $result = $this->db->query($begin.$wheres, $values)->fetchAllOrFail();
+            $result = $this->db->query($begin . $wheres, $values)->fetchAllOrFail();
             return $result;
         }
         throw new \Exception("Invalid Request");
@@ -140,8 +142,8 @@ abstract class BaseRepository
         $result = $this->db->query("SELECT r.* FROM $relatedTable r JOIN $pivotTable p ON r.{$relatedkey} = p.{$relatedkey} WHERE p.{$this->primaryKey} = ?", [$primaryKeyId])->fetchAllOrFail();
         return array_map(fn ($data) => new $relatedClass($data), $result);
     }
-    
-    
+
+
 
     /**
      * Summary of attach
