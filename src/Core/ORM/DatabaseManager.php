@@ -4,6 +4,7 @@ namespace Core\ORM;
 
 use Core\App;
 use Core\Database;
+use Database\Migrations\AddChangeTokenVarcharToText;
 use Database\Migrations\AddDateToEmailConfirmation;
 use Database\Schemas\EmailConfirmationSchema;
 use Database\Schemas\FavoritesSchema;
@@ -44,6 +45,7 @@ class DatabaseManager
         AddIsDeletedToUsers::class,
         AddDateToEmailConfirmation::class,
         AddUniqueMailAndRefactCleToToken::class,
+        AddChangeTokenVarcharToText::class,
     ];
 
     private array $seeds = [
