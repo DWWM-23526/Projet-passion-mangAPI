@@ -25,7 +25,7 @@ class EmailConfirmService
     return $this->emailRepository->getEmailByEmail($email);
   }
 
-  public function createEmailConfirm($data)
+  public function createEmailConfirm(array $data)
   {
     $this->emailRepository->createEmailConfirm($data);
   }

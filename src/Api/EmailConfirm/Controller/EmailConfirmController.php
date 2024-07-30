@@ -51,17 +51,25 @@ class EmailConfirmController
     $body = $request->getBody();
     $email = $body['email'];
 
+    if (empty($email)) {
+      $response->sendJsonResponse(['message' => 'Email requis']);
+      return;
+    }
+
     try {
       $user = $this->emailConfirmService->getEmailByEmail($email);
 
       if ($user) {
-        $this->mailerService->sendConfirmationEmail($user);
-        $response->sendJsonResponse(["message" => "Email de confirmation envoyé à {$email}."]);
-      } else {
-        $response->sendJsonResponse(["error" => "Utilisateur non trouvé."]);
+        $response->sendJsonResponse(["message" => "L'adresse {$email} existe déjà."]);
+        return;
       }
-    } catch (\Throwable $th) {
-      $response->sendJsonResponse(["error" => "Erreur lors de l'envoi de l'e-mail de confirmation."]);
+
+      $newUser = $this->emailConfirmService->createEmailConfirm(['email' => $email]);
+
+      $this->mailerService->sendConfirmationEmail($newUser);
+      $response->sendJsonResponse(["message" => "Email de confirmation envoyé à {$email}."]);
+    } catch (\Exception $e) {
+      $response->sendJsonResponse(["error" => "Erreur lors de l'envoi de l'e-mail: " . $e->getMessage()]);
     }
   }
 
