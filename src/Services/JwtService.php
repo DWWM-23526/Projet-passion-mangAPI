@@ -35,9 +35,9 @@ class JwtService
             'iss' => "passionmanga",
             'iat' => time(),
             'exp' => time() + 60 * 60,
-            'pseudo' => $user->pseudo,
-            'email' => $user->email,
-            'password' => $user->password,
+            'pseudo' => $user['pseudo'],
+            'email' => $user['email'],
+            'password' => $user['password'],
             'cle' => $this->generateRandomKey(),
         ];
 
