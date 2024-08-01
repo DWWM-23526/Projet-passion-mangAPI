@@ -10,11 +10,9 @@ use Services\MailerService;
 
 class EmailConfirmController
 {
-  private MailerService $mailerService;
   private EmailConfirmService $emailConfirmService;
   public function __construct()
   {
-    $this->mailerService = App::injectService()->getContainer(MailerService::class);
     $this->emailConfirmService = App::injectService()->getContainer(EmailConfirmService::class);
   }
 
@@ -44,7 +42,20 @@ class EmailConfirmController
   {
     $body = $request->getBody();
     try {
-      $newUser = $this->emailConfirmService->createEmailConfirm($body);
+      $newEmailConfirm = $this->emailConfirmService->createEmailConfirm($body);
+      $response->sendJsonResponse($newEmailConfirm);
+    } catch (\Throwable $th) {
+      $response->abort($th);
+    }
+  }
+
+  public function decodeTokenAndCreateAccount(HTTPRequest $request, HTTPResponse $response, $params)
+  {
+
+    $token = $params['token'];
+
+    try {
+      $newUser = $this->emailConfirmService->decodeTokenAndCreateAccount($token);
       $response->sendJsonResponse($newUser);
     } catch (\Throwable $th) {
       $response->abort($th);
