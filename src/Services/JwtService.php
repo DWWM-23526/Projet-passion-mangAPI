@@ -8,12 +8,10 @@ use Firebase\JWT\Key;
 class JwtService
 {
     private array $key;
-    private $cle;
 
     public function __construct()
     {
         $this->key = require_once __DIR__ . "/../../config/jwt.config.php";
-        $this->cle = rand(1000000, 9000000);
     }
 
     public function generateToken($user)
@@ -38,16 +36,10 @@ class JwtService
             'name' => $user['name'],
             'email' => $user['email'],
             'password' => $user['password'],
-            'cle' => $this->generateRandomKey(),
         ];
 
         return JWT::encode($payload, $this->key['SECRET_KEY'], 'HS256');
     }
-    private function generateRandomKey()
-    {
-        return rand(1000000, 9000000);
-    }
-
     public function validateToken($token)
     {
         try {

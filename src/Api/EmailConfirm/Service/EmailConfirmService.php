@@ -28,10 +28,16 @@ class EmailConfirmService
     return $this->emailRepository->getEmailByEmail($email);
   }
 
+  public function getNameByName(string $name)
+  {
+    return $this->emailRepository->getNameByName($name);
+  }
+
   public function createEmailConfirm(array $data)
   {
     $email = $data['email'];
     $existingEmail = $this->emailRepository->getEmailByEmail($email);
+
     if ($existingEmail[0]['result'] >= 1) {
 
       throw new \Exception("L'adresse email existe deja");
@@ -43,7 +49,6 @@ class EmailConfirmService
 
       $this->emailRepository->createEmailConfirm([
         'email' => $email,
-        'token' => $token
       ]);
       return "Mail envoyé";
     } catch (\Throwable $th) {
@@ -61,7 +66,7 @@ class EmailConfirmService
 
   private function destructToken($token)
   {
-    $keyToRemove = ['iss', 'iat', 'exp', 'cle'];
+    $keyToRemove = ['iss', 'iat', 'exp'];
     foreach ($keyToRemove as $key) {
       unset($token[$key]);
     }
@@ -70,12 +75,16 @@ class EmailConfirmService
 
   private function compareInBDD($tokenDecode)
   {
+    $tokenDecodeName = $tokenDecode['name'];
     $tokenDecodeEmail = $tokenDecode['email'];
     $isExistingEmail = $this->getEmailByEmail($tokenDecodeEmail);
+    $isExistingName = $this->getNameByName($tokenDecodeName);
     if ($isExistingEmail[0]['result'] == 0) {
       throw new \Exception("Email n'existe pas !");
     }
-    return $tokenDecode;
+    if (($isExistingEmail[0]['result'] >= 1) && ($isExistingName[0]['result'] >= 1)) {
+      return $tokenDecode;
+    }
   }
 
   private function createAccount($tokenDecode)
