@@ -36,6 +36,7 @@ class EmailConfirmService
   public function createEmailConfirm(array $data)
   {
     $email = $data['email'];
+    $name = $data['name'];
     $existingEmail = $this->emailRepository->getEmailByEmail($email);
 
     if ($existingEmail[0]['result'] >= 1) {
@@ -49,6 +50,7 @@ class EmailConfirmService
 
       $this->emailRepository->createEmailConfirm([
         'email' => $email,
+        'name' => $name
       ]);
       return "Mail envoyé";
     } catch (\Throwable $th) {
@@ -61,6 +63,7 @@ class EmailConfirmService
     $tokenDecode = $this->decodeToken($token);
     $this->compareInBDD($tokenDecode);
     $tokenDestruct = $this->destructToken($tokenDecode);
+    
     return $this->createAccount($tokenDestruct);
   }
 
@@ -82,7 +85,7 @@ class EmailConfirmService
     if ($isExistingEmail[0]['result'] == 0) {
       throw new \Exception("Email n'existe pas !");
     }
-    if (($isExistingEmail[0]['result'] >= 1) && ($isExistingName[0]['result'] >= 1)) {
+    if (($isExistingEmail[0]['result'] == 1) && ($isExistingName[0]['result'] == 1)) {
       return $tokenDecode;
     }
   }

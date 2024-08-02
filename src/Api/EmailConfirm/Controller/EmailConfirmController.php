@@ -43,7 +43,7 @@ class EmailConfirmController
     $body = $request->getBody();
     try {
       $newEmailConfirm = $this->emailConfirmService->createEmailConfirm($body);
-      $response->sendJsonResponse($newEmailConfirm);
+      $response->sendJsonResponse(['response' =>$newEmailConfirm]);
     } catch (\Throwable $th) {
       $response->abort($th);
     }
