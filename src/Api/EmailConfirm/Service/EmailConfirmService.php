@@ -50,6 +50,7 @@ class EmailConfirmService
       $this->emailRepository->createEmailConfirm([
         'email' => $email,
       ]);
+      
       return "Mail envoyé";
     } catch (\Throwable $th) {
       return $th;
