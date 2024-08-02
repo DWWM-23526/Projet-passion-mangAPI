@@ -39,6 +39,11 @@ abstract class BaseRepository
         return new $this->modelClass($result);
     }
 
+    protected function search(mixed $value, string $column){
+        $result = $this->db->query("SELECT * FROM $this->table WHERE $column LIKE ?", ["%$value%"])->fetchAllOrFail();
+        return array_map(fn ($data) => new $this->modelClass($data), $result);
+    }
+
     /**
      * Summary of checkIfExists
      * @param string $table

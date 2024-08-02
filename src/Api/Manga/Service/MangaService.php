@@ -11,12 +11,17 @@ class MangaService
 
   public function __construct()
   {
-    $this->mangaRepository = App::injectRepository()->getContainer(MangaRepository::class);
+    return $this->mangaRepository = App::injectRepository()->getContainer(MangaRepository::class);
   }
 
   public function getAllMangas()
   {
     return $this->mangaRepository->getAllMangas();
+  }
+
+  public function searchMangaByName($searchTerm)
+  {
+    return $this->mangaRepository->searchMangaByName($searchTerm);
   }
 
   public function getRelatedMangaka(int $id)
@@ -51,7 +56,7 @@ class MangaService
 
   public function createManga($data)
   {
-    $this->mangaRepository->createManga($data);
+    return $this->mangaRepository->createManga($data);
   }
 
   public function updateManga($data, $id)
