@@ -52,6 +52,7 @@ class EmailConfirmService
         'email' => $email,
         'name' => $name
       ]);
+      
       return "Mail envoyé";
     } catch (\Throwable $th) {
       return $th;
