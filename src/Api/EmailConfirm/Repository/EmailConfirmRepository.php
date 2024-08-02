@@ -19,6 +19,11 @@ class EmailConfirmRepository extends BaseRepository
     return $this->checkIfExists($this->table, [$email], ['email']);
   }
 
+  public function getNameByName($name)
+  {
+    return $this->checkIfExists($this->table, [$name], ['name']);
+  }
+
   public function createEmailConfirm($data)
   {
     return $this->create($data);

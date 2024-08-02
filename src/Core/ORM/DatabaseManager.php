@@ -17,6 +17,7 @@ use Database\Schemas\UsersSchema;
 
 use Database\Migrations\AddIsDeletedToUsers;
 use Database\Migrations\AddUniqueMailAndRefactCleToToken;
+use Database\Migrations\RemoveTokenToEmailConfirmAndAddName;
 use Database\Seed\FavoritesSeed;
 use Database\Seed\MangakasSeed;
 use Database\Seed\MangasSeed;
@@ -46,6 +47,7 @@ class DatabaseManager
         AddDateToEmailConfirmation::class,
         AddUniqueMailAndRefactCleToToken::class,
         AddChangeTokenVarcharToText::class,
+        RemoveTokenToEmailConfirmAndAddName::class,
     ];
 
     private array $seeds = [

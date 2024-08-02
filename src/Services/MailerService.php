@@ -12,7 +12,7 @@ class MailerService
   public function __construct()
   {
     $this->mail = new PHPMailer();
-    $this->conf = require_once __DIR__ ."/../../.env/mailServiceConfig.php";
+    $this->conf = require_once __DIR__ ."/../../config/mailService.config.php";
     $this->mail->isSMTP();
     $this->mail->SMTPAuth = true;
     $this->mail->SMTPSecure = "ssl";
@@ -54,7 +54,7 @@ class MailerService
 
   public function sendConfirmationEmail($email, $token)
   {
-    $verificationLink = "http://passionmanga/confirmMail?token=$token";
+    $verificationLink = "http://api-passion-manga/api/decodeTokenToConfirmAccount/$token";
     $subject = 'Email de confirmation de compte';
     $msg = "Cliquez sur ce bouton pour confirmer votre compte :
     <button><a href='$verificationLink'
