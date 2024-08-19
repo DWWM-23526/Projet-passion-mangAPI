@@ -23,6 +23,11 @@ class MangakaRepository extends BaseRepository
     return $this->getById($mangakaId);
   }
 
+  public function searchMangakaByName(array $searchTerm)
+  {
+    return $this->search($searchTerm,['first_name', 'last_name']);
+  }
+
   public function getAllRelatedManga($id)
   {
     return $this->hasMany(Manga::class, 'mangas', $this->primaryKey, $id);

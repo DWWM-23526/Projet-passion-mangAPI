@@ -24,7 +24,7 @@ abstract class BaseRepository
     protected function getAll($table)
     {
         $result = $this->db->query("SELECT * FROM $table")->fetchAllOrFail();
-        return array_map(fn ($data) => new $this->modelClass($data), $result);
+        return array_map(fn($data) => new $this->modelClass($data), $result);
     }
 
     protected function getById(int $id)
@@ -37,6 +37,27 @@ abstract class BaseRepository
     {
         $result = $this->db->query("SELECT * FROM $this->table WHERE $column = ?", [$value])->fetchOrFail();
         return new $this->modelClass($result);
+    }
+
+    protected function search(array $values, array $columns)
+    {
+        if (empty($values) || empty($columns)) {
+            throw new \Exception("Values and columns cannot be empty.");
+        }
+
+        $query = "SELECT * FROM $this->table";
+        $conditions = [];
+
+        foreach ($values as $value) {
+            $columnConditions = array_map(fn($column) => "$column LIKE ?", $columns);
+            $conditions[] = '(' . implode(' OR ', $columnConditions) . ')';
+        }
+
+        $fullCondition = ' WHERE ' . implode(' AND ', $conditions);
+        $likeValues = array_fill(0, count($values) * count($columns), "%$value%");
+
+        $result = $this->db->query($query . $fullCondition, $likeValues)->fetchAllOrFail();
+        return array_map(fn($data) => new $this->modelClass($data), $result);
     }
 
     /**
@@ -107,7 +128,7 @@ abstract class BaseRepository
     {
 
         $result = $this->db->query("SELECT * FROM {$relatedTable} WHERE {$foreignKey} = ?", [$localKeyId])->fetchAllOrFail();
-        return array_map(fn ($data) => new $relatedClass($data), $result);
+        return array_map(fn($data) => new $relatedClass($data), $result);
     }
 
     // MANY TO ONE
@@ -140,7 +161,7 @@ abstract class BaseRepository
     protected function belongToMany(mixed $relatedClass, string $relatedTable, string $pivotTable, string $relatedkey, int $primaryKeyId)
     {
         $result = $this->db->query("SELECT r.* FROM $relatedTable r JOIN $pivotTable p ON r.{$relatedkey} = p.{$relatedkey} WHERE p.{$this->primaryKey} = ?", [$primaryKeyId])->fetchAllOrFail();
-        return array_map(fn ($data) => new $relatedClass($data), $result);
+        return array_map(fn($data) => new $relatedClass($data), $result);
     }
 
 
