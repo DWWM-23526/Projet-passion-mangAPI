@@ -24,7 +24,8 @@ class AuthService
 
         $user = $this->usersRepository->getUserByEmail($email);
 
-        if (!$user || $password != $user->password) {
+
+        if (!$user || !password_verify($password, $user->password)) {
             $errors["passwordError"] = "password or email incorrect";
         }
 
@@ -61,10 +62,8 @@ class AuthService
 
             return $userById;
         } catch (\InvalidArgumentException $e) {
-
             return null;
         } catch (\Exception $e) {
-
             return null;
         }
     }
