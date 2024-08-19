@@ -37,12 +37,19 @@ class EmailConfirmService
   {
     $email = $data['email'];
     $name = $data['name'];
+    $password = $data['password'];
+
+    $hashedPassword = password_hash($password, PASSWORD_ARGON2ID);
+
+    $data['password'] = $hashedPassword;
+
     $existingEmail = $this->emailRepository->getEmailByEmail($email);
 
     if ($existingEmail[0]['result'] >= 1) {
 
       throw new \Exception("L'adresse email existe deja");
     }
+    
     try {
       $token = $this->jwtService->generateEmailToken($data);
 
@@ -52,7 +59,7 @@ class EmailConfirmService
         'email' => $email,
         'name' => $name
       ]);
-      
+
       return "Mail envoyé";
     } catch (\Throwable $th) {
       return $th;
