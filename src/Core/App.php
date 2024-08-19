@@ -108,6 +108,8 @@ class App
       self::logMessage('App initialized');
     }
 
+    self::instanceRemoveAtExpired();
+
     return $app;
   }
 
@@ -190,6 +192,12 @@ class App
     });
 
     self::setServiceContainer($containerServices);
+  }
+  
+  private static function instanceRemoveAtExpired()
+  {
+    $instanceOfRemoveAtExpired = new RemoveAtExpired();
+    $instanceOfRemoveAtExpired->deleteWhenExpiredEmailConfirm();
   }
 
 
