@@ -9,6 +9,10 @@ $app->addRoute(RequestMethod::GET, "/api/mangaka", "Api\Mangaka\Controller\Manga
 // GET mangaka by Id
 $app->addRoute(RequestMethod::GET, '/api/mangaka/{mangakaId}', 'Api\Mangaka\Controller\MangakaController', 'getMangakaById');
 
+// GET search mangaka by name
+$app->addRoute(RequestMethod::GET, '/api/mangaka/search/{searchTerm}', 'Api\Mangaka\Controller\MangakaController', 'searchMangakaByName');
+
+
 // GET related mangas by mangaka Id
 $app->addRoute(RequestMethod::GET, '/api/mangas/mangaka/{mangakaId}', 'Api\Mangaka\Controller\MangakaController', 'getAllRelatedManga');
 

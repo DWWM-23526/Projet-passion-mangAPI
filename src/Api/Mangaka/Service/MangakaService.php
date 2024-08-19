@@ -20,6 +20,14 @@ class MangakaService
     return $this->mangakaRepository->getAllMangakas();
   }
 
+  public function searchMangakaByName($searchTerm)
+  {
+
+    $searchTermParts = explode(' ', $searchTerm);
+
+    return $this->mangakaRepository->searchMangakaByName($searchTermParts);
+  }
+
   public function getAllRelatedManga($id)
   {
     return $this->mangakaRepository->getAllRelatedManga($id);
