@@ -71,17 +71,8 @@ class EmailConfirmService
     $tokenDecode = $this->decodeToken($token);
     $this->compareInBDD($tokenDecode);
     $tokenDestruct = $this->destructToken($tokenDecode);
-    
+    $this->deleteColumnEmailConfirmWhenEmailValidated($tokenDestruct);
     return $this->createAccount($tokenDestruct);
-  }
-
-  private function destructToken($token)
-  {
-    $keyToRemove = ['iss', 'iat', 'exp'];
-    foreach ($keyToRemove as $key) {
-      unset($token[$key]);
-    }
-    return $token;
   }
 
   private function compareInBDD($tokenDecode)
@@ -96,6 +87,26 @@ class EmailConfirmService
     if (($isExistingEmail[0]['result'] == 1) && ($isExistingName[0]['result'] == 1)) {
       return $tokenDecode;
     }
+  }
+
+  private function destructToken($token)
+  {
+    $keyToRemove = ['iss', 'iat', 'exp'];
+    foreach ($keyToRemove as $key) {
+      unset($token[$key]);
+    }
+    return $token;
+  }
+
+  private function deleteColumnEmailConfirmWhenEmailValidated($tokenDecode)
+  {
+    $tokenDecodeEmail = $tokenDecode['email'];
+    try {
+      $this->emailRepository->deleteEmailConfirm($tokenDecodeEmail);
+    } catch (\Throwable $th) {
+      return $th;
+    }
+    return $tokenDecode;
   }
 
   private function createAccount($tokenDecode)
