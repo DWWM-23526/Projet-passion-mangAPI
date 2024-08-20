@@ -5,7 +5,10 @@ namespace Core\ORM;
 use Core\App;
 use Core\Database;
 use Database\Migrations\AddChangeTokenVarcharToText;
+use Database\Migrations\AddColumnIdRoleInUsers;
 use Database\Migrations\AddDateToEmailConfirmation;
+use Database\Migrations\AddForeignKeyIdRoleToUsers;
+use Database\Migrations\AddIdRoleSeed;
 use Database\Schemas\EmailConfirmationSchema;
 use Database\Schemas\FavoritesSchema;
 use Database\Schemas\MangakaSchema;
@@ -16,6 +19,7 @@ use Database\Schemas\MigrationsSchema;
 use Database\Schemas\UsersSchema;
 
 use Database\Migrations\AddIsDeletedToUsers;
+use Database\Migrations\AddTableRoleAndSeed;
 use Database\Migrations\AddUniqueMailAndRefactCleToToken;
 use Database\Migrations\EditDateTypeToTimeStamp;
 use Database\Migrations\RemoveTokenToEmailConfirmAndAddName;
@@ -50,6 +54,10 @@ class DatabaseManager
         AddChangeTokenVarcharToText::class,
         RemoveTokenToEmailConfirmAndAddName::class,
         EditDateTypeToTimeStamp::class,
+        AddTableRoleAndSeed::class,
+        AddColumnIdRoleInUsers::class,
+        AddIdRoleSeed::class,
+        AddForeignKeyIdRoleToUsers::class,
     ];
 
     private array $seeds = [
@@ -59,7 +67,6 @@ class DatabaseManager
         TagsSeed::class,
         TagsMangasSeed::class,
         FavoritesSeed::class,
-
     ];
 
 
