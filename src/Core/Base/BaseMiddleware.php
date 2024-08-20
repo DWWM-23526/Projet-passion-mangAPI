@@ -1,5 +1,5 @@
 <?php 
-namespace Core;
+namespace Core\Base;
 
 use middlewares\AuthMiddleware;
 use middlewares\GuestMiddleware;

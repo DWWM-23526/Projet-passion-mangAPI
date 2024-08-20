@@ -5,30 +5,13 @@ namespace Api\Manga\Repository;
 use Api\Manga\Model\Manga;
 use Api\Mangaka\Model\Mangaka;
 use Api\Tags\Model\Tags;
-use Core\ORM\BaseRepository;
+use Core\Base\BaseApiRepository;
 
-class MangaRepository extends BaseRepository
+class MangaRepository extends BaseApiRepository
 {
   protected $table = 'mangas';
   protected $modelClass = Manga::class;
   protected $primaryKey = 'Id_manga';
-
-  // CRUD
-
-  public function getAllMangas()
-  {
-    return $this->getAll($this->table);
-  }
-
-  public function getMangaById(int $mangaId)
-  {
-    return $this->getById($mangaId);
-  }
-
-  public function searchMangaByName(string $searchTerm)
-  {
-    return $this->search([$searchTerm],['manga_name']);
-  }
 
   public function getRelatedMangaka(int $mangaId)
   {
@@ -59,19 +42,5 @@ class MangaRepository extends BaseRepository
   {
     return $this->detach('tags_manga', $this->primaryKey, 'Id_tag', $mangaId, $tagId);
   }
-
-  public function createManga(array $data)
-  {
-    return $this->create($data);
-  }
-
-  public function updateManga(array $data, int $id)
-  {
-    return $this->update($data, $id);
-  }
-
-  public function deleteManga($id)
-  {
-    return $this->delete($id, 'Id_manga');
-  }
+  
 }

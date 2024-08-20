@@ -4,7 +4,7 @@ namespace middlewares;
 
 use Api\Users\Repository\UsersRepository;
 use Core\App;
-use Core\BaseMiddleware;
+use Core\Base\BaseMiddleware;
 use Core\HTTPRequest;
 use core\HTTPResponse;
 use Services\JwtService;

@@ -108,6 +108,8 @@ class App
       self::logMessage('App initialized');
     }
 
+    
+
     return $app;
   }
 
@@ -122,7 +124,6 @@ class App
 
     self::setContainer($container);
   }
-
 
   private static function initRepositoriesContainer()
   {
@@ -189,8 +190,9 @@ class App
       return new MailerService();
     });
 
-    self::setServiceContainer($containerServices);
+    self::setServiceContainer($containerServices);    
   }
+
 
 
   private static function logMessage($message)

@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use Core\Base\BaseMiddleware;
 use Core\HTTPRequest;
 use Core\HTTPResponse;
 use Exception;
@@ -52,7 +53,7 @@ class Router
 
     public function route()
     {
-        $request = HTTPRequest::getInstance();
+        $request = HTTPRequest::getInstance() ;
         $response = HTTPResponse::getInstance();
         $uri = $request->getUri();
         $requestMethod = $request->getMethod();
