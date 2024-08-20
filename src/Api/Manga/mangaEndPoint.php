@@ -2,7 +2,7 @@
 
 use Core\RequestMethod;
 
-// Base path for MangaController operations
+
 $baseMangaPath = "/api/manga";
 
 // GET all mangas

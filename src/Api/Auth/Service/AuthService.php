@@ -4,7 +4,6 @@ namespace Api\Auth\Service;
 
 use Core\App;
 use Api\Users\Repository\UsersRepository;
-use core\HTTPResponse;
 use Services\JwtService;
 
 class AuthService

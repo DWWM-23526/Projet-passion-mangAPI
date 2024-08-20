@@ -35,7 +35,7 @@ class AuthController
 
     public function validate(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        $body = $request->getBody();
+        
 
         $headers = $request->getHeaders();
         

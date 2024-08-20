@@ -29,6 +29,11 @@ class MangaRepository extends BaseApiRepository
     return $this->belongToMany(Tags::class, 'tags', 'tags_manga', 'Id_tag', $mangaId);
   }
 
+  public function searchMangaByName(string $searchTerm)
+  {
+    return $this->search([$searchTerm],['manga_name']);
+  }
+
   public function checkIfIsUserFavorite($mangaId, $UserId){
     return $this->checkIfExists('favoris',[$mangaId, $UserId],['Id_manga', 'Id_user']);
   }
