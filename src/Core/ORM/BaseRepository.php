@@ -114,6 +114,12 @@ abstract class BaseRepository
         return $this->db->query("DELETE FROM $this->table WHERE $column = ?", [$id]);
     }
 
+    protected function deleteWhenExpired()
+    {
+        $expiration_time = 600;
+        return $this->db->query("DELETE FROM email_confirmation WHERE UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(date) > :expiration_time", [$expiration_time]);
+    }
+
     // ONE TO MANY
 
     /**
