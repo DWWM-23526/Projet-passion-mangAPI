@@ -26,6 +26,7 @@ abstract class BaseApiEndpoint
         }
 
         $app->addRoute($httpMethod, $route, $this->controller, $method);
+       
     }
 
     protected function addGet(string $route, string $method, string $middleware = null)
@@ -55,6 +56,8 @@ abstract class BaseApiEndpoint
         $this->addPost('/', 'create', 'auth');
         $this->addPut('/{id}', 'update', 'auth');
         $this->addDelete('/{id}', 'delete', 'auth');
+
+        
     }
 
 

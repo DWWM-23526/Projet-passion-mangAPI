@@ -47,8 +47,11 @@ class Router
                 $route['controller'] = $controller;
                 $route['method'] = $method;
                 $route['middleware'] = $this->middleware; 
+                $this->middleware = null;
                 return $this;
             }
+
+            
         }
 
         $this->routes[] = [
@@ -59,11 +62,14 @@ class Router
             'middleware' => $this->middleware
         ];
 
+        
+        $this->middleware = null;
         return $this;
     }
 
     public function route()
     {
+        // var_dump($this->routes);
         $request = HTTPRequest::getInstance();
         $response = HTTPResponse::getInstance();
         $uri = $request->getUri();
