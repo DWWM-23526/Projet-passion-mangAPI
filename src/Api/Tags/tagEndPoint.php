@@ -3,19 +3,19 @@
 use Core\RequestMethod;
 
 // Get All
-$app->addRoute(RequestMethod::GET, '/api/tags', 'Api\Tags\Controller\TagsController', 'getAllTags');
+$app->addRoute(RequestMethod::GET, '/api/tags', 'Api\Tags\Controller\TagsController', 'getAll');
 
 // Get by ID
-$app->addRoute(RequestMethod::GET, '/api/tags/{tagId}', 'Api\Tags\Controller\TagsController', 'getTagById');
+$app->addRoute(RequestMethod::GET, '/api/tags/{id}', 'Api\Tags\Controller\TagsController', 'getById');
 
 // GET All related tags_manga
-$app->addRoute(RequestMethod::GET, '/api/tags/manga/{tagId}', 'Api\Tags\Controller\TagsController', 'getAllTagsRelatedManga');
+$app->addRoute(RequestMethod::GET, '/api/tags/manga/{id}', 'Api\Tags\Controller\TagsController', 'getAllTagsRelatedManga');
 
 // Create
-$app->addRoute(RequestMethod::POST, '/api/tags', 'Api\Tags\Controller\TagsController', 'addTag')->middleware('auth');
+$app->addRoute(RequestMethod::POST, '/api/tags', 'Api\Tags\Controller\TagsController', 'create')->middleware('auth');
 
 // Update 
-$app->addRoute(RequestMethod::PUT,'/api/tags/{tagId}', 'Api\Tags\Controller\TagsController', 'updateTag')->middleware('auth');
+$app->addRoute(RequestMethod::PUT,'/api/tags/{id}', 'Api\Tags\Controller\TagsController', 'update')->middleware('auth');
 
 // Delete
-$app->addRoute(RequestMethod::DELETE,'/api/tags/{tagId}', 'Api\Tags\Controller\TagsController', 'deleteTag')->middleware('auth');
+$app->addRoute(RequestMethod::DELETE,'/api/tags/{id}', 'Api\Tags\Controller\TagsController', 'delete')->middleware('auth');
