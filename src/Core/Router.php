@@ -20,10 +20,9 @@ class Router
 {
     private static ?Router $instance = null;
     private array $routes = [];
+    private ?string $middleware = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     public static function getInstance(): Router
     {
@@ -35,25 +34,37 @@ class Router
 
     public function middleware($key)
     {
-        $this->routes[array_key_last($this->routes)]['middleware'] = $key;
+        $this->middleware = $key;
+        return $this;
     }
 
     public function addRoute(RequestMethod $requestMethod, string $uri, string $controller, string $method)
     {
+        $uri = rtrim($uri, '/');
+
+        foreach ($this->routes as &$route) {
+            if ($route['uri'] === $uri && $route['requestMethod'] === $requestMethod->name) {
+                $route['controller'] = $controller;
+                $route['method'] = $method;
+                $route['middleware'] = $this->middleware; 
+                return $this;
+            }
+        }
+
         $this->routes[] = [
             'requestMethod' => $requestMethod->name,
             'uri' => $uri,
             'controller' => $controller,
             'method' => $method,
-            'middleware' => null
+            'middleware' => $this->middleware
         ];
-        
+
         return $this;
     }
 
     public function route()
     {
-        $request = HTTPRequest::getInstance() ;
+        $request = HTTPRequest::getInstance();
         $response = HTTPResponse::getInstance();
         $uri = $request->getUri();
         $requestMethod = $request->getMethod();

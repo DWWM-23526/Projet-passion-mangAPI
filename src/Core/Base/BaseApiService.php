@@ -4,7 +4,7 @@ namespace Core\Base;
 
 use Core\App;
 
-class BaseApiService
+abstract class BaseApiService
 {
     protected $repository;
 

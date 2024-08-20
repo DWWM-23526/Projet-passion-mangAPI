@@ -4,7 +4,7 @@ namespace Core\Base;
 
 use Core\ORM\BaseRepository;
 
-class BaseApiRepository extends BaseRepository
+abstract class BaseApiRepository extends BaseRepository
 {
 
     public function getAllItems()

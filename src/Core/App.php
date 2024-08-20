@@ -18,6 +18,7 @@ use Api\Mangaka\Service\MangakaService;
 use Api\Tags\Repository\TagsRepository;
 use Api\Tags\Service\TagsService;
 use Api\Auth\Service\AuthService;
+use Api\Manga\MangaEndpoint;
 use Services\JwtService;
 use Services\MailerService;
 
@@ -79,8 +80,10 @@ class App
 
     $app = Router::getInstance();
 
+    MangaEndpoint::create('/api/manga', 'Api\Manga\Controller\MangaController');
+
     require __DIR__ . "/../Api/EmailConfirm/emailConfirmEndPoint.php";
-    require __DIR__ . "/../Api/Manga/mangaEndPoint.php";
+    // require __DIR__ . "/../Api/Manga/mangaEndPoint.php";
     require __DIR__ . "/../Api/Mangaka/mangakaEndPoint.php";
     require __DIR__ . '/../Api/Tags/tagEndPoint.php';
     require __DIR__ . '/../Api/Users/usersEndPoint.php';
