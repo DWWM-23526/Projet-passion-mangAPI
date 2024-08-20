@@ -37,7 +37,7 @@ class AuthMiddleware extends BaseMiddleware
                     $response->abort('user invalid.', 401);
                 }
 
-                $userById = $this->usersRepository->getUserById($decodedToken['Id_user']);
+                $userById = $this->usersRepository->getItemById($decodedToken['Id_user']);
 
                 if (!$userById) {
                     $response->abort('user invalid.', 401);

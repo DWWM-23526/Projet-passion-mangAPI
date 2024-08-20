@@ -51,7 +51,7 @@ class AuthService
                 return null;
             }
 
-            $userById = $this->usersRepository->getUserById($decodedToken['Id_user']);
+            $userById = $this->usersRepository->getItemById($decodedToken['Id_user']);
 
             if (!$userById) {
                 return null;

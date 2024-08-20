@@ -6,9 +6,9 @@ use Core\App;
 
 class BaseApiService
 {
-    public $repository;
+    protected $repository;
 
-    public function __construct($repository)
+    protected function __construct($repository)
     {
         $this->repository = App::injectRepository()->getContainer($repository);
     }

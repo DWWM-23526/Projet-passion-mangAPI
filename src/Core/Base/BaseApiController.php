@@ -10,7 +10,7 @@ abstract class BaseApiController
 {
     protected  $service;
 
-    public function __construct($service)
+    protected function __construct($service)
     {
         $this->service = App::injectService()->getContainer($service);
     }

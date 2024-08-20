@@ -4,25 +4,15 @@ namespace Api\Users\Repository;
 
 use Api\Manga\Model\Manga;
 use Api\Users\Model\Users;
-use Core\ORM\BaseRepository;
+use Core\Base\BaseApiRepository;
 
-
-class UsersRepository extends BaseRepository
+class UsersRepository extends BaseApiRepository
 {
     protected $table = 'users';
     protected $modelClass = Users::class;
     protected $primaryKey = 'Id_user';
 
-    public function getAllUsers()
-    {
-        return $this->getAll($this->table);
-    }
-
-    public function getUserById(int $userId)
-    {
-        return $this->getById($userId);
-    }
-
+    
     public function getUserByEmail(string $email)
     {
         return $this->getBy($email, 'email');
@@ -43,18 +33,4 @@ class UsersRepository extends BaseRepository
         return $this->detach('favoris', $this->primaryKey, 'Id_manga', $userId, $mangaId);
     }
 
-    public function createUser($data)
-    {
-        return $this->create($data);
-    }
-
-    public function updateUser($data, $id)
-    {
-        return $this->update($data, $id);
-    }
-
-    public function deleteUser($id)
-    {
-        return $this->delete($id, 'Id_user');
-    }
 }
