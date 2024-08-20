@@ -2,7 +2,7 @@
 
 namespace middlewares;
 
-use Core\BaseMiddleware;
+use Core\Base\BaseMiddleware;
 use Core\HTTPRequest;
 use core\HTTPResponse;
 

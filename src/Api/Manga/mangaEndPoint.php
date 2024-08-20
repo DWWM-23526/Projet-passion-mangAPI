@@ -1,46 +1,26 @@
 <?php
 
-use Core\RequestMethod;
+namespace Api\Manga;
 
-// GET all mangas
-$app->addRoute(RequestMethod::GET, "/api/manga", "Api\Manga\Controller\MangaController", "getAllMangas");
+use Core\Base\BaseApiEndpoint;
 
+class MangaEndpoint extends BaseApiEndpoint
+{
+    public function __construct()
+    {
+        parent::__construct('/api/manga', 'Api\Manga\Controller\MangaController');
+    }
 
-// GET manga by ID
-$app->addRoute(RequestMethod::GET, '/api/manga/{mangaId}', 'Api\Manga\Controller\MangaController', 'getMangaById');
+    protected function registerRoutes()
+    {
+        parent::registerRoutes();
 
-
-// GET search manga by name
-$app->addRoute(RequestMethod::GET, '/api/manga/search/{searchTerm}', 'Api\Manga\Controller\MangaController', 'searchMangaByName');
-
-
-// GET related mangaka by manga by ID
-$app->addRoute(RequestMethod::GET, '/api/manga/mangaka/{mangaId}', 'Api\Manga\Controller\MangaController', 'getRelatedMangaka');
-
-
-// GET  All manga related tags by manga by ID
-$app->addRoute(RequestMethod::GET, '/api/manga/tags/{mangaId}', 'Api\Manga\Controller\MangaController', 'getAllMangaRelatedTags');
-
-// GET if is favorite from one User
-$app->addRoute(RequestMethod::GET, '/api/manga/user/{mangaId}/{userId}', 'Api\Manga\Controller\MangaController', 'checkIfIsUserFavorite')->middleware('auth');
-
-
-// POST add new tag to  manga
-$app->addRoute(RequestMethod::POST, '/api/manga/tags/{mangaId}/{tagId}', 'Api\Manga\Controller\MangaController', 'addTagToManga')->middleware('auth');
-
-
-// POST add a new manga
-$app->addRoute(RequestMethod::POST, '/api/manga', 'Api\Manga\Controller\MangaController', 'addManga')->middleware('auth');
-
-
-// PUT update a manga
-$app->addRoute(RequestMethod::PUT, '/api/manga/{mangaId}', 'Api\Manga\Controller\MangaController', 'updateManga')->middleware('auth');
-
-
-// DELETE remove a manga
-$app->addRoute(RequestMethod::DELETE, '/api/manga/{mangaId}', 'Api\Manga\Controller\MangaController', 'removeManga')->middleware('auth');
-
-
-// DELETE tag from  manga
-$app->addRoute(RequestMethod::DELETE, '/api/manga/tags/{mangaId}/{tagId}', 'Api\Manga\Controller\MangaController', 'removeMangaTag')->middleware('auth');
-
+        $this->addGet('/search/{searchTerm}', 'searchMangaByName',);
+        $this->addGet('/mangaka/{id}', 'getRelatedMangaka');
+        $this->addGet('/tags/{id}', 'getAllMangaRelatedTags');
+        $this->addGet('/user/{id}/{userId}', 'checkIfIsUserFavorite', 'auth');
+        $this->addPost('/tags/{id}/{tagId}', 'addTagToManga', 'auth');
+        $this->addDelete('/tags/{id}/{tagId}', 'removeMangaTag', 'auth');
+       
+    }
+} 

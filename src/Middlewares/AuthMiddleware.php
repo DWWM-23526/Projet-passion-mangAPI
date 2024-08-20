@@ -4,7 +4,7 @@ namespace middlewares;
 
 use Api\Users\Repository\UsersRepository;
 use Core\App;
-use Core\BaseMiddleware;
+use Core\Base\BaseMiddleware;
 use Core\HTTPRequest;
 use core\HTTPResponse;
 use Services\JwtService;
@@ -37,7 +37,7 @@ class AuthMiddleware extends BaseMiddleware
                     $response->abort('user invalid.', 401);
                 }
 
-                $userById = $this->usersRepository->getUserById($decodedToken['Id_user']);
+                $userById = $this->usersRepository->getItemById($decodedToken['Id_user']);
 
                 if (!$userById) {
                     $response->abort('user invalid.', 401);

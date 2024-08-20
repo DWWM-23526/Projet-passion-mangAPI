@@ -18,8 +18,8 @@ class EmailConfirmService
 
   public function __construct()
   {
-    $this->jwtService = App::injectService()->getContainer(JwtService::class);
     $this->emailRepository = App::injectRepository()->getContainer(EmailConfirmRepository::class);
+    $this->jwtService = App::injectService()->getContainer(JwtService::class);
     $this->mailerService = App::injectService()->getContainer(MailerService::class);
     $this->usersService = App::injectService()->getContainer(UsersService::class);
   }
