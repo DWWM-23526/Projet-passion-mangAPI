@@ -6,10 +6,17 @@ use Core\Base\BaseApiEndpoint;
 
 class MangaEndpoint extends BaseApiEndpoint
 {
-    public function __construct()
+
+    protected function getBasePath(): string
     {
-        parent::__construct('/api/manga', 'Api\Manga\Controller\MangaController');
+        return '/api/manga';
     }
+
+    protected function getController(): string
+    {
+        return 'Api\Manga\Controller\MangaController';
+    }
+
 
     protected function registerRoutes()
     {
@@ -22,4 +29,4 @@ class MangaEndpoint extends BaseApiEndpoint
         $this->addPost('/tags/{id}/{tagId}', 'addTagToManga', 'auth');
         $this->addDelete('/tags/{id}/{tagId}', 'removeMangaTag', 'auth');
     }
-} 
+}

@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use Api\Auth\AuthEndpoint;
 use Api\Users\Repository\UsersRepository;
 use Api\Users\Service\UsersService;
 
@@ -22,6 +23,7 @@ use Api\EmailConfirm\EmailConfirmEndPoint;
 use Api\Manga\MangaEndpoint;
 use Api\Mangaka\MangakaEndPoint;
 use Api\Tags\TagsEndpoint;
+use Api\Users\UsersEndpoint;
 use Services\JwtService;
 use Services\MailerService;
 
@@ -83,16 +85,13 @@ class App
 
     $app = Router::getInstance();
 
-    MangaEndpoint::create('/api/manga', 'Api\Manga\Controller\MangaController');
-    MangakaEndPoint::create('/api/mangaka', 'Api\Mangaka\Controller\MangakaController');
-    EmailConfirmEndPoint::create('/api/emailConfirm', 'Api\EmailConfirm\Controller');
-    TagsEndpoint::create('/api/tags', 'Api\Tags\Controller\TagsController');
-    
+    MangaEndpoint::create();
+    TagsEndpoint::create();
+    UsersEndpoint::create();
+    AuthEndpoint::create();
 
     // require __DIR__ . "/../Api/EmailConfirm/emailConfirmEndPoint.php";
     // require __DIR__ . "/../Api/Mangaka/mangakaEndPoint.php";
-    // require __DIR__ . '/../Api/Users/usersEndPoint.php';
-    // require __DIR__ . '/../Api/Auth/authEndPoint.php';
 
     // CONTAINER INIT
 
