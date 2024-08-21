@@ -86,9 +86,12 @@ class App
     $app = Router::getInstance();
 
     MangaEndpoint::create();
+    MangakaEndPoint::create();
+    EmailConfirmEndPoint::create();
     TagsEndpoint::create();
     UsersEndpoint::create();
     AuthEndpoint::create();
+
 
     // require __DIR__ . "/../Api/EmailConfirm/emailConfirmEndPoint.php";
     // require __DIR__ . "/../Api/Mangaka/mangakaEndPoint.php";
