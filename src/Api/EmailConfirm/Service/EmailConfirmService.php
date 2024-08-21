@@ -102,7 +102,7 @@ class EmailConfirmService extends BaseApiService
   {
     $tokenDecodeEmail = $tokenDecode['email'];
     try {
-      $this->repository->deleteEmailConfirm($tokenDecodeEmail);
+      $this->repository->deleteByEmail($tokenDecodeEmail);
     } catch (\Throwable $th) {
       return $th;
     }
@@ -130,6 +130,6 @@ class EmailConfirmService extends BaseApiService
 
   public function deleteEmailConfirm($email)
   {
-    return $this->repository->deleteEmailConfirm($email);
+    return $this->repository->deleteItem($email);
   }
 }

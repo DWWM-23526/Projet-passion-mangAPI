@@ -4,7 +4,7 @@ namespace Api\Manga\Model;
 
 class Manga
 {
-  public ?int $Id_manga;
+  public ?int $id;
   public string $img_manga;
   public ?string $manga_name;
   public ?string $edition;
@@ -18,7 +18,7 @@ class Manga
 
   public function __construct(array $data = [])
   {
-    $this->Id_manga = $data["Id_manga"] ?? null;
+    $this->id = $data["Id_manga"] ?? null;
     $this->img_manga = $data['img_manga'] ?? '';
     $this->manga_name = $data['manga_name'] ?? null;
     $this->edition = $data['edition'] ?? null;
@@ -33,7 +33,7 @@ class Manga
   public function toArray(): array
     {
       return [
-        'Id_manga' => $this->Id_manga,
+        'Id_manga' => $this->id,
         'img_manga' => $this->img_manga,
         'manga_name' => $this->manga_name,
         'edition' => $this->edition,
