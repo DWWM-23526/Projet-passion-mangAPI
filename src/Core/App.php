@@ -92,10 +92,6 @@ class App
     UsersEndpoint::create();
     AuthEndpoint::create();
 
-
-    // require __DIR__ . "/../Api/EmailConfirm/emailConfirmEndPoint.php";
-    // require __DIR__ . "/../Api/Mangaka/mangakaEndPoint.php";
-
     // CONTAINER INIT
 
     self::initMainContainer();
