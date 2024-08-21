@@ -4,11 +4,13 @@ namespace Api\Users\Model;
 
 class Users
 {
-  public ?int $Id_user;
-  public ?string $name;
-  public ?string $email;
-  public ?string $password;
+  public int $Id_user;
+  public string $name;
+  public string $email;
+  public string $password;
   public ?int $is_deleted;
+  public int $id_role;
+
   public function __construct(array $data = [])
   {
     $this->Id_user = $data['Id_user'];
@@ -16,6 +18,7 @@ class Users
     $this->email = $data['email'] ?? '';
     $this->password = $data['password'] ?? "";
     $this->is_deleted = $data['is_deleted'] ?? 0;
+    $this->id_role = $data['id_role'] ?? 1;
   }
 
   public function toArray()
@@ -25,7 +28,8 @@ class Users
       'name' => $this->name,
       'email' => $this->email,
       'password' => $this->password,
-      'is_deleted' => $this->is_deleted
+      'is_deleted' => $this->is_deleted,
+      'id_role' => $this->id_role
     ];
   }
 }
