@@ -1,12 +1,30 @@
 <?php
 
-use Core\RequestMethod;
+namespace Api\Auth;
 
+use Core\Base\BaseApiEndpoint;
 
-// POST login
-$app->addRoute(RequestMethod::POST, '/api/login', 'Api\Auth\Controller\AuthController', 'login')->middleware('guest');
+class AuthEndpoint extends BaseApiEndpoint
+{
+    
 
-// POST validate
-$app->addRoute(RequestMethod::POST, '/api/validate', 'Api\Auth\Controller\AuthController', 'validate')->middleware('auth');
+    protected function getBasePath(): string
+    {
+        return '/api';
+    }
+
+    protected function getController(): string
+    {
+        return 'Api\Auth\Controller\AuthController';
+    }
+
+    protected function registerRoutes()
+    {
+        
+        $this->addPost('/login', 'login', 'guest');
+        $this->addPost('/validate', 'validate', 'auth');
+       
+    }
+} 
 
 

@@ -1,31 +1,30 @@
 <?php
 
-use Core\RequestMethod;
+namespace Api\Users;
 
-// Get All
-$app->addRoute(RequestMethod::GET, '/api/users', 'Api\Users\Controller\UsersController', 'getAll')->middleware('auth');
+use Core\Base\BaseApiEndpoint;
 
-// Get User by ID
-$app->addRoute(RequestMethod::GET, '/api/users/{id}', 'Api\Users\Controller\UsersController', 'getById')->middleware('auth');
+class UsersEndpoint extends BaseApiEndpoint
+{
 
-// GET All user related manga
-$app->addRoute(RequestMethod::GET, '/api/users/login', 'Api\Users\Controller\UsersController', 'login')->middleware('auth');
+    protected function getBasePath(): string
+    {
+        return '/api/users';
+    }
 
+    protected function getController(): string
+    {
+        return 'Api\Users\Controller\UsersController';
+    }
 
-// GET All user related manga
-$app->addRoute(RequestMethod::GET, '/api/users/manga/{id}', 'Api\Users\Controller\UsersController', 'getAllUserRelatedManga')->middleware('auth');
+    protected function registerRoutes()
+    {
+        parent::registerRoutes();
 
-// POST add new manga to user
-$app->addRoute(RequestMethod::POST, '/api/users/manga/{id}/{mangaId}', 'Api\Users\Controller\UsersController', 'addMangaToUser')->middleware('auth');
+        $this->addGet('/manga/{id}', 'getAllUserRelatedManga', 'auth');
+        $this->addGet('/manga/{id}/{mangaId}', 'addMangaToUser', 'auth');
+        $this->addDelete('/manga/{id}/{mangaId}', 'removeMangaFromUser', 'auth');
+       
+    }
+} 
 
-// Add User
-$app->addRoute(RequestMethod::POST, '/api/users', 'Api\Users\Controller\UsersController', 'create')->middleware('auth');
-
-// Update User by ID
-$app->addRoute(RequestMethod::PUT, '/api/users/{id}', 'Api\Users\Controller\UsersController', 'update')->middleware('auth');
-
-// Delete User by ID
-$app->addRoute(RequestMethod::DELETE, '/api/users/{id}', 'Api\Users\Controller\UsersController', 'delete')->middleware('auth');
-
-// DELETE manga from user
-$app->addRoute(RequestMethod::DELETE, '/api/users/manga/{id}/{mangaId}', 'Api\Users\Controller\UsersController', 'removeMangaFromUser')->middleware('auth');

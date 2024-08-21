@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use Api\Auth\AuthEndpoint;
 use Api\Users\Repository\UsersRepository;
 use Api\Users\Service\UsersService;
 
@@ -20,6 +21,7 @@ use Api\Tags\Service\TagsService;
 use Api\Auth\Service\AuthService;
 use Api\Manga\MangaEndpoint;
 use Api\Tags\TagsEndpoint;
+use Api\Users\UsersEndpoint;
 use Services\JwtService;
 use Services\MailerService;
 
@@ -81,13 +83,13 @@ class App
 
     $app = Router::getInstance();
 
-    MangaEndpoint::create('/api/manga', 'Api\Manga\Controller\MangaController');
-    TagsEndpoint::create('api/tags', 'Api\Tags\Controller\tagsController');
+    MangaEndpoint::create();
+    TagsEndpoint::create();
+    UsersEndpoint::create();
+    AuthEndpoint::create();
 
     // require __DIR__ . "/../Api/EmailConfirm/emailConfirmEndPoint.php";
     // require __DIR__ . "/../Api/Mangaka/mangakaEndPoint.php";
-    // require __DIR__ . '/../Api/Users/usersEndPoint.php';
-    // require __DIR__ . '/../Api/Auth/authEndPoint.php';
 
     // TODO: Faire le fichier et dossier log / migration.log
 
