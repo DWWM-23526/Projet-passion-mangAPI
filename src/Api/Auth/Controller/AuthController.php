@@ -4,11 +4,12 @@ namespace Api\Auth\Controller;
 
 use Api\Auth\Service\AuthService;
 use Core\App;
+use Core\Base\BaseController;
 use Core\HTTPRequest;
 use Core\HTTPResponse;
 
 
-class AuthController
+class AuthController extends BaseController
 {
     private AuthService $authService;
 
@@ -20,34 +21,28 @@ class AuthController
     public function login(HTTPRequest $request, HTTPResponse $response, $params){
 
         $body = $request->getBody();
-
         $email = $body['email'];
         $password = $body['password'];
 
         try {
             $autentification = $this->authService->authentication($email, $password);
+            $this->sendSuccessResponse($response, $autentification);
         } catch (\Throwable $th) {
-            $response->abort();
+            $this->sendErrorResponse($response, 'login failed', 500);
         }
-        $response->sendJsonResponse($autentification);
-
     }
 
     public function validate(HTTPRequest $request, HTTPResponse $response, $params)
     {
         
-
         $headers = $request->getHeaders();
-        
 
         try {
             $tokenValidated = $this->authService->validateToken($headers);
+            $this->sendSuccessResponse($response, $tokenValidated);
         } catch (\Throwable $th) {
-            // $response->abort();
+            $this->sendErrorResponse($response, 'failed to validate authentification', 500);
         }
-        $response->sendJsonResponse($tokenValidated);
-
-
     }
 
    

@@ -23,9 +23,9 @@ class MangaController extends BaseApiController
 
         try {
             $mangas = $this->service->searchMangaByName($searchTerm);
-            $response->sendJsonResponse($mangas);
+            $this->sendSuccessResponse($response, $mangas);
         } catch (\Throwable $th) {
-            $response->abort();
+            $this->sendErrorResponse($response, 'Failed to fetch data', 404);
         }
     }
 
@@ -34,9 +34,9 @@ class MangaController extends BaseApiController
         $mangaId = $params['id'];
         try {
             $mangaka = $this->service->getRelatedMangaka($mangaId);
-            $response->sendJsonResponse($mangaka);
+            $this->sendSuccessResponse($response, $mangaka);
         } catch (\Throwable $th) {
-            $response->abort();
+            $this->sendErrorResponse($response, 'Failed to fetch data', 404);
         }
     }
 
@@ -45,9 +45,9 @@ class MangaController extends BaseApiController
         $mangaId = $params['id'];
         try {
             $tags = $this->service->getAllMangaRelatedTags($mangaId);
-            $response->sendJsonResponse($tags);
+            $this->sendSuccessResponse($response, $tags);
         } catch (\Throwable $th) {
-            $response->abort();
+            $this->sendErrorResponse($response, 'Failed to fetch data', 404);
         }
     }
 
@@ -57,9 +57,9 @@ class MangaController extends BaseApiController
         $userId = $params['userId'];
         try {
             $check = $this->service->checkIfIsUserFavorite($userId, $mangaId);
-            $response->sendJsonResponse($check);
+            $this->sendSuccessResponse($response, $check);
         } catch (\Throwable $th) {
-            $response->abort("Heeeuuuu Problemes !");
+            $this->sendErrorResponse($response, 'Failed to fetch data', 404);
         }
     }
 
@@ -69,9 +69,9 @@ class MangaController extends BaseApiController
         $tagId = $params['tagId'];
         try {
             $this->service->addTagToManga($mangaId, $tagId);
-            $response->sendJsonResponse(["tag id : $tagId  succesfuly added to manga id : $mangaId "]);
+            $this->sendSuccessResponse($response, ["tag id : $tagId  succesfuly added to manga id : $mangaId "]);
         } catch (\Throwable $th) {
-            $response->abort();
+            $this->sendErrorResponse($response, 'Failed to add tag relation', 500);
         }
     }
 
@@ -81,10 +81,9 @@ class MangaController extends BaseApiController
         $tagId = $params['tagId'];
         try {
             $this->service->removeMangaTag($mangaId, $tagId);
-            $response->sendJsonResponse(["tag id : $tagId  succesfuly removed from manga id : $mangaId "]);
+            $this->sendSuccessResponse($response, ["tag id : $tagId  succesfuly added to manga id : $mangaId "]);
         } catch (\Throwable $th) {
-            $response->abort();
+            $this->sendErrorResponse($response, 'Failed to delete tag relation', 500);
         }
     }
 }
-

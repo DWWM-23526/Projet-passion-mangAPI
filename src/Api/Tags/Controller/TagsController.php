@@ -20,10 +20,10 @@ class TagsController extends BaseApiController
     {
         $tagId = $params['id'];
         try {
-           $relatedTagsMangas = $this->service->getAllTagsRelatedManga($tagId);
+            $relatedTagsMangas = $this->service->getAllTagsRelatedManga($tagId);
+            $this->sendSuccessResponse($response, $relatedTagsMangas);
         } catch (\Throwable $th) {
-            $response->abort();
+            $this->sendErrorResponse($response, "Failed to retrieve mangas related to tag ID $tagId.", 404);
         }
-        $response->sendJsonResponse($relatedTagsMangas);
     }
 }

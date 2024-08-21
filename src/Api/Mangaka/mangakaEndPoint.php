@@ -20,6 +20,6 @@ class MangakaEndPoint extends BaseApiEndpoint
     parent::registerRoutes();
 
     $this->addGet('/search/{searchTerm}', 'searchMangakaByName');
-    $this->addGet('/manga/{mangakaId}', 'getAllRelatedManga');
+    $this->addGet('/mangas/{mangakaId}', 'getAllRelatedManga');
   }
 }
