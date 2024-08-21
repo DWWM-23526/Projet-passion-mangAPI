@@ -2,25 +2,23 @@
 
 namespace Api\EmailConfirm\Controller;
 
-use Core\App;
+use Core\Base\BaseApiController;
 use Core\HTTPRequest;
 use core\HTTPResponse;
 use Api\EmailConfirm\Service\EmailConfirmService;
-use Services\MailerService;
 
-class EmailConfirmController
+class EmailConfirmController extends BaseApiController
 {
-  private EmailConfirmService $emailConfirmService;
   public function __construct()
   {
-    $this->emailConfirmService = App::injectService()->getContainer(EmailConfirmService::class);
+    parent::__construct(EmailConfirmService::class);
   }
 
   public function getEmailByEmail(HTTPRequest $request, HTTPResponse $response, $params)
   {
     $email = $params["email"];
     try {
-      $emailConfirm = $this->emailConfirmService->getEmailByEmail($email);
+      $emailConfirm = $this->service->getEmailByEmail($email);
     } catch (\Throwable $th) {
       $response->abort();
     }
@@ -31,7 +29,7 @@ class EmailConfirmController
   {
     $body = $request->getBody();
     try {
-      $this->emailConfirmService->createEmailConfirm($body);
+      $this->service->createEmailConfirm($body);
     } catch (\Throwable $th) {
       $response->abort();
     }
@@ -42,7 +40,7 @@ class EmailConfirmController
   {
     $body = $request->getBody();
     try {
-      $newEmailConfirm = $this->emailConfirmService->createEmailConfirm($body);
+      $newEmailConfirm = $this->service->createEmailConfirm($body);
       $response->sendJsonResponse(['response' =>$newEmailConfirm]);
     } catch (\Throwable $th) {
       $response->abort($th);
@@ -55,7 +53,7 @@ class EmailConfirmController
     $token = $params['token'];
 
     try {
-      $newUser = $this->emailConfirmService->decodeTokenAndCreateAccount($token);
+      $newUser = $this->service->decodeTokenAndCreateAccount($token);
       $response->sendJsonResponse($newUser);
     } catch (\Throwable $th) {
       $response->abort($th);
@@ -66,7 +64,7 @@ class EmailConfirmController
   {
     $email = $params['email'];
     try {
-      $this->emailConfirmService->deleteEmailConfirm($email);
+      $this->service->deleteEmailConfirm($email);
     } catch (\Throwable $th) {
       $response->abort();
     }

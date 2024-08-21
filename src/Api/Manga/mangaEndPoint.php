@@ -21,6 +21,5 @@ class MangaEndpoint extends BaseApiEndpoint
         $this->addGet('/user/{id}/{userId}', 'checkIfIsUserFavorite', 'auth');
         $this->addPost('/tags/{id}/{tagId}', 'addTagToManga', 'auth');
         $this->addDelete('/tags/{id}/{tagId}', 'removeMangaTag', 'auth');
-       
     }
 } 

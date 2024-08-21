@@ -18,7 +18,9 @@ use Api\Mangaka\Service\MangakaService;
 use Api\Tags\Repository\TagsRepository;
 use Api\Tags\Service\TagsService;
 use Api\Auth\Service\AuthService;
+use Api\EmailConfirm\EmailConfirmEndPoint;
 use Api\Manga\MangaEndpoint;
+use Api\Mangaka\MangakaEndPoint;
 use Api\Tags\TagsEndpoint;
 use Services\JwtService;
 use Services\MailerService;
@@ -82,14 +84,15 @@ class App
     $app = Router::getInstance();
 
     MangaEndpoint::create('/api/manga', 'Api\Manga\Controller\MangaController');
-    TagsEndpoint::create('api/tags', 'Api\Tags\Controller\tagsController');
+    MangakaEndPoint::create('/api/mangaka', 'Api\Mangaka\Controller\MangakaController');
+    EmailConfirmEndPoint::create('/api/emailConfirm', 'Api\EmailConfirm\Controller');
+    TagsEndpoint::create('/api/tags', 'Api\Tags\Controller\TagsController');
+    
 
     // require __DIR__ . "/../Api/EmailConfirm/emailConfirmEndPoint.php";
     // require __DIR__ . "/../Api/Mangaka/mangakaEndPoint.php";
     // require __DIR__ . '/../Api/Users/usersEndPoint.php';
     // require __DIR__ . '/../Api/Auth/authEndPoint.php';
-
-    // TODO: Faire le fichier et dossier log / migration.log
 
     // CONTAINER INIT
 
@@ -193,7 +196,7 @@ class App
       return new MailerService();
     });
 
-    self::setServiceContainer($containerServices);    
+    self::setServiceContainer($containerServices);
   }
   
   private static function instanceRemoveAtExpired()

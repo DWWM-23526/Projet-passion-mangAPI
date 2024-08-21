@@ -3,16 +3,13 @@
 namespace Api\EmailConfirm\Repository;
 
 use Api\EmailConfirm\Model\EmailConfirm;
-use Core\ORM\BaseRepository;
+use Core\Base\BaseApiRepository;
 
-
-class EmailConfirmRepository extends BaseRepository
+class EmailConfirmRepository extends BaseApiRepository
 {
   protected $table = 'email_confirmation';
   protected $modelClass = EmailConfirm::class;
   protected $primaryKey = "id_conf";
-
-  // CRUD
 
   public function getEmailByEmail($email)
   {
@@ -22,15 +19,5 @@ class EmailConfirmRepository extends BaseRepository
   public function getNameByName($name)
   {
     return $this->checkIfExists($this->table, [$name], ['name']);
-  }
-
-  public function createEmailConfirm($data)
-  {
-    return $this->create($data);
-  }
-
-  public function deleteEmailConfirm($id)
-  {
-    return $this->delete($id, "email");
   }
 }
