@@ -60,9 +60,7 @@ abstract class BaseApiEndpoint
         $this->addPut('/{id}', 'update', 'auth');
         $this->addDelete('/{id}', 'delete', 'auth');
 
-        
     }
-
 
     public static function create()
     {

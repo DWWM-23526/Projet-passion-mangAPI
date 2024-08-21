@@ -21,10 +21,10 @@ class UsersController extends BaseApiController
         $userId = $params['id'];
         try {
             $manga = $this->service->getAllUserRelatedManga($userId);
+            $this->sendSuccessResponse($response, $manga);
         } catch (\Throwable $th) {
-            $response->abort();
+            $this->sendErrorResponse($response, "Failed to retrieve manga related to user ID $userId.", 404);
         }
-        $response->sendJsonResponse($manga);
     }
 
     public function addMangaToUser(HTTPRequest $request, HTTPResponse $response, $params)
@@ -33,10 +33,10 @@ class UsersController extends BaseApiController
         $mangaId = $params['mangaId'];
         try {
             $this->service->addMangaToUser($userId, $mangaId);
+            $this->sendSuccessResponse($response, null, "Manga ID $mangaId successfully added to user ID $userId.");
         } catch (\Throwable $th) {
-            $response->abort();
+            $this->sendErrorResponse($response, "Failed to add manga ID $mangaId to user ID $userId.");
         }
-        $response->sendJsonResponse(["manga id : $mangaId successfully added to user Id : $userId"]);
     }
 
     public function removeMangaFromUser(HTTPRequest $request, HTTPResponse $response, $params)
@@ -45,11 +45,9 @@ class UsersController extends BaseApiController
         $mangaId = $params['mangaId'];
         try {
             $this->service->removeMangaFromUser($userId, $mangaId);
+            $this->sendSuccessResponse($response, null, "Manga ID $mangaId successfully removed from user ID $userId.");
         } catch (\Throwable $th) {
-            $response->abort();
+            $this->sendErrorResponse($response, "Failed to remove manga ID $mangaId from user ID $userId.");
         }
-        $response->sendJsonResponse(["manga id : $mangaId successfully removed to user Id : $userId"]);
     }
-
-   
 }
