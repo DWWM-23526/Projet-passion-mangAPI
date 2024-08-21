@@ -19,10 +19,11 @@ class EmailConfirmController extends BaseApiController
     $email = $params["email"];
     try {
       $emailConfirm = $this->service->getEmailByEmail($email);
+      $this->sendSuccessResponse($response, $emailConfirm);
     } catch (\Throwable $th) {
-      $response->abort();
+      $this->sendErrorResponse($response,'Failed to fetch data', 404);
     }
-    $response->sendJsonResponse($emailConfirm);
+    
   }
 
   public function addEmailConfirm(HTTPRequest $request, HTTPResponse $response)
@@ -30,10 +31,11 @@ class EmailConfirmController extends BaseApiController
     $body = $request->getBody();
     try {
       $this->service->createEmailConfirm($body);
+      $this->sendSuccessResponse($response, ["email {$body['email']} crée"] );
     } catch (\Throwable $th) {
-      $response->abort();
+      $this->sendErrorResponse($response,'Failed to create email', 500);
     }
-    $response->sendJsonResponse(["email {$body['email']} crée"]);
+   
   }
 
   public function sendEmailToConfirmAccount(HTTPRequest $request, HTTPResponse $response)
@@ -41,9 +43,9 @@ class EmailConfirmController extends BaseApiController
     $body = $request->getBody();
     try {
       $newEmailConfirm = $this->service->createEmailConfirm($body);
-      $response->sendJsonResponse(['response' =>$newEmailConfirm]);
+      $this->sendSuccessResponse($response, $newEmailConfirm );
     } catch (\Throwable $th) {
-      $response->abort($th);
+      $this->sendErrorResponse($response,'Failed to send email', 500);
     }
   }
 
@@ -54,9 +56,9 @@ class EmailConfirmController extends BaseApiController
 
     try {
       $newUser = $this->service->decodeTokenAndCreateAccount($token);
-      $response->sendJsonResponse($newUser);
+      $this->sendSuccessResponse($response, $newUser );
     } catch (\Throwable $th) {
-      $response->abort($th);
+      $this->sendErrorResponse($response,'Failed to decode or createUser', 500);
     }
   }
 
@@ -65,9 +67,9 @@ class EmailConfirmController extends BaseApiController
     $email = $params['email'];
     try {
       $this->service->deleteEmailConfirm($email);
+      $this->sendSuccessResponse($response, ["email {$email} bien delete !"] );
     } catch (\Throwable $th) {
-      $response->abort();
+      $this->sendErrorResponse($response,'Failed to delete email Confirmation', 500);
     }
-    $response->sendJsonResponse(["email {$email} bien delete !"]);
   }
 }
