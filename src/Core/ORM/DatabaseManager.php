@@ -21,6 +21,7 @@ use Database\Schemas\UsersSchema;
 use Database\Migrations\AddIsDeletedToUsers;
 use Database\Migrations\AddTableRoleAndSeed;
 use Database\Migrations\AddUniqueMailAndRefactCleToToken;
+use Database\Migrations\ChangeIdRoleByNullAndDefaultOne;
 use Database\Migrations\EditDateTypeToTimeStamp;
 use Database\Migrations\RemoveTokenToEmailConfirmAndAddName;
 use Database\Seed\FavoritesSeed;
@@ -58,6 +59,7 @@ class DatabaseManager
         AddColumnIdRoleInUsers::class,
         AddIdRoleSeed::class,
         AddForeignKeyIdRoleToUsers::class,
+        ChangeIdRoleByNullAndDefaultOne::class
     ];
 
     private array $seeds = [
