@@ -6,9 +6,16 @@ use Core\Base\BaseApiEndpoint;
 
 class TagsEndpoint extends BaseApiEndpoint
 {
-    public function __construct()
+    
+
+    protected function getBasePath(): string
     {
-        parent::__construct('/api/tags', 'Api\Tags\Controller\tagsController');
+        return '/api/tags';
+    }
+
+    protected function getController(): string
+    {
+        return 'Api\Tags\Controller\tagsController';
     }
 
     protected function registerRoutes()

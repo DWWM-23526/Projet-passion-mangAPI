@@ -10,11 +10,14 @@ abstract class BaseApiEndpoint
     protected $basePath;
     protected $controller;
 
-    protected function __construct(string $basePath, string $controller)
+    protected function __construct()
     {
-        $this->basePath = $basePath;
-        $this->controller = $controller;
+        $this->basePath = $this->getBasePath();
+        $this->controller = $this->getController();
     }
+
+    abstract protected function getBasePath(): string;
+    abstract protected function getController(): string;
 
     protected function addRoute(RequestMethod $httpMethod, string $route, string $method, string $middleware = null)
     {
@@ -61,9 +64,9 @@ abstract class BaseApiEndpoint
     }
 
 
-    public static function create(string $basePath, string $controller)
+    public static function create()
     {
-        $instance = new static($basePath, $controller);
+        $instance = new static();
         $instance->registerRoutes();
         return $instance;
     }
