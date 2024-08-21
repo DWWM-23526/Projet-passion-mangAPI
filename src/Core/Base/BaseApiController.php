@@ -6,7 +6,7 @@ use Core\App;
 use Core\HTTPRequest;
 use Core\HTTPResponse;
 
-abstract class BaseApiController
+abstract class BaseApiController extends BaseController
 {
     protected  $service;
 
@@ -72,25 +72,5 @@ abstract class BaseApiController
     }
 
 
-    protected function sendSuccessResponse(HTTPResponse $response, $data, $message = '')
-    {
-        $response->sendJsonResponse([
-            'success' => true,
-            'message' => $message,
-            'data' => $data,
-        ]);
-    }
-
-    protected function sendErrorResponse(HTTPResponse $response, $message = '', $code = 500)
-    {
-        $response->sendJsonResponse([
-            'success' => false,
-            'message' => $message,
-        ], $code);
-    }
-
-    protected function abortResponse(HTTPResponse $response, $message = 'An error occurred', $code = 500)
-    {
-        $response->abort($message, $code);
-    }
+  
 }
