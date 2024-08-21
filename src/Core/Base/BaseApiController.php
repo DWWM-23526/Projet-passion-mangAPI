@@ -18,11 +18,11 @@ abstract class BaseApiController extends BaseController
     public function getAll(HTTPRequest $request, HTTPResponse $response)
     {
         try {
-            $data = $this->service->getAll();
+            $data = $this->service->getAll($response);
             $this->sendSuccessResponse($response, $data);
         } catch (\Throwable $th) {
 
-            $this->sendErrorResponse($response,'Failed to fetch data', 404);
+            $this->sendErrorResponse($response, 'Failed to fetch data', 404);
         }
     }
 
@@ -70,7 +70,4 @@ abstract class BaseApiController extends BaseController
             $this->sendErrorResponse($response, 'Failed to delete resource');
         }
     }
-
-
-  
 }

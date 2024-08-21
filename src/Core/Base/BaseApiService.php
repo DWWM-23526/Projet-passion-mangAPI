@@ -3,6 +3,8 @@
 namespace Core\Base;
 
 use Core\App;
+use core\HTTPResponse;
+use Middlewares\PaginationMiddleware;
 
 abstract class BaseApiService
 {
@@ -13,9 +15,11 @@ abstract class BaseApiService
         $this->repository = App::injectRepository()->getContainer($repository);
     }
 
-    public function getAll()
+    public function getAll(HTTPResponse $response, int $perPage = 25)
     {
-        return $this->repository->getAllItems();
+        $data = $this->repository->getAllItems();
+
+        return PaginationMiddleware::apply($data, $response, $perPage);
     }
 
     public function getById(int $id)
