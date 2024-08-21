@@ -23,7 +23,7 @@ class EmailConfirmController extends BaseApiController
     } catch (\Throwable $th) {
       $this->sendErrorResponse($response,'Failed to fetch data', 404);
     }
-    
+
   }
 
   public function addEmailConfirm(HTTPRequest $request, HTTPResponse $response)
@@ -35,7 +35,7 @@ class EmailConfirmController extends BaseApiController
     } catch (\Throwable $th) {
       $this->sendErrorResponse($response,'Failed to create email', 500);
     }
-   
+
   }
 
   public function sendEmailToConfirmAccount(HTTPRequest $request, HTTPResponse $response)

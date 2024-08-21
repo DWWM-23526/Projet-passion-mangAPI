@@ -4,7 +4,7 @@ namespace Api\Mangaka\Model;
 
 class Mangaka
 {
-  public ?int $Id_mangaka;
+  public ?int $id;
   public string $img_mangaka;
   public ?string $first_name;
   public ?string $last_name;
@@ -14,7 +14,7 @@ class Mangaka
 
   public function __construct(array $data = [])
   {
-    $this->Id_mangaka = $data['Id_mangaka'] ?? null;
+    $this->id = $data['Id_mangaka'] ?? null;
     $this->img_mangaka = $data['img_mangaka'] ?? '';
     $this->first_name = $data['first_name'] ?? null;
     $this->last_name = $data['last_name'] ?? null;
@@ -26,7 +26,7 @@ class Mangaka
   public function toArray(): array
   {
     return [
-      'Id_mangaka' => $this->Id_mangaka,
+      'Id_mangaka' => $this->id,
       'img_mangaka' => $this->img_mangaka,
       'first_name' => $this->first_name,
       'last_name' => $this->last_name,

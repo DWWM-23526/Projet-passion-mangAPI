@@ -4,7 +4,7 @@ namespace Api\Users\Model;
 
 class Users
 {
-  public int $Id_user;
+  public int $id;
   public string $name;
   public string $email;
   public string $password;
@@ -13,7 +13,7 @@ class Users
 
   public function __construct(array $data = [])
   {
-    $this->Id_user = $data['Id_user'];
+    $this->id = $data['Id_user'];
     $this->name = $data['name'] ?? '';
     $this->email = $data['email'] ?? '';
     $this->password = $data['password'] ?? "";
@@ -24,7 +24,7 @@ class Users
   public function toArray()
   {
     return [
-      'Id_user' => $this->Id_user,
+      'Id_user' => $this->id,
       'name' => $this->name,
       'email' => $this->email,
       'password' => $this->password,
