@@ -3,34 +3,34 @@
 namespace Api\EmailConfirm\Service;
 
 use Core\App;
-use Api\EmailConfirm\Model\EmailConfirm;
 use Api\EmailConfirm\Repository\EmailConfirmRepository;
 use Api\Users\Service\UsersService;
+use Core\Base\BaseApiService;
 use Services\JwtService;
 use Services\MailerService;
 
-class EmailConfirmService
+class EmailConfirmService extends BaseApiService
 {
-  private EmailConfirmRepository $emailRepository;
   private JwtService $jwtService;
   private MailerService $mailerService;
   private UsersService $usersService;
 
   public function __construct()
   {
-    $this->emailRepository = App::injectRepository()->getContainer(EmailConfirmRepository::class);
+    parent::__construct(EmailConfirmRepository::class);
+   
     $this->jwtService = App::injectService()->getContainer(JwtService::class);
     $this->mailerService = App::injectService()->getContainer(MailerService::class);
     $this->usersService = App::injectService()->getContainer(UsersService::class);
   }
   public function getEmailByEmail(string $email)
   {
-    return $this->emailRepository->getEmailByEmail($email);
+    return $this->repository->getEmailByEmail($email);
   }
 
   public function getNameByName(string $name)
   {
-    return $this->emailRepository->getNameByName($name);
+    return $this->repository->getNameByName($name);
   }
 
   public function createEmailConfirm(array $data)
@@ -43,7 +43,7 @@ class EmailConfirmService
 
     $data['password'] = $hashedPassword;
 
-    $existingEmail = $this->emailRepository->getEmailByEmail($email);
+    $existingEmail = $this->repository->getEmailByEmail($email);
 
     if ($existingEmail[0]['result'] >= 1) {
 
@@ -55,7 +55,7 @@ class EmailConfirmService
 
       $this->mailerService->sendConfirmationEmail($email, $token);
 
-      $this->emailRepository->createEmailConfirm([
+      $this->repository->createEmailConfirm([
         'email' => $email,
         'name' => $name
       ]);
@@ -102,7 +102,7 @@ class EmailConfirmService
   {
     $tokenDecodeEmail = $tokenDecode['email'];
     try {
-      $this->emailRepository->deleteEmailConfirm($tokenDecodeEmail);
+      $this->repository->deleteEmailConfirm($tokenDecodeEmail);
     } catch (\Throwable $th) {
       return $th;
     }
@@ -112,7 +112,7 @@ class EmailConfirmService
   private function createAccount($tokenDecode)
   {
     try {
-      $this->usersService->createUser($tokenDecode);
+      $this->usersService->create($tokenDecode);
     } catch (\Throwable $th) {
       return "Erreur emailConfirmService : $th";
     }
@@ -130,6 +130,6 @@ class EmailConfirmService
 
   public function deleteEmailConfirm($email)
   {
-    return $this->emailRepository->deleteEmailConfirm($email);
+    return $this->repository->deleteEmailConfirm($email);
   }
 }

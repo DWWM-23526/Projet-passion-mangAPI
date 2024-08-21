@@ -2,24 +2,21 @@
 
 namespace Api\Mangaka\Controller;
 
-use Core\App;
+use Core\Base\BaseApiController;
 use Core\HTTPRequest;
 use core\HTTPResponse;
 use Api\Mangaka\Service\MangakaService;
 
-class MangakaController
+class MangakaController extends BaseApiController
 {
-
-    private MangakaService $mangakaService;
-
     public function __construct()
     {
-        $this->mangakaService = App::injectService()->getContainer(MangakaService::class);
+        parent::__construct(MangakaService::class);
     }
 
     public function getAllMangakas(HTTPRequest $request, HTTPResponse $response)
     {
-        $mangakas = $this->mangakaService->getAllMangakas();
+        $mangakas = $this->service->getAllMangakas();
         $response->sendJsonResponse($mangakas);
     }
 
@@ -27,7 +24,7 @@ class MangakaController
     {
         $mangakaId = $params['mangakaId'];
         try {
-            $mangakas = $this->mangakaService->getMangakaById($mangakaId);
+            $mangakas = $this->service->getMangakaById($mangakaId);
             $response->sendJsonResponse($mangakas);
         } catch (\Throwable $th) {
             $response->abort();
@@ -38,7 +35,7 @@ class MangakaController
     {
         $mangakaId = $params['mangakaId'];
         try {
-            $relatedMangas = $this->mangakaService->getAllRelatedManga($mangakaId);
+            $relatedMangas = $this->service->getAllRelatedManga($mangakaId);
             $response->sendJsonResponse($relatedMangas);
         } catch (\Throwable $th) {
             $response->abort();
@@ -51,7 +48,7 @@ class MangakaController
         $searchTerm = $params['searchTerm'];
 
         try {
-            $mangaka = $this->mangakaService->searchMangakaByName($searchTerm);
+            $mangaka = $this->service->searchMangakaByName($searchTerm);
             $response->sendJsonResponse($mangaka);
         } catch (\Throwable $th) {
             $response->abort();
@@ -62,7 +59,7 @@ class MangakaController
     {
         $body = $request->getBody();
         try {
-            $this->mangakaService->createMangakas($body);
+            $this->service->createMangakas($body);
             $response->sendJsonResponse(["Magaka {$body['first_name']}{$body['last_name']} créé"]);
         } catch (\Throwable $th) {
             $response->abort();
@@ -74,7 +71,7 @@ class MangakaController
 
         $body = $request->getBody();
         try {
-            $this->mangakaService->updateMangaka($body, $mangakaId);
+            $this->service->updateMangaka($body, $mangakaId);
             $response->sendJsonResponse(["Mangaka {$body['first_name']}{$body['last_name']} créé"]);
         } catch (\Throwable $th) {
             $response->abort();
@@ -84,7 +81,7 @@ class MangakaController
     {
         $mangakaId = $params['mangakaId'];
         try {
-            $this->mangakaService->deleteMangaka($mangakaId);
+            $this->service->deleteMangaka($mangakaId);
             $response->sendJsonResponse(["Mangaka {$mangakaId} deleted"]);
         } catch (\Throwable $th) {
             $response->abort();

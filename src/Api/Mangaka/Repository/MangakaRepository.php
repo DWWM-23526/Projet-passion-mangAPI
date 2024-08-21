@@ -4,24 +4,14 @@ namespace Api\Mangaka\Repository;
 
 use Api\Manga\Model\Manga;
 use Api\Mangaka\Model\Mangaka;
-use Core\ORM\BaseRepository;
+use Core\Base\BaseApiRepository;
 
 
-class MangakaRepository extends BaseRepository
+class MangakaRepository extends BaseApiRepository
 {
   protected $table = 'mangakas';
   protected $modelClass = Mangaka::class;
   protected $primaryKey = 'Id_mangaka';
-
-  public function getAllMangakas()
-  {
-    return $this->getAll($this->table);
-  }
-
-  public function getMangakaById(int $mangakaId)
-  {
-    return $this->getById($mangakaId);
-  }
 
   public function searchMangakaByName(array $searchTerm)
   {
@@ -31,20 +21,5 @@ class MangakaRepository extends BaseRepository
   public function getAllRelatedManga($id)
   {
     return $this->hasMany(Manga::class, 'mangas', $this->primaryKey, $id);
-  }
-
-  public function createMangaka($data)
-  {
-    return $this->create($data);
-  }
-
-  public function updateMangaka($data, $id)
-  {
-    return $this->update($data, $id);
-  }
-
-  public function deleteMangaka($id)
-  {
-    return $this->delete($id, 'Id_mangaka');
   }
 }
