@@ -17,8 +17,11 @@ class EmailConfirmEndPoint extends BaseApiEndpoint
 
   protected function registerRoutes()
   {
+    parent::registerRoutes();
+
+    
     $this->addPost('/sendEmailConfirm', 'sendEmailToConfirmAccount');
-    $this->addGet('/{token}', 'decodeTokenAndCreateAccount');
+    $this->addGet('/decodeTokenToConfirmAccount/{token}', 'decodeTokenAndCreateAccount');
     $this->addDelete('/{email}', 'deleteEmailConfirm');
   }
 }

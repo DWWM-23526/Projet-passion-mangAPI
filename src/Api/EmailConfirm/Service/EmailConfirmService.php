@@ -55,7 +55,7 @@ class EmailConfirmService extends BaseApiService
 
       $this->mailerService->sendConfirmationEmail($email, $token);
 
-      $this->repository->createEmailConfirm([
+      $this->repository->createItem([
         'email' => $email,
         'name' => $name
       ]);
