@@ -1,15 +1,24 @@
 <?php
+namespace Api\EmailConfirm;
 
-use Core\RequestMethod;
+use Core\Base\BaseApiEndpoint;
 
-// GET emailConfirm by email
-$app->addRoute(RequestMethod::GET, "/api/emailConfirm/{email}", "Api\EmailConfirm\Controller\EmailConfirmController", "getEmailByEmail");
+class EmailConfirmEndPoint extends BaseApiEndpoint
+{
+  protected function getBasePath(): string
+  {
+    return '/api/emailConfirm';
+  }
 
-// POST send email
-$app->addRoute(RequestMethod::POST, "/api/sendEmailConfirm", "Api\EmailConfirm\Controller\EmailConfirmController", "sendEmailToConfirmAccount");
+  protected function getController(): string
+  {
+    return 'Api\EmailConfirm\Controller\EmailConfirmController';
+  }
 
-// GET token and decode
-$app->addRoute(RequestMethod::GET, "/api/decodeTokenToConfirmAccount/{token}", "Api\EmailConfirm\Controller\EmailConfirmController", "decodeTokenAndCreateAccount");
-
-//DELETE remove an emailConfirm
-$app->addRoute(RequestMethod::DELETE, "/api/emailConfirm/{email}", "Api\EmailConfirm\Controller\EmailConfirmController", "deleteEmailConfirm");
+  protected function registerRoutes()
+  {
+    $this->addPost('/sendEmailConfirm', 'sendEmailToConfirmAccount');
+    $this->addGet('/{token}', 'decodeTokenAndCreateAccount');
+    $this->addDelete('/{email}', 'deleteEmailConfirm');
+  }
+}
