@@ -19,25 +19,20 @@ class AuthService
 
     public function authentication(string $email, string $password)
     {
-        $errors = [];
 
-        
-        $user = $this->usersRepository->getUserByEmail($email);
+        try {
+            $user = $this->usersRepository->getUserByEmail($email);
+        } catch (\Exception $e) {
+            return $e;
+        }
         if (!$user || !password_verify($password, $user->password)) {
-            $errors["passwordError"] = "password or email incorrect";
+            throw new \Exception("password or email incorrect", 400);
         }
 
         $token = $this->jwtService->generateToken($user);
+        unset($user->is_deleted, $user->password, $user->id_role);
 
-        unset($user->is_deleted, $user->password);
-
-        if (empty($errors)) {
-            return $object = (object)['userData' => $user, 'token' => $token];
-        } else {
-            return $errors;
-        }
-
-
+        return (object)['userData' => $user, 'token' => $token];
     }
 
     public function validateToken(array $headers)
