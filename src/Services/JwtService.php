@@ -20,7 +20,7 @@ class JwtService
             'iss' => "passionmanga",
             'iat' => time(),
             'exp' => time() + (365 * 24 * 60 * 60),
-            'Id_user' => $user->Id_user,
+            'Id_user' => $user->id,
             'email' => $user->email,
         ];
 
