@@ -25,8 +25,6 @@ class AuthMiddleware extends BaseMiddleware
 
         $headers = $request->getHeaders();
 
-        var_dump($headers);
-
         if (isset($headers['authorization'])) {
 
             $token = str_replace('Bearer ', '', $headers['authorization']);

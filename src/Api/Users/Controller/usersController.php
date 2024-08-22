@@ -23,7 +23,7 @@ class UsersController extends BaseApiController
             $manga = $this->service->getAllUserRelatedManga($userId);
             $this->sendSuccessResponse($response, $manga);
         } catch (\Throwable $th) {
-            $this->sendErrorResponse($response, "Failed to retrieve manga related to user ID $userId.", 404);
+            $this->sendErrorResponse($response, $th->getMessage(), 404);
         }
     }
 
