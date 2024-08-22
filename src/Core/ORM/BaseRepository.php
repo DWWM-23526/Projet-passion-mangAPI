@@ -95,7 +95,7 @@ abstract class BaseRepository
             $id = $this->db->lastInsertId();
             $response = $this->getById($id);
         } catch (\PDOException $th) {
-            throw throw new \Exception($th->getMessage());
+            throw new \Exception($th->getMessage());
         }
         var_dump($response);
         return $response;
@@ -117,7 +117,7 @@ abstract class BaseRepository
             $this->db->query("UPDATE {$this->table} SET $fields WHERE {$this->primaryKey} = :{$this->primaryKey}", $data);
             $response = $this->getById($id);
         } catch (\PDOException $th) {
-            throw throw new \Exception($th->getMessage());
+            throw new \Exception($th->getMessage());
         }
 
         return $response;
