@@ -41,8 +41,8 @@ abstract class BaseApiController extends BaseController
     {
         $body = $request->getBody();
         try {
-            $this->service->create($body);
-            $this->sendSuccessResponse($response, [], 'Resource created successfully');
+            $data = $this->service->create($body);
+            $this->sendSuccessResponse($response,  $data, 'Resource created successfully');
         } catch (\Throwable $th) {
             $this->sendErrorResponse($response, 'Failed to create resource', 500);
         }
@@ -53,10 +53,10 @@ abstract class BaseApiController extends BaseController
         $id = $params['id'];
         $body = $request->getBody();
         try {
-            $this->service->update($body, $id);
-            $this->sendSuccessResponse($response, [], 'Resource updated successfully');
+            $data = $this->service->update($body, $id);
+            $this->sendSuccessResponse($response, $data, 'Resource updated successfully');
         } catch (\Throwable $th) {
-            $this->sendErrorResponse($response, 'Failed to update resource', 500);
+            $this->sendErrorResponse($response, $th, 500);
         }
     }
 

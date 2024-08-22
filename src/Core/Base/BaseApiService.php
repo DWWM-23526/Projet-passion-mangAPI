@@ -19,7 +19,7 @@ abstract class BaseApiService
     {
         $data = $this->repository->getAllItems();
 
-        return PaginationMiddleware::apply($data, $response, $perPage);
+        return PaginationMiddleware::handle($data, $response, $perPage);
     }
 
     public function getById(int $id)

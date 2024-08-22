@@ -21,9 +21,8 @@ class AuthService
     {
         $errors = [];
 
+        
         $user = $this->usersRepository->getUserByEmail($email);
-
-
         if (!$user || !password_verify($password, $user->password)) {
             $errors["passwordError"] = "password or email incorrect";
         }
@@ -37,6 +36,8 @@ class AuthService
         } else {
             return $errors;
         }
+
+
     }
 
     public function validateToken(array $headers)

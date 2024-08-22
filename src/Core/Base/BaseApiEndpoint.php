@@ -56,8 +56,8 @@ abstract class BaseApiEndpoint
     {
         $this->addGet('/', 'getAll');
         $this->addGet('/{id}', 'getById');
-        $this->addPost('/', 'create', 'auth');
-        $this->addPut('/{id}', 'update', 'auth');
+        $this->addPost('/', 'create');
+        $this->addPut('/{id}', 'update');
         $this->addDelete('/{id}', 'delete', 'auth');
 
     }

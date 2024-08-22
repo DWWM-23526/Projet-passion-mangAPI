@@ -90,13 +90,20 @@ abstract class BaseRepository
         $fields = implode(',', array_keys($data));
         $values = ':' . implode(',:', array_keys($data));
 
-        return $this->db->query("INSERT INTO $this->table ($fields) VALUES ($values) ", $data);
+        try {
+            $this->db->query("INSERT INTO $this->table ($fields) VALUES ($values) ", $data);
+            $id = $this->db->lastInsertId();
+            $response = $this->getById($id);
+        } catch (\PDOException $th) {
+            throw throw new \Exception($th->getMessage());
+        }
+        var_dump($response);
+        return $response;
     }
 
     protected function update(array $data, int $id)
     {
         $fields = '';
-
         foreach ($data as $key => $value) {
             if ($key != $this->primaryKey) {
                 $fields .= "$key = :$key,";
@@ -106,7 +113,14 @@ abstract class BaseRepository
         $fields = rtrim($fields, ',');
         $data[$this->primaryKey] = $id;
 
-        return $this->db->query("UPDATE {$this->table} SET $fields WHERE {$this->primaryKey} = :{$this->primaryKey}", $data);
+        try {
+            $this->db->query("UPDATE {$this->table} SET $fields WHERE {$this->primaryKey} = :{$this->primaryKey}", $data);
+            $response = $this->getById($id);
+        } catch (\PDOException $th) {
+            throw throw new \Exception($th->getMessage());
+        }
+
+        return $response;
     }
 
     protected function delete(mixed $id, string $column)

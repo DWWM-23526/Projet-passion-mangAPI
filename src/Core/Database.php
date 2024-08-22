@@ -107,4 +107,9 @@ class Database
 
         return $this;
     }
+
+    public function lastInsertId()
+    {
+        return $this->connection->lastInsertId();
+    }
 }
