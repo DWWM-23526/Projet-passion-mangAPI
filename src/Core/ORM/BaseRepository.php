@@ -97,7 +97,6 @@ abstract class BaseRepository
         } catch (\PDOException $th) {
             throw new \Exception($th->getMessage());
         }
-        var_dump($response);
         return $response;
     }
 
