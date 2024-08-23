@@ -30,7 +30,7 @@ class AuthService
         }
 
         $token = $this->jwtService->generateToken($user);
-        unset($user->is_deleted, $user->password, $user->id_role);
+        unset($user->is_deleted, $user->password);
 
         return (object)['userData' => $user, 'token' => $token];
     }
@@ -62,6 +62,35 @@ class AuthService
             return null;
         } catch (\Exception $e) {
             return null;
+        }
+    }
+
+    public function idRoleToken(array $headers)
+    {
+
+        $headers = array_change_key_case($headers, CASE_LOWER);
+
+        try {
+
+            $token = str_replace('Bearer ', '', $headers['authorization']);
+
+            $decodedToken = $this->jwtService->validateToken($token);
+
+            if (!$decodedToken || !isset($decodedToken['Id_user'])) {
+                return null;
+            }
+
+            $userById = $this->usersRepository->getItemById($decodedToken['Id_user']);
+
+            if (!$userById) {
+                return null;
+            }
+
+            unset($userById->is_deleted, $userById->password, $userById->email, $userById->id, $userById->name);
+
+            return $userById;
+        } catch (\Exception $e) {
+            return $e;
         }
     }
 }
