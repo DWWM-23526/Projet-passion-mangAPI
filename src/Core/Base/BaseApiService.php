@@ -27,6 +27,21 @@ abstract class BaseApiService
         return $this->repository->getItemById($id);
     }
 
+    public function getMany(HTTPResponse $response, string $values, int $perPage = 25)
+    {
+        if ($values) {
+            
+            $decodedFilter = json_decode($values, true);
+    
+            if (json_last_error() === JSON_ERROR_NONE && isset($decodedFilter['ids'])) {
+                $values = $decodedFilter['ids'];
+            }
+        }
+        
+        $data = $this->repository->getManyItems($values);
+        return PaginationMiddleware::handle($data, $response, $perPage);
+    }
+
     public function create(array $data)
     {
         return $this->repository->createItem($data);

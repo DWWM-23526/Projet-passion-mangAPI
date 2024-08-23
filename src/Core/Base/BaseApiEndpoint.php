@@ -54,7 +54,7 @@ abstract class BaseApiEndpoint
 
     protected function registerRoutes()
     {
-        $this->addGet('/', 'getAll');
+        $this->addGet('/', 'get');
         $this->addGet('/{id}', 'getById');
         $this->addPost('/', 'create', 'auth');
         $this->addPut('/{id}', 'update', 'auth');

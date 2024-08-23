@@ -24,9 +24,11 @@ class AuthMiddleware extends BaseMiddleware
     {
 
         $headers = $request->getHeaders();
+        $headers = array_change_key_case($headers, CASE_LOWER);
 
         if (isset($headers['authorization'])) {
 
+            
             $token = str_replace('Bearer ', '', $headers['authorization']);
 
             try {

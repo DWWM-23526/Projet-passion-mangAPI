@@ -39,6 +39,8 @@ class AuthService
     {
         try {
 
+            $headers = array_change_key_case($headers, CASE_LOWER);
+
             $token = str_replace('Bearer ', '', $headers['authorization']);
 
             $decodedToken = $this->jwtService->validateToken($token);

@@ -15,6 +15,11 @@ abstract class BaseApiRepository extends BaseRepository
     public function getItemById(int $id)
     {
         return $this->getById($id);
+    } 
+    
+    public function getManyItems(array $values)
+    {
+        return $this->getMany($values);
     }
 
     public function searchItemsByName(array $searchTerm, array $columns)
