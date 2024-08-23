@@ -15,14 +15,28 @@ abstract class BaseApiController extends BaseController
         $this->service = App::injectService()->getContainer($service);
     }
 
-    public function getAll(HTTPRequest $request, HTTPResponse $response)
+    public function get(HTTPRequest $request, HTTPResponse $response)
     {
-        try {
-            $data = $this->service->getAll($response);
-            $this->sendSuccessResponse($response, $data);
-        } catch (\Throwable $th) {
 
-            $this->sendErrorResponse($response, 'Failed to fetch data', 404);
+        $values = isset($_GET['filter']) ? $_GET['filter'] : null;
+
+        if ($values) {
+            try {
+                $data = $this->service->getMany($response, $values);
+                $this->sendSuccessResponse($response, $data);
+            } catch (\Throwable $th) {
+
+                $this->sendErrorResponse($response, $th, 404);
+            }
+        } else {
+
+            try {
+                $data = $this->service->getAll($response);
+                $this->sendSuccessResponse($response, $data);
+            } catch (\Throwable $th) {
+
+                $this->sendErrorResponse($response, 'Failed to fetch data', 404);
+            }
         }
     }
 

@@ -21,11 +21,23 @@ abstract class BaseRepository
 
     // BASIC CRUD
 
-    protected function getAll($table)
+    protected function getAll(string $table)
     {
         $result = $this->db->query("SELECT * FROM $table")->fetchAllOrFail();
         return array_map(fn($data) => new $this->modelClass($data), $result);
     }
+
+    protected function getMany(array $values)
+{
+    if (empty($values)) {
+        throw new \Exception("Values cannot be empty.");
+    }
+
+    $placeholders = implode(',', array_fill(0, count($values), '?'));
+
+    $result = $this->db->query("SELECT * FROM $this->table WHERE $this->primaryKey IN ($placeholders)", $values)->fetchAllOrFail();
+    return array_map(fn($data) => new $this->modelClass($data), $result);
+}
 
     protected function getById(int $id)
     {
@@ -60,13 +72,7 @@ abstract class BaseRepository
         return array_map(fn($data) => new $this->modelClass($data), $result);
     }
 
-    /**
-     * Summary of checkIfExists
-     * @param string $table
-     * @param array $values
-     * @param array $columns
-     * @return array
-     */
+   
     protected function checkIfExists(string $table, array $values, array $columns)
     {
         if (count($values) == count($columns)) {

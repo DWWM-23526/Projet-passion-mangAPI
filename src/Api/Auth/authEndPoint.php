@@ -21,6 +21,7 @@ class AuthEndpoint extends BaseApiEndpoint
     protected function registerRoutes()
     {
 
+
         $this->addPost('/login', 'login', 'guest');
         $this->addPost('/validate', 'validate', 'auth');
         $this->addGet('/permission', 'takeIdRoleInToken');

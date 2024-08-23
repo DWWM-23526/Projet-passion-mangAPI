@@ -1,8 +1,11 @@
-<?php namespace Core\Base;
+<?php
+
+namespace Core\Base;
 
 use core\HTTPResponse;
 
-class BaseController{
+class BaseController
+{
 
 
     protected function sendSuccessResponse(HTTPResponse $response, $data, $message = '')
