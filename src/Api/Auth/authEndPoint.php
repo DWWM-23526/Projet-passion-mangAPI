@@ -6,7 +6,7 @@ use Core\Base\BaseApiEndpoint;
 
 class AuthEndpoint extends BaseApiEndpoint
 {
-    
+
 
     protected function getBasePath(): string
     {
@@ -20,11 +20,11 @@ class AuthEndpoint extends BaseApiEndpoint
 
     protected function registerRoutes()
     {
-        
+
         $this->addPost('/login', 'login', 'guest');
         $this->addPost('/validate', 'validate', 'auth');
-       
+        $this->addGet('/permission', 'takeIdRoleInToken');
     }
-} 
+}
 
 

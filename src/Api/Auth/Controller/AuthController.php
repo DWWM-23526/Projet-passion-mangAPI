@@ -18,7 +18,8 @@ class AuthController extends BaseController
         $this->authService = App::injectService()->getContainer(AuthService::class);
     }
 
-    public function login(HTTPRequest $request, HTTPResponse $response, $params){
+    public function login(HTTPRequest $request, HTTPResponse $response, $params)
+    {
 
         $body = $request->getBody();
         $email = $body['email'];
@@ -34,7 +35,7 @@ class AuthController extends BaseController
 
     public function validate(HTTPRequest $request, HTTPResponse $response, $params)
     {
-        
+
         $headers = $request->getHeaders();
 
         try {
@@ -45,5 +46,15 @@ class AuthController extends BaseController
         }
     }
 
-   
+    public function takeIdRoleInToken(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $headers = $request->getHeaders();
+
+        try {
+            $tokenValidatedWithOnlyIdRole = $this->authService->idRoleToken($headers);
+            $this->sendSuccessResponse($response, $tokenValidatedWithOnlyIdRole);
+        } catch (\Throwable $th) {
+            $this->sendErrorResponse($response, 'Failed to get id_role in token validated', 500);
+        }
+    }
 }

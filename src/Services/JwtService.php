@@ -22,6 +22,7 @@ class JwtService
             'exp' => time() + (365 * 24 * 60 * 60),
             'Id_user' => $user->id,
             'email' => $user->email,
+            'role' => $user->id_role
         ];
 
         return JWT::encode($payload, $this->key['SECRET_KEY'], 'HS256');
