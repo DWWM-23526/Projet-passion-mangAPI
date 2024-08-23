@@ -67,6 +67,9 @@ class AuthService
 
     public function idRoleToken(array $headers)
     {
+
+        $headers = array_change_key_case($headers, CASE_LOWER);
+
         try {
 
             $token = str_replace('Bearer ', '', $headers['authorization']);
@@ -77,15 +80,15 @@ class AuthService
                 return null;
             }
 
-            $userByIdRole = $this->usersRepository->getItemById($decodedToken['id_role']);
+            $userById = $this->usersRepository->getItemById($decodedToken['Id_user']);
 
-            if (!$userByIdRole) {
+            if (!$userById) {
                 return null;
             }
 
-            unset($userByIdRole->is_deleted, $userByIdRole->password, $userByIdRole->email, $userByIdRole->id, $userByIdRole->name);
+            unset($userById->is_deleted, $userById->password, $userById->email, $userById->id, $userById->name);
 
-            return $userByIdRole;
+            return $userById;
         } catch (\Exception $e) {
             return $e;
         }

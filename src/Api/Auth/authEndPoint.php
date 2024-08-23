@@ -24,7 +24,7 @@ class AuthEndpoint extends BaseApiEndpoint
 
         $this->addPost('/login', 'login', 'guest');
         $this->addPost('/validate', 'validate', 'auth');
-        $this->addGet('/permission', 'takeIdRoleInToken');
+        $this->addPost('/permission', 'takeIdRoleInToken', 'auth');
     }
 }
 
