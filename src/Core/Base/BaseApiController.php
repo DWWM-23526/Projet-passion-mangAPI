@@ -19,23 +19,24 @@ abstract class BaseApiController extends BaseController
     {
 
         $values = isset($_GET['filter']) ? $_GET['filter'] : null;
-
+        $params = isset($_GET) ? $_GET : null; 
+      
         if ($values) {
             try {
                 $data = $this->service->getMany($response, $values);
                 $this->sendSuccessResponse($response, $data);
             } catch (\Throwable $th) {
 
-                $this->sendErrorResponse($response, $th, 404);
+                $this->sendErrorResponse($response, 'Failed to fetch data', 404);
             }
         } else {
 
             try {
-                $data = $this->service->getAll($response);
+                $data = $this->service->getAll($response, $params);
                 $this->sendSuccessResponse($response, $data);
             } catch (\Throwable $th) {
 
-                $this->sendErrorResponse($response, 'Failed to fetch data', 404);
+                $this->sendErrorResponse($response, $th, 404);
             }
         }
     }

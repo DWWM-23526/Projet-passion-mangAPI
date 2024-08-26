@@ -7,16 +7,21 @@ use Core\ORM\BaseRepository;
 abstract class BaseApiRepository extends BaseRepository
 {
 
-    public function getAllItems()
+    public function getAllItems(string $sortColumn = null, string $sortOrder, int $limit , int $offset)
     {
-        return $this->getAll($this->table);
+        return $this->getAll($this->table, $sortColumn, $sortOrder, $limit, $offset);
+    }
+
+    public function getTotalItemCount(): int
+    {
+        return $this->getTotalCount($this->table);
     }
 
     public function getItemById(int $id)
     {
         return $this->getById($id);
-    } 
-    
+    }
+
     public function getManyItems(array $values)
     {
         return $this->getMany($values);

@@ -21,23 +21,50 @@ abstract class BaseRepository
 
     // BASIC CRUD
 
-    protected function getAll(string $table)
+    protected function getAll(string $table, string $sortColumn = null, string $sortOrder = 'ASC', int $limit = 25, int $offset = 0)
     {
-        $result = $this->db->query("SELECT * FROM $table")->fetchAllOrFail();
-        return array_map(fn($data) => new $this->modelClass($data), $result);
+        $query = "SELECT * FROM $table";
+
+        if ($sortColumn === 'id') {
+            
+            $orderByColumn = $this->primaryKey;
+        } elseif ($sortColumn) {
+            
+            $orderByColumn = $sortColumn;
+        } else {
+            
+            $orderByColumn = $this->primaryKey;
+        }
+    
+        
+        $query .= " ORDER BY $orderByColumn $sortOrder";
+        $query .= " LIMIT $limit OFFSET $offset";
+
+        try {
+            $result = $this->db->query($query)->fetchAllOrFail();
+            return array_map(fn($data) => new $this->modelClass($data), $result);
+        } catch (\Exception $th) {
+            throw new \Exception($th->getMessage(), $th->getCode());
+        }
+    }
+    
+    protected function getTotalCount(string $table): int
+    {
+        $result = $this->db->query("SELECT COUNT(*) as count FROM $table")->fetchOrFail();
+        return (int) $result['count'];
     }
 
     protected function getMany(array $values)
-{
-    if (empty($values)) {
-        throw new \Exception("Values cannot be empty.");
+    {
+        if (empty($values)) {
+            throw new \Exception("Values cannot be empty.");
+        }
+
+        $placeholders = implode(',', array_fill(0, count($values), '?'));
+
+        $result = $this->db->query("SELECT * FROM $this->table WHERE $this->primaryKey IN ($placeholders)", $values)->fetchAllOrFail();
+        return array_map(fn($data) => new $this->modelClass($data), $result);
     }
-
-    $placeholders = implode(',', array_fill(0, count($values), '?'));
-
-    $result = $this->db->query("SELECT * FROM $this->table WHERE $this->primaryKey IN ($placeholders)", $values)->fetchAllOrFail();
-    return array_map(fn($data) => new $this->modelClass($data), $result);
-}
 
     protected function getById(int $id)
     {
@@ -72,7 +99,7 @@ abstract class BaseRepository
         return array_map(fn($data) => new $this->modelClass($data), $result);
     }
 
-   
+
     protected function checkIfExists(string $table, array $values, array $columns)
     {
         if (count($values) == count($columns)) {

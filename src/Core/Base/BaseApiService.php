@@ -15,11 +15,31 @@ abstract class BaseApiService
         $this->repository = App::injectRepository()->getContainer($repository);
     }
 
-    public function getAll(HTTPResponse $response, int $perPage = 25)
+    public function getAll(HTTPResponse $response, $params)
     {
-        $data = $this->repository->getAllItems();
 
-        return PaginationMiddleware::handle($data, $response, $perPage);
+        try {
+            $page = isset($params['_page']) ? (int)$params['_page'] : 1;
+            $limit = isset($params['_limit']) ? (int)$params['_limit'] : 25;
+            $sortColumn = isset($params['_sort']) ? $params['_sort'] : null;
+            $sortOrder = isset($params['_order']) ? $params['_order'] : 'ASC';
+            $offset = ($page - 1) * $limit;
+
+            $data = $this->repository->getAllItems($sortColumn, $sortOrder, $limit, $offset);
+            $totalItems = $this->repository->getTotalItemCount();
+
+            return PaginationMiddleware::handle($data, $totalItems, $response);
+            
+        } catch (\PDOException $pdoEx) {
+
+            throw new \PDOException('Failed to retrieve data due to a database error');
+        } catch (\InvalidArgumentException $invalidArgEx) {
+
+            throw new \InvalidArgumentException('Invalid parameters provided');
+        } catch (\Throwable $th) {
+
+            throw new \Throwable('An unexpected error occurred');
+        }
     }
 
     public function getById(int $id)
@@ -27,19 +47,30 @@ abstract class BaseApiService
         return $this->repository->getItemById($id);
     }
 
-    public function getMany(HTTPResponse $response, string $values, int $perPage = 25)
+    public function getMany(HTTPResponse $response, string $values)
     {
-        if ($values) {
-            
+
+        try {
             $decodedFilter = json_decode($values, true);
-    
+
             if (json_last_error() === JSON_ERROR_NONE && isset($decodedFilter['ids'])) {
                 $values = $decodedFilter['ids'];
             }
+
+            $data = $this->repository->getManyItems($values);
+
+            return $data;
+
+        } catch (\PDOException $pdoEx) {
+
+            throw new \PDOException('Failed to retrieve data due to a database error');
+        } catch (\InvalidArgumentException $invalidArgEx) {
+
+            throw new \InvalidArgumentException('Invalid parameters provided');
+        } catch (\Throwable $th) {
+
+            throw new \Throwable('An unexpected error occurred');
         }
-        
-        $data = $this->repository->getManyItems($values);
-        return PaginationMiddleware::handle($data, $response, $perPage);
     }
 
     public function create(array $data)
