@@ -24,7 +24,6 @@ class UsersEndpoint extends BaseApiEndpoint
         $this->addGet('/manga/{id}', 'getAllUserRelatedManga', 'auth');
         $this->addGet('/manga/{id}/{mangaId}', 'addMangaToUser', 'auth');
         $this->addDelete('/manga/{id}/{mangaId}', 'removeMangaFromUser', 'auth');
-       
+        $this->addGet('/role', 'getAllRole', 'admin');
     }
-} 
-
+}

@@ -19,6 +19,7 @@ use Database\Schemas\MigrationsSchema;
 use Database\Schemas\UsersSchema;
 
 use Database\Migrations\AddIsDeletedToUsers;
+use Database\Migrations\AddNomColumnInRoleTable;
 use Database\Migrations\AddTableRoleAndSeed;
 use Database\Migrations\AddUniqueMailAndRefactCleToToken;
 use Database\Migrations\ChangeIdRoleByNullAndDefaultOne;
@@ -62,6 +63,7 @@ class DatabaseManager
         AddIdRoleSeed::class,
         AddForeignKeyIdRoleToUsers::class,
         ChangeIdRoleByNullAndDefaultOne::class,
+        AddNomColumnInRoleTable::class,
         DropAndReacreateFkTagMangaId_manga::class,
         DropAnRecreateFkTagMangaId_Tag::class,
     ];

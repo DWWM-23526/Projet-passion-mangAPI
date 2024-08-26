@@ -3,6 +3,7 @@
 namespace Api\Users\Repository;
 
 use Api\Manga\Model\Manga;
+use Api\Users\Model\Role;
 use Api\Users\Model\Users;
 use Core\Base\BaseApiRepository;
 
@@ -31,6 +32,11 @@ class UsersRepository extends BaseApiRepository
     public function removeMangaFromUser(int $userId, int $mangaId)
     {
         return $this->detach('favoris', $this->primaryKey, 'Id_manga', $userId, $mangaId);
+    }
+
+    public function getAllUserRelatedRole(int $userId)
+    {
+        return $this->hasMany(Role::class, 'role', 'id_role', $userId);
     }
 
 }
