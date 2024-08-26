@@ -100,9 +100,9 @@ class App
 
     // DATABASE INIT
 
-    if (!isset($_SESSION['initialized'])) {
+    // if (!isset($_SESSION['initialized'])) {
 
-      $_SESSION['initialized'] = true;
+      // $_SESSION['initialized'] = true;
 
       $config = require __DIR__ . '/../../config/db.config.php';
 
@@ -110,7 +110,7 @@ class App
       DatabaseManager::getInstance($config['database']);
 
       self::logMessage('App initialized');
-    }
+    // }
 
     self::instanceRemoveAtExpired();
 

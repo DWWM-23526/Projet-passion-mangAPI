@@ -82,7 +82,7 @@ abstract class BaseApiController extends BaseController
             $this->service->delete($id);
             $this->sendSuccessResponse($response, [], 'Resource deleted successfully');
         } catch (\Throwable $th) {
-            $this->sendErrorResponse($response, 'Failed to delete resource');
+            $this->sendErrorResponse($response, 'Failed to delete resource ' . $th->getMessage());
         }
     }
 }
