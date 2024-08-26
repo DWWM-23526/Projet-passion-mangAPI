@@ -23,6 +23,8 @@ use Database\Migrations\AddNomColumnInRoleTable;
 use Database\Migrations\AddTableRoleAndSeed;
 use Database\Migrations\AddUniqueMailAndRefactCleToToken;
 use Database\Migrations\ChangeIdRoleByNullAndDefaultOne;
+use Database\Migrations\DropAndReacreateFkTagMangaId_manga;
+use Database\Migrations\DropAnRecreateFkTagMangaId_Tag;
 use Database\Migrations\EditDateTypeToTimeStamp;
 use Database\Migrations\RemoveTokenToEmailConfirmAndAddName;
 use Database\Seed\FavoritesSeed;
@@ -61,7 +63,9 @@ class DatabaseManager
         AddIdRoleSeed::class,
         AddForeignKeyIdRoleToUsers::class,
         ChangeIdRoleByNullAndDefaultOne::class,
-        AddNomColumnInRoleTable::class
+        AddNomColumnInRoleTable::class,
+        DropAndReacreateFkTagMangaId_manga::class,
+        DropAnRecreateFkTagMangaId_Tag::class,
     ];
 
     private array $seeds = [
