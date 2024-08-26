@@ -8,7 +8,7 @@ class Users
   public string $name;
   public string $email;
   public string $password;
-  public ?int $is_deleted;
+  public bool $is_deleted;
   public int $id_role;
 
   public function __construct(array $data = [])

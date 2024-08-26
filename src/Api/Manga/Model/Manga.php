@@ -13,7 +13,7 @@ class Manga
   public ?int $tome_number;
   public ?string $texte;
   public int $Id_mangaka;
-  public int $is_deleted;
+  public bool $is_deleted;
 
 
   public function __construct(array $data = [])
