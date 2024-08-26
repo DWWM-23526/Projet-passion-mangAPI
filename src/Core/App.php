@@ -23,6 +23,9 @@ use Api\EmailConfirm\EmailConfirmEndPoint;
 use Api\Manga\MangaEndpoint;
 use Api\Mangaka\MangakaEndPoint;
 use Api\Tags\TagsEndpoint;
+use Api\Users\Repository\RoleRepository;
+use Api\Users\RoleEndPoint;
+use Api\Users\Service\RoleService;
 use Api\Users\UsersEndpoint;
 use Services\JwtService;
 use Services\MailerService;
@@ -91,6 +94,7 @@ class App
     TagsEndpoint::create();
     UsersEndpoint::create();
     AuthEndpoint::create();
+    RoleEndPoint::create();
 
     // CONTAINER INIT
 
@@ -153,6 +157,9 @@ class App
       return new UsersRepository();
     });
 
+    $containerRepositories->setContainer(RoleRepository::class, function () {
+      return new RoleRepository();
+    });
 
     self::setRepositoriesContainer($containerRepositories);
   }
@@ -192,6 +199,10 @@ class App
 
     $containerServices->setContainer(MailerService::class, function () {
       return new MailerService();
+    });
+
+    $containerServices->setContainer(RoleService::class, function () {
+      return new RoleService();
     });
 
     self::setServiceContainer($containerServices);

@@ -19,6 +19,7 @@ use Database\Schemas\MigrationsSchema;
 use Database\Schemas\UsersSchema;
 
 use Database\Migrations\AddIsDeletedToUsers;
+use Database\Migrations\AddNomColumnInRoleTable;
 use Database\Migrations\AddTableRoleAndSeed;
 use Database\Migrations\AddUniqueMailAndRefactCleToToken;
 use Database\Migrations\ChangeIdRoleByNullAndDefaultOne;
@@ -59,7 +60,8 @@ class DatabaseManager
         AddColumnIdRoleInUsers::class,
         AddIdRoleSeed::class,
         AddForeignKeyIdRoleToUsers::class,
-        ChangeIdRoleByNullAndDefaultOne::class
+        ChangeIdRoleByNullAndDefaultOne::class,
+        AddNomColumnInRoleTable::class
     ];
 
     private array $seeds = [
