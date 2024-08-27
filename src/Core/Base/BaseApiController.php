@@ -17,27 +17,35 @@ abstract class BaseApiController extends BaseController
 
     public function get(HTTPRequest $request, HTTPResponse $response)
     {
-
         $values = isset($_GET['filter']) ? $_GET['filter'] : null;
-        $params = isset($_GET) ? $_GET : null; 
-      
-        if ($values) {
-            try {
-                $data = $this->service->getMany($response, $values);
-                $this->sendSuccessResponse($response, $data);
-            } catch (\Throwable $th) {
+        $params = $_GET ?? null;
 
-                $this->sendErrorResponse($response, 'Failed to fetch data', 404);
-            }
+        if ($values) {
+
+            return $this->getFiltered($response, $values);
         } else {
 
-            try {
-                $data = $this->service->getAll($response, $params);
-                $this->sendSuccessResponse($response, $data);
-            } catch (\Throwable $th) {
+            return $this->getAllResources($response, $params);
+        }
+    }
 
-                $this->sendErrorResponse($response, $th, 404);
-            }
+    protected function getFiltered(HTTPResponse $response, $values)
+    {
+        try {
+            $data = $this->service->getMany($response, $values);
+            $this->sendSuccessResponse($response, $data);
+        } catch (\Throwable $th) {
+            $this->sendErrorResponse($response, 'Failed to fetch data', 404);
+        }
+    }
+
+    protected function getAllResources(HTTPResponse $response, $params)
+    {
+        try {
+            $data = $this->service->getAll($response, $params);
+            $this->sendSuccessResponse($response, $data);
+        } catch (\Throwable $th) {
+            $this->sendErrorResponse($response, 'Failed to fetch all data', 404);
         }
     }
 
@@ -71,18 +79,40 @@ abstract class BaseApiController extends BaseController
             $data = $this->service->update($body, $id);
             $this->sendSuccessResponse($response, $data, 'Resource updated successfully');
         } catch (\Throwable $th) {
-            $this->sendErrorResponse($response, $th, 500);
+            $this->sendErrorResponse($response, 'Failed to update resource ', 500);
         }
     }
 
     public function delete(HTTPRequest $request, HTTPResponse $response, $params)
     {
         $id = $params['id'];
+
+        if (strpos($id, ',') !== false) {
+            return $this->deleteMultiple($request, $response, explode(',', $id));
+        }
+
+        return $this->deleteSingle($request, $response, $id);
+    }
+
+    protected function deleteSingle(HTTPRequest $request, HTTPResponse $response, $id)
+    {
         try {
-            $this->service->delete($id);
+            $this->service->delete(trim($id));
             $this->sendSuccessResponse($response, [], 'Resource deleted successfully');
         } catch (\Throwable $th) {
-            $this->sendErrorResponse($response, 'Failed to delete resource ' . $th->getMessage());
+            $this->sendErrorResponse($response, 'Failed to delete resource: ' . $th->getMessage());
+        }
+    }
+
+    protected function deleteMultiple(HTTPRequest $request, HTTPResponse $response, array $ids)
+    {
+        try {
+            foreach ($ids as $singleId) {
+                $this->service->delete(trim($singleId));
+            }
+            $this->sendSuccessResponse($response, [], 'Resources deleted successfully');
+        } catch (\Throwable $th) {
+            $this->sendErrorResponse($response, 'Failed to delete resources: ' . $th->getMessage());
         }
     }
 }

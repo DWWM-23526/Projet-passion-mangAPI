@@ -152,13 +152,13 @@ class DatabaseManager
             }
         }
 
-        if (empty($newMigrations)) {
+        // if (empty($newMigrations)) {
 
-            $this->logMessage("All migrations are applied.");
-        } else {
+        //     $this->logMessage("All migrations are applied.");
+        // } else {
 
-            $this->logMessage("Migration applied: " . implode(', ', $newMigrations));
-        }
+        //     $this->logMessage("Migration applied: " . implode(', ', $newMigrations));
+        // }
     }
 
     private function seed()
@@ -174,13 +174,13 @@ class DatabaseManager
             }
         }
 
-        if (empty($newMigrations)) {
+        // if (empty($newMigrations)) {
 
-            $this->logMessage("All seeds are applied.");
-        } else {
+        //     $this->logMessage("All seeds are applied.");
+        // } else {
 
-            $this->logMessage("Seeds applied: " . implode(', ', $newMigrations));
-        }
+        //     $this->logMessage("Seeds applied: " . implode(', ', $newMigrations));
+        // }
     }
 
     private function getAppliedMigrations()
