@@ -7,7 +7,7 @@ use Core\ORM\BaseRepository;
 abstract class BaseApiRepository extends BaseRepository
 {
 
-    public function getAllItems(string $sortColumn = null, string $sortOrder, int $limit , int $offset)
+    public function getAllItems(string $sortColumn = null, string $sortOrder, int $limit, int $offset)
     {
         return $this->getAll($this->table, $sortColumn, $sortOrder, $limit, $offset);
     }

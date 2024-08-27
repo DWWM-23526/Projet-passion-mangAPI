@@ -29,7 +29,6 @@ abstract class BaseApiService
             $totalItems = $this->repository->getTotalItemCount();
 
             return PaginationMiddleware::handle($data, $totalItems, $response);
-            
         } catch (\PDOException $pdoEx) {
 
             throw new \PDOException('Failed to retrieve data due to a database error');
@@ -60,7 +59,6 @@ abstract class BaseApiService
             $data = $this->repository->getManyItems($values);
 
             return $data;
-
         } catch (\PDOException $pdoEx) {
 
             throw new \PDOException('Failed to retrieve data due to a database error');
