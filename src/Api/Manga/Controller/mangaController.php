@@ -68,8 +68,8 @@ class MangaController extends BaseApiController
         $mangaId = $params['id'];
         $tagId = $params['tagId'];
         try {
-            $this->service->addTagToManga($mangaId, $tagId);
-            $this->sendSuccessResponse($response, ["tag id : $tagId  succesfuly added to manga id : $mangaId "]);
+            $data = $this->service->addTagToManga($mangaId, $tagId);
+            $this->sendSuccessResponse($response, $data);
         } catch (\Throwable $th) {
             $this->sendErrorResponse($response, 'Failed to add tag relation', 500);
         }

@@ -26,17 +26,17 @@ abstract class BaseRepository
         $query = "SELECT * FROM $table";
 
         if ($sortColumn === 'id') {
-            
+
             $orderByColumn = $this->primaryKey;
         } elseif ($sortColumn) {
-            
+
             $orderByColumn = $sortColumn;
         } else {
-            
+
             $orderByColumn = $this->primaryKey;
         }
-    
-        
+
+
         $query .= " ORDER BY $orderByColumn $sortOrder";
         $query .= " LIMIT $limit OFFSET $offset";
 
@@ -47,7 +47,7 @@ abstract class BaseRepository
             throw new \Exception($th->getMessage(), $th->getCode());
         }
     }
-    
+
     protected function getTotalCount(string $table): int
     {
         $result = $this->db->query("SELECT COUNT(*) as count FROM $table")->fetchOrFail();
@@ -229,7 +229,18 @@ abstract class BaseRepository
      */
     protected function attach(string $pivotTable, string $foreignKey, string $relatedKey, int $foreignkeyId, int $relatedKeyId)
     {
-        return $this->db->query("INSERT INTO $pivotTable ({$foreignKey}, {$relatedKey}) VALUES (:foreignkeyId, :relatedKeyId)", [':foreignkeyId' => $foreignkeyId, ':relatedKeyId' => $relatedKeyId]);
+        $this->db->query(
+            "INSERT INTO $pivotTable ({$foreignKey}, {$relatedKey}) VALUES (:foreignkeyId, :relatedKeyId)",
+            [':foreignkeyId' => $foreignkeyId, ':relatedKeyId' => $relatedKeyId]
+        );
+
+        $result = $this->db->query(
+            "SELECT * FROM $pivotTable WHERE {$foreignKey} = :foreignkeyId AND {$relatedKey} = :relatedKeyId",
+            [':foreignkeyId' => $foreignkeyId, ':relatedKeyId' => $relatedKeyId]
+        )->fetchOrFail();
+
+
+        return $result;
     }
 
     /**

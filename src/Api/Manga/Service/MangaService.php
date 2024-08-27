@@ -7,12 +7,12 @@ use Core\Base\BaseApiService;
 
 class MangaService extends BaseApiService
 {
-    public function __construct()
-    {
-        parent::__construct(MangaRepository::class);
-    }
+  public function __construct()
+  {
+    parent::__construct(MangaRepository::class);
+  }
 
-    public function searchMangaByName($searchTerm)
+  public function searchMangaByName($searchTerm)
   {
     return $this->repository->searchMangaByName($searchTerm);
   }
@@ -27,8 +27,9 @@ class MangaService extends BaseApiService
     return $this->repository->getAllMangaRelatedTags($id);
   }
 
-  public function checkIfIsUserFavorite(int $userId, int $mangaId){
-    return $this->repository->checkIfIsUserFavorite($mangaId,$userId);
+  public function checkIfIsUserFavorite(int $userId, int $mangaId)
+  {
+    return $this->repository->checkIfIsUserFavorite($mangaId, $userId);
   }
 
   public function addTagToManga(int $mangaId, int $tagId)
@@ -41,6 +42,6 @@ class MangaService extends BaseApiService
 
     return $this->repository->removeMangaTag($mangaId, $tagId);
   }
-   
-}
 
+ 
+}
