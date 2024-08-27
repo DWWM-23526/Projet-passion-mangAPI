@@ -20,6 +20,7 @@ use Database\Schemas\UsersSchema;
 
 use Database\Migrations\AddIsDeletedToUsers;
 use Database\Migrations\AddNomColumnInRoleTable;
+use Database\Migrations\AddRoleWeightInTableRole;
 use Database\Migrations\AddTableRoleAndSeed;
 use Database\Migrations\AddUniqueMailAndRefactCleToToken;
 use Database\Migrations\ChangeIdRoleByNullAndDefaultOne;
@@ -66,6 +67,7 @@ class DatabaseManager
         AddNomColumnInRoleTable::class,
         DropAndReacreateFkTagMangaId_manga::class,
         DropAnRecreateFkTagMangaId_Tag::class,
+        AddRoleWeightInTableRole::class
     ];
 
     private array $seeds = [
