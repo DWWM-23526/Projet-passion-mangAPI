@@ -2,6 +2,7 @@
 
 namespace Api\Auth\Service;
 
+use Api\Users\Repository\RoleRepository;
 use Core\App;
 use Api\Users\Repository\UsersRepository;
 use Services\JwtService;
@@ -10,10 +11,12 @@ class AuthService
 {
     private UsersRepository $usersRepository;
     private JwtService $jwtService;
+    private RoleRepository $roleRepository;
 
     public function __construct()
     {
         $this->usersRepository = App::injectRepository()->getContainer(UsersRepository::class);
+        $this->roleRepository = App::injectRepository()->getContainer(RoleRepository::class);
         $this->jwtService = App::injectService()->getContainer(JwtService::class);
     }
 
@@ -28,11 +31,22 @@ class AuthService
         if (!$user || !password_verify($password, $user->password)) {
             throw new \Exception("password or email incorrect", 400);
         }
-
-        $token = $this->jwtService->generateToken($user);
+        $roleWeight = $this->getRoleWeight($user->id_role);
+        $token = $this->jwtService->generateToken($user, $roleWeight);
         unset($user->is_deleted, $user->password);
 
         return (object)['userData' => $user, 'token' => $token];
+    }
+
+    private function getRoleWeight(int $id)
+    {
+        try {
+            $role = $this->roleRepository->getItemById($id);
+            $roleWeight = $role->role_weight;
+            return $roleWeight;
+        } catch (\Throwable $th) {
+            throw new \Exception("Role don't exist" . $th);
+        }
     }
 
     public function validateToken(array $headers)
