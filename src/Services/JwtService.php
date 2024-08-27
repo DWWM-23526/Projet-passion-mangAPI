@@ -2,6 +2,8 @@
 
 namespace Services;
 
+use Api\Users\Service\UsersService;
+use Core\App;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -14,15 +16,19 @@ class JwtService
         $this->key = require_once __DIR__ . "/../../config/jwt.config.php";
     }
 
-    public function generateToken($user)
+    public function generateToken($user, $roleWeight)
     {
+        if (!$roleWeight) {
+            throw new \Exception("Role weight not found for id_role: " . $user->id_role);
+        }
+
         $payload = [
             'iss' => "passionmanga",
             'iat' => time(),
             'exp' => time() + (365 * 24 * 60 * 60),
             'Id_user' => $user->id,
             'email' => $user->email,
-            'role' => $user->id_role
+            'role' => $user->id_role,
         ];
 
         return JWT::encode($payload, $this->key['SECRET_KEY'], 'HS256');
