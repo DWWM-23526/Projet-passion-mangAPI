@@ -38,5 +38,4 @@ class UsersRepository extends BaseApiRepository
     {
         return $this->hasMany(Role::class, 'role', 'id_role', $userId);
     }
-
 }

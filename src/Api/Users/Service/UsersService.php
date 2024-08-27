@@ -29,5 +29,4 @@ class UsersService extends BaseApiService
     {
         return $this->repository->removeMangaFromUser($userId, $mangaId);
     }
-
 }
