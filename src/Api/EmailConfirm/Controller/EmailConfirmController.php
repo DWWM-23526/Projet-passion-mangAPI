@@ -55,11 +55,13 @@ class EmailConfirmController extends BaseApiController
     $token = $params['token'];
 
     try {
-      $newUser = $this->service->decodeTokenAndCreateAccount($token);
-      $this->sendSuccessResponse($response, $newUser );
+      $this->service->decodeTokenAndCreateAccount($token);
+      header('Location: http://localhost:5173/passion-manga/');
+      exit;
     } catch (\Throwable $th) {
       $this->sendErrorResponse($response,'Failed to decode or createUser', 500);
     }
+    
   }
 
   public function deleteEmailConfirm(HTTPRequest $request, HTTPResponse $response, $params)
