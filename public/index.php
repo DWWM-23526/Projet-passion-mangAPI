@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit; // Répondre immédiatement aux requêtes OPTIONS
 }
 
-use Api\EmailConfirm\Repository\EmailConfirmRepository;
 use Core\App;
 
 session_start(); 

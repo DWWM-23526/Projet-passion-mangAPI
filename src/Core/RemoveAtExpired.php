@@ -1,7 +1,7 @@
 <?php
 
 namespace Core;
-use Core\ORM\BaseRepository;
+use Core\Base\BaseRepository;
 
 class RemoveAtExpired extends BaseRepository
 {

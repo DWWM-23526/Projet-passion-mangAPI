@@ -12,23 +12,29 @@ use Core\Router;
 use Api\EmailConfirm\Repository\EmailConfirmRepository;
 use Api\EmailConfirm\Service\EmailConfirmService;
 
-use Api\Manga\Repository\MangaRepository;
-use Api\Manga\Service\MangaService;
+
+use Api\Services\MangaService;
+
+
+use Api\Repositories\MangaRepository;
+
+
+use Api\EndPoints\MangaEndpoint;
+
+
 use Api\Mangaka\Repository\MangakaRepository;
 use Api\Mangaka\Service\MangakaService;
 use Api\Tags\Repository\TagsRepository;
 use Api\Tags\Service\TagsService;
 use Api\Auth\Service\AuthService;
 use Api\EmailConfirm\EmailConfirmEndPoint;
-use Api\Manga\MangaEndpoint;
 use Api\Mangaka\MangakaEndPoint;
 use Api\Tags\TagsEndpoint;
 use Api\Users\Repository\RoleRepository;
 use Api\Users\RoleEndPoint;
 use Api\Users\Service\RoleService;
 use Api\Users\UsersEndpoint;
-use Services\JwtService;
-use Services\MailerService;
+use Core\Services\MailerService;
 
 class App
 {
@@ -191,10 +197,6 @@ class App
 
     $containerServices->setContainer(AuthService::class, function () {
       return new AuthService();
-    });
-
-    $containerServices->setContainer(JwtService::class, function () {
-      return new JwtService();
     });
 
     $containerServices->setContainer(MailerService::class, function () {

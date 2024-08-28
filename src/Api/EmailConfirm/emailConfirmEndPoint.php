@@ -1,9 +1,9 @@
 <?php
 namespace Api\EmailConfirm;
 
-use Core\Base\BaseApiEndpoint;
+use Api\EndPoints\_BaseApiEndpoint;
 
-class EmailConfirmEndPoint extends BaseApiEndpoint
+class EmailConfirmEndPoint extends _BaseApiEndpoint
 {
   protected function getBasePath(): string
   {

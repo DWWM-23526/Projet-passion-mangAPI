@@ -1,8 +1,9 @@
 <?php
 namespace Api\Users;
-use Core\Base\BaseApiEndpoint;
 
-class RoleEndPoint extends BaseApiEndpoint
+use Api\EndPoints\_BaseApiEndpoint;
+
+class RoleEndPoint extends _BaseApiEndpoint
 {
   protected function getBasePath(): string
   {

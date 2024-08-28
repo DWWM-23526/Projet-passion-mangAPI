@@ -1,10 +1,10 @@
 <?php
 
-namespace Api\Manga;
+namespace Api\Endpoints;
 
-use Core\Base\BaseApiEndpoint;
+use Api\EndPoints\_BaseApiEndpoint;
 
-class MangaEndpoint extends BaseApiEndpoint
+class MangaEndpoint extends _BaseApiEndpoint
 {
 
     protected function getBasePath(): string
@@ -14,7 +14,7 @@ class MangaEndpoint extends BaseApiEndpoint
 
     protected function getController(): string
     {
-        return 'Api\Manga\Controller\MangaController';
+        return 'Api\Controllers\MangaController';
     }
 
 

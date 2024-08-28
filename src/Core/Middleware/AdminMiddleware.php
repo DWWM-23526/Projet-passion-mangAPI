@@ -1,22 +1,23 @@
 <?php
 
-namespace middlewares;
+namespace Core\middlewares;
 
 use Api\Users\Repository\UsersRepository;
 use Core\App;
 use Core\Base\BaseMiddleware;
 use Core\HTTPRequest;
 use core\HTTPResponse;
-use Services\JwtService;
+use Core\Handler\JwtHandler;
+
 
 class AdminMiddleware extends BaseMiddleware
 {
-  private JwtService $jwtService;
+
   private UsersRepository $usersRepository;
 
   public function __construct()
   {
-    $this->jwtService = App::injectService()->getContainer(JwtService::class);
+
     $this->usersRepository = App::injectRepository()->getContainer(UsersRepository::class);
   }
 
@@ -30,7 +31,7 @@ class AdminMiddleware extends BaseMiddleware
       $token = str_replace('Bearer ', '', $headers['authorization']);
 
       try {
-        $decodedToken = $this->jwtService->validateToken($token);
+        $decodedToken = JwtHandler::validateToken($token);
 
         if (!$decodedToken || !isset($decodedToken['role'])) {
           $response->abort('id_role of user invalid', 401);

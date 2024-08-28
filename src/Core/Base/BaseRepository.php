@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\ORM;
+namespace Core\Base;
 
 use Core\App;
 use Core\Database;

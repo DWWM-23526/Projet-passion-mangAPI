@@ -2,9 +2,10 @@
 
 namespace Api\Users;
 
-use Core\Base\BaseApiEndpoint;
+use Api\EndPoints\_BaseApiEndpoint;
 
-class UsersEndpoint extends BaseApiEndpoint
+
+class UsersEndpoint extends _BaseApiEndpoint
 {
 
     protected function getBasePath(): string

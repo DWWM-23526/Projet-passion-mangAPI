@@ -1,5 +1,5 @@
 <?php
-namespace Services;
+namespace Core\Services;
 
 use Exception;
 use PHPMailer\PHPMailer\PHPMailer;

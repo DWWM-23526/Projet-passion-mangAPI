@@ -1,22 +1,22 @@
 <?php
 
-namespace middlewares;
+namespace Core\middlewares;
 
 use Api\Users\Repository\UsersRepository;
 use Core\App;
 use Core\Base\BaseMiddleware;
 use Core\HTTPRequest;
 use core\HTTPResponse;
-use Services\JwtService;
+use Core\Handler\JwtHandler;
 
 class AuthMiddleware extends BaseMiddleware
 {
-    private JwtService $jwtService;
+
     private UsersRepository $usersRepository;
 
     public function __construct()
     {
-        $this->jwtService = App::injectService()->getContainer(JwtService::class);
+
         $this->usersRepository = App::injectRepository()->getContainer(UsersRepository::class);
     }
 
@@ -28,12 +28,12 @@ class AuthMiddleware extends BaseMiddleware
 
         if (isset($headers['authorization'])) {
 
-            
+
             $token = str_replace('Bearer ', '', $headers['authorization']);
 
             try {
 
-                $decodedToken =  $this->jwtService->validateToken($token);
+                $decodedToken =  JwtHandler::validateToken($token);
 
                 if (!$decodedToken || !isset($decodedToken['Id_user'])) {
                     $response->abort('user invalid.', 401);
@@ -44,8 +44,6 @@ class AuthMiddleware extends BaseMiddleware
                 if (!$userById) {
                     $response->abort('user invalid.', 401);
                 }
-
-
             } catch (\Exception $th) {
                 $response->abort('Invalid token.', 401);
             }

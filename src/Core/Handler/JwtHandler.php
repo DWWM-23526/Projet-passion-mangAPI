@@ -1,22 +1,27 @@
 <?php
 
-namespace Services;
+namespace Core\Handler;
 
-use Api\Users\Service\UsersService;
-use Core\App;
+
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-class JwtService
+class JwtHandler
 {
-    private array $key;
 
-    public function __construct()
+    private function __construct() {}
+
+    private static function _getKey()
     {
-        $this->key = require_once __DIR__ . "/../../config/jwt.config.php";
+
+        $key = require __DIR__ . "/../../config/jwt.config.php";
+        if (!is_array($key)) {
+            throw new \Exception("Invalid JWT configuration.");
+        }
+        return $key['SECRET_KEY'];
     }
 
-    public function generateToken($user, $roleWeight)
+    public static function generateToken($user, $roleWeight)
     {
         if (!$roleWeight) {
             throw new \Exception("Role weight not found for id_role: " . $user->id_role);
@@ -31,10 +36,10 @@ class JwtService
             'role' => $user->id_role,
         ];
 
-        return JWT::encode($payload, $this->key['SECRET_KEY'], 'HS256');
+        return JWT::encode($payload, self::_getKey(), 'HS256');
     }
 
-    public function generateEmailToken($user)
+    public static function generateEmailToken($user)
     {
         $payload = [
             'iss' => "passionmanga",
@@ -45,12 +50,13 @@ class JwtService
             'password' => $user['password'],
         ];
 
-        return JWT::encode($payload, $this->key['SECRET_KEY'], 'HS256');
+        return JWT::encode($payload, self::_getKey(), 'HS256');
     }
-    public function validateToken($token)
+
+    public static function validateToken($token)
     {
         try {
-            $decoded = JWT::decode($token, new Key($this->key['SECRET_KEY'], 'HS256'));
+            $decoded = JWT::decode($token, new Key(self::_getKey(), 'HS256'));
             return (array) $decoded;
         } catch (\Exception $e) {
             throw new \Exception("token decode failed");

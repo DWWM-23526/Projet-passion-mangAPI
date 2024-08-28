@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Base;
+namespace Api\EndPoints;
 
 use Core\RequestMethod;
 
-abstract class BaseApiEndpoint
+abstract class _BaseApiEndpoint
 {
 
     protected $basePath;

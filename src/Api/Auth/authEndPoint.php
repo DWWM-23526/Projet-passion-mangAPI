@@ -2,9 +2,9 @@
 
 namespace Api\Auth;
 
-use Core\Base\BaseApiEndpoint;
+use Api\EndPoints\_BaseApiEndpoint;
 
-class AuthEndpoint extends BaseApiEndpoint
+class AuthEndpoint extends _BaseApiEndpoint
 {
 
     protected function getBasePath(): string

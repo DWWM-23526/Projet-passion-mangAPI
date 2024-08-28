@@ -5,19 +5,17 @@ namespace Api\Auth\Service;
 use Api\Users\Repository\RoleRepository;
 use Core\App;
 use Api\Users\Repository\UsersRepository;
-use Services\JwtService;
+use Core\Handler\JwtHandler;
 
 class AuthService
 {
     private UsersRepository $usersRepository;
-    private JwtService $jwtService;
     private RoleRepository $roleRepository;
 
     public function __construct()
     {
         $this->usersRepository = App::injectRepository()->getContainer(UsersRepository::class);
         $this->roleRepository = App::injectRepository()->getContainer(RoleRepository::class);
-        $this->jwtService = App::injectService()->getContainer(JwtService::class);
     }
 
     public function authentication(string $email, string $password)
@@ -32,7 +30,7 @@ class AuthService
             throw new \Exception("password or email incorrect", 400);
         }
         $roleWeight = $this->getRoleWeight($user->id_role);
-        $token = $this->jwtService->generateToken($user, $roleWeight);
+        $token = JwtHandler::generateToken($user, $roleWeight);
         unset($user->is_deleted, $user->password);
 
         return (object)['userData' => $user, 'token' => $token];
@@ -57,7 +55,7 @@ class AuthService
 
             $token = str_replace('Bearer ', '', $headers['authorization']);
 
-            $decodedToken = $this->jwtService->validateToken($token);
+            $decodedToken = JwtHandler::validateToken($token);
 
             if (!$decodedToken || !isset($decodedToken['Id_user'])) {
                 return null;
@@ -88,7 +86,7 @@ class AuthService
 
             $token = str_replace('Bearer ', '', $headers['authorization']);
 
-            $decodedToken = $this->jwtService->validateToken($token);
+            $decodedToken = JwtHandler::validateToken($token);
 
             if (!$decodedToken || !isset($decodedToken['Id_user'])) {
                 return null;

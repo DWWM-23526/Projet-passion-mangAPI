@@ -1,12 +1,13 @@
 <?php
 
-namespace Core\Base;
+namespace Api\Controllers;
 
 use Core\App;
+use Core\Base\BaseController;
 use Core\HTTPRequest;
 use Core\HTTPResponse;
 
-abstract class BaseApiController extends BaseController
+abstract class _BaseApiController extends BaseController
 {
     protected  $service;
 

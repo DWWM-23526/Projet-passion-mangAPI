@@ -1,6 +1,6 @@
 <?php
 
-namespace middlewares;
+namespace Core\middlewares;
 
 use Core\Base\BaseMiddleware;
 use Core\HTTPRequest;

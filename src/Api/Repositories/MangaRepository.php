@@ -1,13 +1,13 @@
 <?php
 
-namespace Api\Manga\Repository;
+namespace Api\Repositories;
 
-use Api\Manga\Model\Manga;
+use Api\Models\Manga;
 use Api\Mangaka\Model\Mangaka;
 use Api\Tags\Model\Tags;
-use Core\Base\BaseApiRepository;
 
-class MangaRepository extends BaseApiRepository
+
+class MangaRepository extends _BaseApiRepository
 {
   protected $table = 'mangas';
   protected $modelClass = Manga::class;

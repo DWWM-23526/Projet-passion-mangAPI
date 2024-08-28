@@ -1,9 +1,9 @@
 <?php
 namespace Api\Mangaka;
 
-use Core\Base\BaseApiEndpoint;
+use Api\EndPoints\_BaseApiEndpoint;
 
-class MangakaEndPoint extends BaseApiEndpoint
+class MangakaEndPoint extends _BaseApiEndpoint
 {
   protected function getBasePath(): string
   {

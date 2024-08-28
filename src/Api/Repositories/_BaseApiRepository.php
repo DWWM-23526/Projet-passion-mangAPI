@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Base;
+namespace Api\repositories;
 
-use Core\ORM\BaseRepository;
+use Core\Base\BaseRepository;
 
-abstract class BaseApiRepository extends BaseRepository
+abstract class _BaseApiRepository extends BaseRepository
 {
 
     public function getAllItems(string $sortColumn = null, string $sortOrder, int $limit, int $offset)

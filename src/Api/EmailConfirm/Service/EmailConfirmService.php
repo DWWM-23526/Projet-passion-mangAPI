@@ -4,14 +4,15 @@ namespace Api\EmailConfirm\Service;
 
 use Core\App;
 use Api\EmailConfirm\Repository\EmailConfirmRepository;
+use Api\Services\_BaseApiService;
 use Api\Users\Service\UsersService;
-use Core\Base\BaseApiService;
-use Services\JwtService;
-use Services\MailerService;
+use Core\Services\MailerService;
+use Core\Handler\JwtHandler;
 
-class EmailConfirmService extends BaseApiService
+
+class EmailConfirmService extends _BaseApiService
 {
-  private JwtService $jwtService;
+
   private MailerService $mailerService;
   private UsersService $usersService;
 
@@ -19,7 +20,6 @@ class EmailConfirmService extends BaseApiService
   {
     parent::__construct(EmailConfirmRepository::class);
    
-    $this->jwtService = App::injectService()->getContainer(JwtService::class);
     $this->mailerService = App::injectService()->getContainer(MailerService::class);
     $this->usersService = App::injectService()->getContainer(UsersService::class);
   }
@@ -51,7 +51,7 @@ class EmailConfirmService extends BaseApiService
     }
     
     try {
-      $token = $this->jwtService->generateEmailToken($data);
+      $token = JwtHandler::generateEmailToken($data);
 
       $this->mailerService->sendConfirmationEmail($email, $token);
 
@@ -121,7 +121,7 @@ class EmailConfirmService extends BaseApiService
   private function decodeToken($token)
   {
     try {
-      $token = $this->jwtService->validateToken($token);
+      $token = JwtHandler::validateToken($token);
     } catch (\Throwable $th) {
       return "Erreur emailConfirmService : $th";
     }

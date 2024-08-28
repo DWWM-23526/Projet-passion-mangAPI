@@ -1,12 +1,13 @@
 <?php
 
-namespace Core\Base;
+namespace Api\Services;
 
+use Api\Handler\PaginationHandler;
 use Core\App;
 use core\HTTPResponse;
-use Middlewares\PaginationMiddleware;
 
-abstract class BaseApiService
+
+abstract class _BaseApiService
 {
     protected $repository;
 
@@ -28,7 +29,7 @@ abstract class BaseApiService
             $data = $this->repository->getAllItems($sortColumn, $sortOrder, $limit, $offset);
             $totalItems = $this->repository->getTotalItemCount();
 
-            return PaginationMiddleware::handle($data, $totalItems, $response);
+            return PaginationHandler::addTotalCountHeader($data, $totalItems, $response);
         } catch (\PDOException $pdoEx) {
 
             throw new \PDOException('Failed to retrieve data due to a database error');
