@@ -2,8 +2,8 @@
 
 namespace Api\Repositories;
 
-use Api\Manga\Model\Manga;
-use Api\Mangaka\Model\Mangaka;
+use Api\Models\Manga;
+use Api\Models\Mangaka;
 use Api\repositories\_BaseApiRepository;
 
 class MangakaRepository extends _BaseApiRepository
