@@ -1,5 +1,5 @@
 <?php
-namespace Api\Mangaka;
+namespace Api\Endpoints;
 
 use Api\EndPoints\_BaseApiEndpoint;
 

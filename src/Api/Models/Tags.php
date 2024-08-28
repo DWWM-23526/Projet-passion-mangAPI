@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\Tags\Model;
+namespace Api\Models;
 
 class Tags
 {

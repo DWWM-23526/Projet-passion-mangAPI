@@ -20,6 +20,7 @@ use Api\Repositories\MangaRepository;
 use Api\Repositories\MangakaRepository;
 
 use Api\EndPoints\MangaEndpoint;
+use Api\Endpoints\MangakaEndPoint;
 
 
 
@@ -28,7 +29,6 @@ use Api\Tags\Repository\TagsRepository;
 use Api\Tags\Service\TagsService;
 use Api\Auth\Service\AuthService;
 use Api\EmailConfirm\EmailConfirmEndPoint;
-use Api\Mangaka\MangakaEndPoint;
 
 
 use Api\Tags\TagsEndpoint;
