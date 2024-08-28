@@ -14,21 +14,23 @@ use Api\EmailConfirm\Service\EmailConfirmService;
 
 
 use Api\Services\MangaService;
-
+use Api\Services\MangakaService;
 
 use Api\Repositories\MangaRepository;
-
+use Api\Repositories\MangakaRepository;
 
 use Api\EndPoints\MangaEndpoint;
 
 
-use Api\Mangaka\Repository\MangakaRepository;
-use Api\Mangaka\Service\MangakaService;
+
+
 use Api\Tags\Repository\TagsRepository;
 use Api\Tags\Service\TagsService;
 use Api\Auth\Service\AuthService;
 use Api\EmailConfirm\EmailConfirmEndPoint;
 use Api\Mangaka\MangakaEndPoint;
+
+
 use Api\Tags\TagsEndpoint;
 use Api\Users\Repository\RoleRepository;
 use Api\Users\RoleEndPoint;

@@ -12,7 +12,7 @@ class MangakaEndPoint extends _BaseApiEndpoint
 
   protected function getController(): string
   {
-    return 'Api\Mangaka\Controller\MangakaController';
+    return 'Api\Controllers\MangakaController';
   }
 
   protected function registerRoutes()

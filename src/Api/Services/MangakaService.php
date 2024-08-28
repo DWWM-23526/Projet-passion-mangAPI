@@ -1,11 +1,12 @@
 <?php
 
-namespace Api\Mangaka\Service;
+namespace Api\Services;
 
-use Api\Mangaka\Repository\MangakaRepository;
-use Core\Base\BaseApiService;
+use Api\Repositories\MangakaRepository;
+use Api\Services\_BaseApiService;
 
-class MangakaService extends BaseApiService
+
+class MangakaService extends _BaseApiService
 {
   public function __construct()
   {

@@ -1,13 +1,14 @@
 <?php
 
-namespace Api\Mangaka\Controller;
+namespace Api\Controllers;
 
-use Core\Base\BaseApiController;
+use Api\Controllers\_BaseApiController;
+use Api\Services\MangakaService;
 use Core\HTTPRequest;
 use core\HTTPResponse;
-use Api\Mangaka\Service\MangakaService;
 
-class MangakaController extends BaseApiController
+
+class MangakaController extends _BaseApiController
 {
     public function __construct()
     {
