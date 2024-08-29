@@ -2,7 +2,7 @@
 namespace Auth\Controllers;
 
 
-use Api\Controllers\_BaseApiController;
+use Core\Controllers\_BaseApiController;
 use Auth\Services\RoleService;
 use Core\HTTPRequest;
 use core\HTTPResponse;

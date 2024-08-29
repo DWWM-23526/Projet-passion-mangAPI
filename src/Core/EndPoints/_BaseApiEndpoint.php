@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\EndPoints;
+namespace Core\EndPoints;
 
 use Core\RequestMethod;
 

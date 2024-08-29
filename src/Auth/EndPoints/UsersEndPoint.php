@@ -2,7 +2,7 @@
 
 namespace Auth\Endpoints;
 
-use Api\EndPoints\_BaseApiEndpoint;
+use Core\EndPoints\_BaseApiEndpoint;
 
 
 class UsersEndpoint extends _BaseApiEndpoint

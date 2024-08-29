@@ -2,7 +2,7 @@
 
 namespace Api\Endpoints;
 
-use Api\EndPoints\_BaseApiEndpoint;
+use Core\EndPoints\_BaseApiEndpoint;
 
 class TagsEndpoint extends _BaseApiEndpoint
 {

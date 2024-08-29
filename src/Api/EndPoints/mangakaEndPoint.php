@@ -1,7 +1,7 @@
 <?php
 namespace Api\Endpoints;
 
-use Api\EndPoints\_BaseApiEndpoint;
+use Core\EndPoints\_BaseApiEndpoint;
 
 class MangakaEndPoint extends _BaseApiEndpoint
 {

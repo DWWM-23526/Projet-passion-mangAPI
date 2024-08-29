@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\Controllers;
+namespace Core\Controllers;
 
 use Core\App;
 use Core\Controllers\_BaseController;

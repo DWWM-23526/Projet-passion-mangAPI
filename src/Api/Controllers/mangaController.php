@@ -1,7 +1,7 @@
 <?php
 namespace Api\Controllers;
 
-use Api\Controllers\_BaseApiController;
+use Core\Controllers\_BaseApiController;
 use Api\Services\MangaService;
 use Core\HTTPRequest;
 use Core\HTTPResponse;

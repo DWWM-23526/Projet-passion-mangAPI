@@ -1,7 +1,7 @@
 <?php
 namespace Auth\Endpoints;
 
-use Api\EndPoints\_BaseApiEndpoint;
+use Core\EndPoints\_BaseApiEndpoint;
 
 class RoleEndPoint extends _BaseApiEndpoint
 {

@@ -1,7 +1,7 @@
 <?php
 namespace Auth\EndPoints;
 
-use Api\EndPoints\_BaseApiEndpoint;
+use Core\EndPoints\_BaseApiEndpoint;
 
 class EmailConfirmEndPoint extends _BaseApiEndpoint
 {

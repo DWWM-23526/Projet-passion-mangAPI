@@ -2,7 +2,7 @@
 
 namespace Api\Controllers;
 
-use Api\Controllers\_BaseApiController;
+use Core\Controllers\_BaseApiController;
 use Api\Services\TagsService;
 use Core\HTTPRequest;
 use core\HTTPResponse;
