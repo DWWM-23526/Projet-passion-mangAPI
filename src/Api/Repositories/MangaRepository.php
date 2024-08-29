@@ -3,9 +3,8 @@
 namespace Api\Repositories;
 
 use Api\Models\Manga;
-use Api\Mangaka\Model\Mangaka;
-use Api\Tags\Model\Tags;
-
+use Api\Models\Mangaka;
+use Api\Models\Tags;
 
 class MangaRepository extends _BaseApiRepository
 {

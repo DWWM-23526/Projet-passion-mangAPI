@@ -6,7 +6,7 @@ use Core\App;
 use Api\EmailConfirm\Repository\EmailConfirmRepository;
 use Api\Services\_BaseApiService;
 use Api\Users\Service\UsersService;
-use Core\Services\MailerService;
+use Auth\Services\MailerService;
 use Core\Handler\JwtHandler;
 
 

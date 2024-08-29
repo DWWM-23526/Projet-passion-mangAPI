@@ -1,42 +1,43 @@
 <?php
-
 namespace Core;
 
-use Api\Auth\AuthEndpoint;
-use Api\Users\Repository\UsersRepository;
-use Api\Users\Service\UsersService;
 
 use Core\ORM\DatabaseManager;
 use Core\Router;
 
-use Api\EmailConfirm\Repository\EmailConfirmRepository;
-use Api\EmailConfirm\Service\EmailConfirmService;
 
+use Auth\Services\RoleService;
+use Auth\Services\UsersService;
+use Auth\Services\MailerService;
+use Auth\Services\AuthService;
+
+use Auth\EndPoints\AuthEndpoint;
+use Auth\Endpoints\UsersEndpoint;
+use Auth\Endpoints\RoleEndPoint;
+
+use Auth\Repositories\RoleRepository;
+use Auth\Repositories\UsersRepository;
 
 use Api\Services\MangaService;
 use Api\Services\MangakaService;
+use Api\Services\TagsService;
+
 
 use Api\Repositories\MangaRepository;
 use Api\Repositories\MangakaRepository;
+use Api\Repositories\TagsRepository;
+
 
 use Api\EndPoints\MangaEndpoint;
 use Api\Endpoints\MangakaEndPoint;
+use Api\Endpoints\TagsEndpoint;
 
 
-
-
-use Api\Tags\Repository\TagsRepository;
-use Api\Tags\Service\TagsService;
-use Api\Auth\Service\AuthService;
+use Api\EmailConfirm\Repository\EmailConfirmRepository;
+use Api\EmailConfirm\Service\EmailConfirmService;
 use Api\EmailConfirm\EmailConfirmEndPoint;
 
 
-use Api\Tags\TagsEndpoint;
-use Api\Users\Repository\RoleRepository;
-use Api\Users\RoleEndPoint;
-use Api\Users\Service\RoleService;
-use Api\Users\UsersEndpoint;
-use Core\Services\MailerService;
 
 class App
 {

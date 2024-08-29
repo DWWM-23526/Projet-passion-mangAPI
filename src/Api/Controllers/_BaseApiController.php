@@ -3,11 +3,11 @@
 namespace Api\Controllers;
 
 use Core\App;
-use Core\Base\BaseController;
+use Core\Controllers\_BaseController;
 use Core\HTTPRequest;
 use Core\HTTPResponse;
 
-abstract class _BaseApiController extends BaseController
+abstract class _BaseApiController extends _BaseController
 {
     protected  $service;
 
