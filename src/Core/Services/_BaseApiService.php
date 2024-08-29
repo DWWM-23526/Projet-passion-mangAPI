@@ -5,15 +5,17 @@ namespace Core\Services;
 use Api\Handler\PaginationHandler;
 use Core\App;
 use core\HTTPResponse;
+use Core\Validation\_BaseApiValidator;
 
-
-abstract class _BaseApiService
+abstract class _BaseApiService extends _BaseService
 {
     protected $repository;
+    protected $validator;
 
-    protected function __construct($repository)
+    protected function __construct($repository, $validator)
     {
         $this->repository = App::injectRepository()->getContainer($repository);
+        $this->validator = App::injectValidator()->getContainer($validator);
     }
 
     public function getAll(HTTPResponse $response, $params)

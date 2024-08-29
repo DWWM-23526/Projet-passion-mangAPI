@@ -33,6 +33,7 @@ use Api\Repositories\TagsRepository;
 use Api\EndPoints\MangaEndpoint;
 use Api\Endpoints\MangakaEndPoint;
 use Api\Endpoints\TagsEndpoint;
+use Api\Validation\MangaValidator;
 use Auth\Repositories\EmailConfirmRepository;
 use Auth\Services\EmailConfirmService;
 
@@ -43,6 +44,7 @@ class App
   protected static Container $container;
   protected static Container $servicesContainer;
   protected static Container $repositoriesContainer;
+  protected static Container $validatorContainer;
 
   private function __construct()
   {
@@ -86,6 +88,17 @@ class App
     return self::$repositoriesContainer;
   }
 
+  private static function setValidatorContainer(Container $container)
+  {
+    self::$validatorContainer = $container;
+  }
+
+  public static function injectVAlidator()
+  {
+    return self::$validatorContainer;
+  }
+
+
   public static function init()
   {
     self::getInstance();
@@ -107,6 +120,7 @@ class App
     self::initMainContainer();
     self::initRepositoriesContainer();
     self::initServicesContainer();
+    self::initValidatorContainer();
 
     // DATABASE INIT
 
@@ -208,6 +222,18 @@ class App
     });
 
     self::setServiceContainer($containerServices);
+  }
+
+  private static function initValidatorContainer()
+  {
+
+    $containerValidator = new Container();
+
+    $containerValidator->setContainer(MangaValidator::class, function () {
+      return new MangaValidator();
+    });
+
+    self::setValidatorContainer($containerValidator);
   }
   
   private static function instanceEmailExpiration()

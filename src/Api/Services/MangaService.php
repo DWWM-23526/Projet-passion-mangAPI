@@ -3,13 +3,14 @@
 namespace Api\Services;
 
 use Api\Repositories\MangaRepository;
+use Api\Validation\MangaValidator;
 use Core\Services\_BaseApiService;
 
 class MangaService extends _BaseApiService
 {
   public function __construct()
   {
-    parent::__construct(MangaRepository::class);
+    parent::__construct(MangaRepository::class, MangaValidator::class);
   }
 
   public function searchMangaByName($searchTerm)
