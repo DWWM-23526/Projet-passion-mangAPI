@@ -2,9 +2,9 @@
 
 namespace Api\repositories;
 
-use Core\Base\BaseRepository;
+use Core\Repositories\_BaseRepository;
 
-abstract class _BaseApiRepository extends BaseRepository
+abstract class _BaseApiRepository extends _BaseRepository
 {
 
     public function getAllItems(string $sortColumn = null, string $sortOrder, int $limit, int $offset)

@@ -1,11 +1,11 @@
 <?php
 
-namespace Core\Base;
+namespace Core\Repositories;
 
 use Core\App;
 use Core\Database;
 
-abstract class BaseRepository
+abstract class _BaseRepository
 {
 
     protected Database $db;
