@@ -3,7 +3,7 @@
 namespace Api\Services;
 
 use Api\Repositories\MangakaRepository;
-use Api\Services\_BaseApiService;
+use Core\Services\_BaseApiService;
 
 
 class MangakaService extends _BaseApiService

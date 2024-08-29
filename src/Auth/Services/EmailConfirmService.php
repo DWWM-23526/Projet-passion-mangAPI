@@ -4,7 +4,7 @@ namespace Auth\Services;
 
 use Core\App;
 
-use Api\Services\_BaseApiService;
+use Core\Services\_BaseApiService;
 use Auth\Handlers\JwtHandler;
 use Auth\Repositories\EmailConfirmRepository;
 use Auth\Services\MailerService;

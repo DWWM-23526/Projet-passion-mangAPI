@@ -3,7 +3,7 @@
 namespace Api\Services;
 
 use Api\Repositories\TagsRepository as RepositoriesTagsRepository;
-use Api\Services\_BaseApiService;
+use Core\Services\_BaseApiService;
 
 
 class TagsService extends _BaseApiService

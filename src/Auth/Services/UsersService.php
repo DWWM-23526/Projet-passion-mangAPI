@@ -3,7 +3,7 @@
 namespace Auth\Services;
 
 use Auth\Repositories\UsersRepository;
-use Api\Services\_BaseApiService;
+use Core\Services\_BaseApiService;
 
 
 

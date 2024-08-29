@@ -2,7 +2,7 @@
 namespace Auth\Services;
 
 use Auth\Repositories\RoleRepository;
-use Api\Services\_BaseApiService;
+use Core\Services\_BaseApiService;
 
 class RoleService extends _BaseApiService
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\Services;
+namespace Core\Services;
 
 use Api\Handler\PaginationHandler;
 use Core\App;
