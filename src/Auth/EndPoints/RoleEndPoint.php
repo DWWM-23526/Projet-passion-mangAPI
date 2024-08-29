@@ -12,6 +12,6 @@ class RoleEndPoint extends _BaseApiEndpoint
 
   protected function getController(): string
   {
-    return 'Api\Controllers\RoleController';
+    return 'Auth\Controllers\RoleController';
   }
 }

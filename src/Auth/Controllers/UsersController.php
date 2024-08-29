@@ -3,7 +3,7 @@
 namespace Auth\Controllers;
 
 use Api\Controllers\_BaseApiController;
-use Api\Services\UsersService;
+use Auth\Services\UsersService;
 use Core\HTTPRequest;
 use Core\HTTPResponse;
 

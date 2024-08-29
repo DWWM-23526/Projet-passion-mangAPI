@@ -15,7 +15,7 @@ class UsersEndpoint extends _BaseApiEndpoint
 
     protected function getController(): string
     {
-        return 'Api\Controllers\UsersController';
+        return 'Auth\Controllers\UsersController';
     }
 
     protected function registerRoutes()
