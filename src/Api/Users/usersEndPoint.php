@@ -22,7 +22,7 @@ class UsersEndpoint extends BaseApiEndpoint
         parent::registerRoutes();
 
         $this->addGet('/manga/{id}', 'getAllUserRelatedManga', 'auth');
-        $this->addGet('/manga/{id}/{mangaId}', 'addMangaToUser', 'auth');
+        $this->addPost('/manga/{id}/{mangaId}', 'addMangaToUser', 'auth');
         $this->addDelete('/manga/{id}/{mangaId}', 'removeMangaFromUser', 'auth');
         $this->addGet('/role', 'getAllRole', 'admin');
     }
