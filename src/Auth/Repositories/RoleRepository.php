@@ -1,7 +1,7 @@
 <?php
 namespace Auth\Repositories;
 
-use Api\repositories\_BaseApiRepository;
+use Core\repositories\_BaseApiRepository;
 use Auth\Models\Role;
 
 class RoleRepository extends _BaseApiRepository

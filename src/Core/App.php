@@ -14,9 +14,11 @@ use Auth\Services\AuthService;
 use Auth\EndPoints\AuthEndpoint;
 use Auth\Endpoints\UsersEndpoint;
 use Auth\Endpoints\RoleEndPoint;
+use Auth\EndPoints\EmailConfirmEndPoint;
 
 use Auth\Repositories\RoleRepository;
 use Auth\Repositories\UsersRepository;
+use Auth\Repositories\EmailExpiration;
 
 use Api\Services\MangaService;
 use Api\Services\MangakaService;
@@ -31,13 +33,8 @@ use Api\Repositories\TagsRepository;
 use Api\EndPoints\MangaEndpoint;
 use Api\Endpoints\MangakaEndPoint;
 use Api\Endpoints\TagsEndpoint;
-
-
-use Api\EmailConfirm\Repository\EmailConfirmRepository;
-use Api\EmailConfirm\Service\EmailConfirmService;
-use Api\EmailConfirm\EmailConfirmEndPoint;
-
-
+use Auth\Repositories\EmailConfirmRepository;
+use Auth\Services\EmailConfirmService;
 
 class App
 {
@@ -125,7 +122,7 @@ class App
       // self::logMessage('App initialized');
     }
 
-    self::instanceRemoveAtExpired();
+    self::instanceEmailExpiration();
 
     return $app;
   }
@@ -213,10 +210,10 @@ class App
     self::setServiceContainer($containerServices);
   }
   
-  private static function instanceRemoveAtExpired()
+  private static function instanceEmailExpiration()
   {
-    $instanceOfRemoveAtExpired = new RemoveAtExpired();
-    $instanceOfRemoveAtExpired->deleteWhenExpiredEmailConfirm();
+    $instanceOfEmailExpiration = new EmailExpiration();
+    $instanceOfEmailExpiration->deleteWhenExpiredEmailConfirm();
   }
 
 

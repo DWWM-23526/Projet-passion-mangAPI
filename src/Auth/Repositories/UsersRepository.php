@@ -4,7 +4,7 @@ namespace Auth\Repositories;
 
 use Api\Models\Manga;
 use Auth\Models\Users;
-use Api\repositories\_BaseApiRepository;
+use Core\repositories\_BaseApiRepository;
 
 
 

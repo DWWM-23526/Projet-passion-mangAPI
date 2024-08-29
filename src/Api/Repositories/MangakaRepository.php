@@ -4,7 +4,7 @@ namespace Api\Repositories;
 
 use Api\Models\Manga;
 use Api\Models\Mangaka;
-use Api\repositories\_BaseApiRepository;
+use Core\repositories\_BaseApiRepository;
 
 class MangakaRepository extends _BaseApiRepository
 {

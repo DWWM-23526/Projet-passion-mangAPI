@@ -1,11 +1,11 @@
 <?php
 
-namespace Api\EmailConfirm\Repository;
+namespace Auth\Repositories;
 
-use Api\EmailConfirm\Model\EmailConfirm;
-use Core\Base\BaseApiRepository;
+use Auth\Models\EmailConfirm;
+use Core\repositories\_BaseApiRepository;
 
-class EmailConfirmRepository extends BaseApiRepository
+class EmailConfirmRepository extends _BaseApiRepository
 {
   protected $table = 'email_confirmation';
   protected $modelClass = EmailConfirm::class;

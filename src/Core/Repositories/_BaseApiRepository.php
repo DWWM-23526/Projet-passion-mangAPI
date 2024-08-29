@@ -1,6 +1,6 @@
 <?php
 
-namespace Api\repositories;
+namespace Core\repositories;
 
 use Core\Repositories\_BaseRepository;
 

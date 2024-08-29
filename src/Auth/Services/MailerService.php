@@ -12,7 +12,7 @@ class MailerService
   public function __construct()
   {
     $this->mail = new PHPMailer();
-    $this->conf = require_once __DIR__ ."/../../config/mailService.config.php";
+    $this->conf = require_once __DIR__ ."/../../../config/mailService.config.php";
     $this->mail->isSMTP();
     $this->mail->SMTPAuth = true;
     $this->mail->SMTPSecure = "ssl";

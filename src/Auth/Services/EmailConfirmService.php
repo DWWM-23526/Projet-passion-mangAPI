@@ -1,13 +1,15 @@
 <?php
 
-namespace Api\EmailConfirm\Service;
+namespace Auth\Services;
 
 use Core\App;
-use Api\EmailConfirm\Repository\EmailConfirmRepository;
+
 use Api\Services\_BaseApiService;
-use Api\Users\Service\UsersService;
+use Auth\Handlers\JwtHandler;
+use Auth\Repositories\EmailConfirmRepository;
 use Auth\Services\MailerService;
-use Core\Handler\JwtHandler;
+use Auth\Services\UsersService;
+
 
 
 class EmailConfirmService extends _BaseApiService
@@ -39,6 +41,7 @@ class EmailConfirmService extends _BaseApiService
     $name = $data['name'];
     $password = $data['password'];
 
+    
     $hashedPassword = password_hash($password, PASSWORD_ARGON2ID);
 
     $data['password'] = $hashedPassword;

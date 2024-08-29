@@ -1,5 +1,5 @@
 <?php
-namespace Api\EmailConfirm;
+namespace Auth\EndPoints;
 
 use Api\EndPoints\_BaseApiEndpoint;
 
@@ -12,7 +12,7 @@ class EmailConfirmEndPoint extends _BaseApiEndpoint
 
   protected function getController(): string
   {
-    return 'Api\EmailConfirm\Controller\EmailConfirmController';
+    return 'Auth\Controllers\EmailConfirmController';
   }
 
   protected function registerRoutes()

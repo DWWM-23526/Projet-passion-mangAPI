@@ -1,13 +1,14 @@
 <?php
 
-namespace Api\EmailConfirm\Controller;
+namespace Auth\Controllers;
 
-use Core\Base\BaseApiController;
+use Api\Controllers\_BaseApiController;
+use Auth\Services\EmailConfirmService;
 use Core\HTTPRequest;
 use core\HTTPResponse;
-use Api\EmailConfirm\Service\EmailConfirmService;
 
-class EmailConfirmController extends BaseApiController
+
+class EmailConfirmController extends _BaseApiController
 {
   public function __construct()
   {
