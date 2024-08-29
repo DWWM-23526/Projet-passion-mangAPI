@@ -116,6 +116,7 @@ class EmailConfirmService extends _BaseApiService
   {
     try {
       $this->usersService->create($tokenDecode);
+      return "Account created successfully";
     } catch (\Throwable $th) {
       return "Erreur emailConfirmService : $th";
     }

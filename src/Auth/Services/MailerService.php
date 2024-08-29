@@ -54,7 +54,7 @@ class MailerService
 
   public function sendConfirmationEmail($email, $token)
   {
-    $verificationLink = "http://api-passion-manga/api/emailConfirm/decodeTokenToConfirmAccount/$token";
+    $verificationLink = "http://localhost:8008/passion-manga/account/$token";
     $subject = 'Email de confirmation de compte';
     $msg = "Cliquez sur ce bouton pour confirmer votre compte :
     <button><a href='$verificationLink'

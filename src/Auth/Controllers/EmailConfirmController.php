@@ -59,7 +59,7 @@ class EmailConfirmController extends _BaseApiController
       $newUser = $this->service->decodeTokenAndCreateAccount($token);
       $this->sendSuccessResponse($response, $newUser );
     } catch (\Throwable $th) {
-      $this->sendErrorResponse($response,'Failed to decode or createUser', 500);
+      $this->sendErrorResponse($response,'Failed to decode or createUser: ' .$th->getMessage(), 500);
     }
   }
 
