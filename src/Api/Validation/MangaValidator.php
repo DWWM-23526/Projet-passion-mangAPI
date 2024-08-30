@@ -2,6 +2,7 @@
 namespace Api\Validation;
 
 use Core\Validation\_BaseApiValidator;
+use Core\Validation\Rules\NotRequiredRule;
 use Core\Validation\Rules\NumberRule;
 use Core\Validation\Rules\RequiredRule;
 
@@ -25,17 +26,16 @@ final class MangaValidator extends _BaseApiValidator
     protected function getCreateRules(): array
     {
         return [
-            'name' => new RequiredRule(),
-            'age' => new NumberRule(),
+            'id' => new NotRequiredRule(),
         ];
     }
 
     protected function getUpdateRules(): array
     {
         return [
-            'id' => new RequiredRule(),
-            'name' => new RequiredRule(),
-            'age' => new NumberRule(),
+            'id' => new NotRequiredRule(),
+            // 'name' => new RequiredRule(),
+            // 'age' => new NumberRule(),
         ];
     }
 

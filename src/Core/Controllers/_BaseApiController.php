@@ -36,7 +36,7 @@ abstract class _BaseApiController extends _BaseController
             $data = $this->service->getMany($response, $values);
             $this->sendSuccessResponse($response, $data);
         } catch (\Throwable $th) {
-            $this->sendErrorResponse($response, 'Failed to fetch data', 404);
+            $this->sendErrorResponse($response, 'Failed to fetch data : ' . $th->getMessage(), 404);
         }
     }
 
@@ -57,7 +57,7 @@ abstract class _BaseApiController extends _BaseController
             $data = $this->service->getById($id);
             $this->sendSuccessResponse($response, $data);
         } catch (\Throwable $th) {
-            $this->sendErrorResponse($response, 'Failed to fetch data', 404);
+            $this->sendErrorResponse($response, 'Failed to fetch data : ' . $th->getMessage(), 404);
         }
     }
 
@@ -68,7 +68,7 @@ abstract class _BaseApiController extends _BaseController
             $data = $this->service->create($body);
             $this->sendSuccessResponse($response,  $data, 'Resource created successfully');
         } catch (\Throwable $th) {
-            $this->sendErrorResponse($response, 'Failed to create resource', 500);
+            $this->sendErrorResponse($response, 'Failed to create resource'. $th->getMessage(), 500);
         }
     }
 

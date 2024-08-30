@@ -20,6 +20,7 @@ class MangaService extends _BaseApiService
 
   public function getRelatedMangaka(int $id)
   {
+
     return $this->repository->getRelatedMangaka($id);
   }
 

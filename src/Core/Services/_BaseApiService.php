@@ -5,6 +5,7 @@ namespace Core\Services;
 use Api\Handler\PaginationHandler;
 use Core\App;
 use core\HTTPResponse;
+use Core\repositories\_BaseApiRepository;
 use Core\Validation\_BaseApiValidator;
 
 abstract class _BaseApiService extends _BaseService
@@ -46,36 +47,34 @@ abstract class _BaseApiService extends _BaseService
 
     public function getById(int $id)
     {
+        $this->validator->validateGet(['id' => $id]);
         return $this->repository->getItemById($id);
     }
 
     public function getMany(HTTPResponse $response, string $values)
     {
 
-        try {
-            $decodedFilter = json_decode($values, true);
 
-            if (json_last_error() === JSON_ERROR_NONE && isset($decodedFilter['ids'])) {
-                $values = $decodedFilter['ids'];
-            }
+        $decodedFilter = json_decode($values, true);
 
-            $data = $this->repository->getManyItems($values);
-
-            return $data;
-        } catch (\PDOException $pdoEx) {
-
-            throw new \PDOException('Failed to retrieve data due to a database error');
-        } catch (\InvalidArgumentException $invalidArgEx) {
-
-            throw new \InvalidArgumentException('Invalid parameters provided');
-        } catch (\Throwable $th) {
-
-            throw new \Throwable('An unexpected error occurred');
+        if (json_last_error() === JSON_ERROR_NONE && isset($decodedFilter['ids'])) {
+            $values = $decodedFilter['ids'];
         }
+
+        foreach ($values as $key => $value) {
+            $this->validator->validateGet(['id' => $value]);
+        };
+
+        $data = $this->repository->getManyItems($values);
+
+        return $data;
     }
 
     public function create(array $data)
     {
+
+        $this->validator->validateCreate($data);
+
         return $this->repository->createItem($data);
     }
 

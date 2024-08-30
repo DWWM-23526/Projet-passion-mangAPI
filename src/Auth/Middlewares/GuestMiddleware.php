@@ -16,7 +16,7 @@ class GuestMiddleware extends _BaseMiddleware
         $headers = array_change_key_case($headers, CASE_LOWER);
 
         if (isset($headers['authorization'])) {
-            $response->abort('cannot acces whil connected', 401);
+            $response->abort('cannot access while connected', 401);
         } 
     }
 }
