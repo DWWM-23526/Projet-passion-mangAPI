@@ -27,9 +27,15 @@ class MangaService extends BaseApiService
     return $this->repository->getAllMangaRelatedTags($id);
   }
 
-  public function checkIfIsUserFavorite(int $userId, int $mangaId)
+  public function checkIfIsUserFavorite($mangaId, $userId)
   {
-    return $this->repository->checkIfIsUserFavorite($mangaId, $userId);
+    $result = $this->repository->checkIfIsUserFavorite([$mangaId, $userId], ['Id_manga', 'Id_user']);
+    if ($result[0]['result'] == 0) {
+      $result = false;
+      return $result;
+    }
+    $result = true;
+    return $result;
   }
 
   public function addTagToManga(int $mangaId, int $tagId)
@@ -42,6 +48,4 @@ class MangaService extends BaseApiService
 
     return $this->repository->removeMangaTag($mangaId, $tagId);
   }
-
- 
 }

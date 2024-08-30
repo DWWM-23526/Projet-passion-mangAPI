@@ -7,7 +7,7 @@ use Api\Users\Repository\UsersRepository;
 use Core\Base\BaseApiService;
 
 class UsersService extends BaseApiService
-{ 
+{
 
     public function __construct()
     {
