@@ -29,4 +29,11 @@ class UsersService extends BaseApiService
     {
         return $this->repository->removeMangaFromUser($userId, $mangaId);
     }
+
+    public function update(array $data, int $id)
+    {
+        $hashedPassword = password_hash($data['password'], PASSWORD_ARGON2ID);
+        $data['password'] = $hashedPassword;
+        return $this->repository->updateItem($data, $id);
+    }
 }
