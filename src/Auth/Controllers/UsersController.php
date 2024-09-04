@@ -34,7 +34,7 @@ class UsersController extends _BaseApiController
             $this->service->addMangaToUser($userId, $mangaId);
             $this->sendSuccessResponse($response, null, "Manga ID $mangaId successfully added to user ID $userId.");
         } catch (\Throwable $th) {
-            $this->sendErrorResponse($response, "Failed to add manga ID $mangaId to user ID $userId.");
+            $this->sendErrorResponse($response, "Failed to add manga ID $mangaId to user ID $userId." . $th);
         }
     }
 

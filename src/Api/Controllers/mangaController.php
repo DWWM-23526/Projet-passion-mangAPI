@@ -54,7 +54,7 @@ class MangaController extends _BaseApiController
         $mangaId = $params['id'];
         $userId = $params['userId'];
         try {
-            $check = $this->service->checkIfIsUserFavorite($userId, $mangaId);
+            $check = $this->service->checkIfIsUserFavorite($mangaId, $userId);
             $this->sendSuccessResponse($response, $check);
         } catch (\Throwable $th) {
             $this->sendErrorResponse($response, 'Failed to fetch data', 404);

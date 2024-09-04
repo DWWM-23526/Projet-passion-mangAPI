@@ -31,21 +31,21 @@ class MangaRepository extends _BaseApiRepository
 
   public function searchMangaByName(string $searchTerm)
   {
-    return $this->search([$searchTerm],['manga_name']);
+    return $this->search([$searchTerm], ['manga_name']);
   }
 
-  public function checkIfIsUserFavorite($mangaId, $UserId){
-    return $this->checkIfExists('favoris',[$mangaId, $UserId],['Id_manga', 'Id_user']);
+  public function checkIfIsUserFavorite(array $values, array $column)
+  {
+    return $this->checkIfExists('favoris', $values, $column);
   }
 
   public function addTagToManga(int $mangaId, int $tagId)
   {
-    return $this->attach('tags_manga', $this->primaryKey, 'Id_tag', $mangaId, $tagId );
+    return $this->attach('tags_manga', $this->primaryKey, 'Id_tag', $mangaId, $tagId);
   }
 
   public function removeMangaTag(int $mangaId, int $tagId)
   {
     return $this->detach('tags_manga', $this->primaryKey, 'Id_tag', $mangaId, $tagId);
   }
-  
 }
