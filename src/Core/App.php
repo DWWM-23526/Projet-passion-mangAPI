@@ -1,34 +1,46 @@
 <?php
-
 namespace Core;
 
-use Api\Auth\AuthEndpoint;
-use Api\Users\Repository\UsersRepository;
-use Api\Users\Service\UsersService;
 
 use Core\ORM\DatabaseManager;
 use Core\Router;
 
-use Api\EmailConfirm\Repository\EmailConfirmRepository;
-use Api\EmailConfirm\Service\EmailConfirmService;
 
-use Api\Manga\Repository\MangaRepository;
-use Api\Manga\Service\MangaService;
-use Api\Mangaka\Repository\MangakaRepository;
-use Api\Mangaka\Service\MangakaService;
-use Api\Tags\Repository\TagsRepository;
-use Api\Tags\Service\TagsService;
-use Api\Auth\Service\AuthService;
-use Api\EmailConfirm\EmailConfirmEndPoint;
-use Api\Manga\MangaEndpoint;
-use Api\Mangaka\MangakaEndPoint;
-use Api\Tags\TagsEndpoint;
-use Api\Users\Repository\RoleRepository;
-use Api\Users\RoleEndPoint;
-use Api\Users\Service\RoleService;
-use Api\Users\UsersEndpoint;
-use Services\JwtService;
-use Services\MailerService;
+use Auth\Services\RoleService;
+use Auth\Services\UsersService;
+use Auth\Services\MailerService;
+use Auth\Services\AuthService;
+
+use Auth\EndPoints\AuthEndpoint;
+use Auth\Endpoints\UsersEndpoint;
+use Auth\Endpoints\RoleEndPoint;
+use Auth\EndPoints\EmailConfirmEndPoint;
+
+use Auth\Repositories\RoleRepository;
+use Auth\Repositories\UsersRepository;
+use Auth\Repositories\EmailExpiration;
+
+use Api\Services\MangaService;
+use Api\Services\MangakaService;
+use Api\Services\TagsService;
+
+
+use Api\Repositories\MangaRepository;
+use Api\Repositories\MangakaRepository;
+use Api\Repositories\TagsRepository;
+
+
+use Api\EndPoints\MangaEndpoint;
+use Api\Endpoints\MangakaEndPoint;
+use Api\Endpoints\TagsEndpoint;
+use Api\Validation\MangakaValidator;
+use Api\Validation\MangaValidator;
+use Api\Validation\TagsValidator;
+use Auth\Repositories\EmailConfirmRepository;
+use Auth\Services\EmailConfirmService;
+use Auth\Validation\EmailConfirmValidator;
+use Auth\Validation\RoleValidator;
+use Auth\Validation\UsersValidator;
 
 class App
 {
@@ -37,6 +49,7 @@ class App
   protected static Container $container;
   protected static Container $servicesContainer;
   protected static Container $repositoriesContainer;
+  protected static Container $validatorContainer;
 
   private function __construct()
   {
@@ -80,6 +93,17 @@ class App
     return self::$repositoriesContainer;
   }
 
+  private static function setValidatorContainer(Container $container)
+  {
+    self::$validatorContainer = $container;
+  }
+
+  public static function injectVAlidator()
+  {
+    return self::$validatorContainer;
+  }
+
+
   public static function init()
   {
     self::getInstance();
@@ -101,6 +125,7 @@ class App
     self::initMainContainer();
     self::initRepositoriesContainer();
     self::initServicesContainer();
+    self::initValidatorContainer();
 
     // DATABASE INIT
 
@@ -116,7 +141,7 @@ class App
       // self::logMessage('App initialized');
     }
 
-    self::instanceRemoveAtExpired();
+    self::instanceEmailExpiration();
 
     return $app;
   }
@@ -193,10 +218,6 @@ class App
       return new AuthService();
     });
 
-    $containerServices->setContainer(JwtService::class, function () {
-      return new JwtService();
-    });
-
     $containerServices->setContainer(MailerService::class, function () {
       return new MailerService();
     });
@@ -207,11 +228,45 @@ class App
 
     self::setServiceContainer($containerServices);
   }
-  
-  private static function instanceRemoveAtExpired()
+
+  private static function initValidatorContainer()
   {
-    $instanceOfRemoveAtExpired = new RemoveAtExpired();
-    $instanceOfRemoveAtExpired->deleteWhenExpiredEmailConfirm();
+
+    $containerValidator = new Container();
+
+    $containerValidator->setContainer(MangaValidator::class, function () {
+      return new MangaValidator();
+    });
+
+    $containerValidator->setContainer(MangakaValidator::class, function () {
+      return new MangaValidator();
+    });
+
+    $containerValidator->setContainer(TagsValidator::class, function () {
+      return new TagsValidator();
+    });
+
+    $containerValidator->setContainer(EmailConfirmValidator::class, function () {
+      return new EmailConfirmValidator();
+    });
+
+    $containerValidator->setContainer(RoleValidator::class, function () {
+      return new RoleValidator();
+    });
+
+    $containerValidator->setContainer(UsersValidator::class, function () {
+      return new UsersValidator();
+    });
+
+
+
+    self::setValidatorContainer($containerValidator);
+  }
+  
+  private static function instanceEmailExpiration()
+  {
+    $instanceOfEmailExpiration = new EmailExpiration();
+    $instanceOfEmailExpiration->deleteWhenExpiredEmailConfirm();
   }
 
 

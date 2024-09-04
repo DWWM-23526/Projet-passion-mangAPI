@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Core\Base\BaseMiddleware;
+use Core\Middlewares\_BaseMiddleware;
 use Core\HTTPRequest;
 use Core\HTTPResponse;
 use Exception;
@@ -78,7 +78,7 @@ class Router
                 if ($params !== null) {
 
                     if ($route['middleware']) {
-                        $middleware = BaseMiddleware::MAP[$route['middleware']];
+                        $middleware = _BaseMiddleware::MAP[$route['middleware']];
                         (new $middleware)->handle($request, $response);
                     }
 
