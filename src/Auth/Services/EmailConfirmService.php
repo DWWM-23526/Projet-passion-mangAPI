@@ -9,8 +9,7 @@ use Auth\Handlers\JwtHandler;
 use Auth\Repositories\EmailConfirmRepository;
 use Auth\Services\MailerService;
 use Auth\Services\UsersService;
-
-
+use Auth\Validation\EmailConfirmValidator;
 
 class EmailConfirmService extends _BaseApiService
 {
@@ -20,7 +19,7 @@ class EmailConfirmService extends _BaseApiService
 
   public function __construct()
   {
-    parent::__construct(EmailConfirmRepository::class);
+    parent::__construct(EmailConfirmRepository::class,EmailConfirmValidator::class);
    
     $this->mailerService = App::injectService()->getContainer(MailerService::class);
     $this->usersService = App::injectService()->getContainer(UsersService::class);

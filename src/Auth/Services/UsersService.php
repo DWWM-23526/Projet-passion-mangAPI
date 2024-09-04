@@ -3,6 +3,7 @@
 namespace Auth\Services;
 
 use Auth\Repositories\UsersRepository;
+use Auth\Validation\UsersValidator;
 use Core\Services\_BaseApiService;
 
 
@@ -12,7 +13,7 @@ class UsersService extends _BaseApiService
 
     public function __construct()
     {
-        parent::__construct(UsersRepository::class);
+        parent::__construct(UsersRepository::class, UsersValidator::class);
     }
 
 

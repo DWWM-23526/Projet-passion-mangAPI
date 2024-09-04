@@ -33,9 +33,14 @@ use Api\Repositories\TagsRepository;
 use Api\EndPoints\MangaEndpoint;
 use Api\Endpoints\MangakaEndPoint;
 use Api\Endpoints\TagsEndpoint;
+use Api\Validation\MangakaValidator;
 use Api\Validation\MangaValidator;
+use Api\Validation\TagsValidator;
 use Auth\Repositories\EmailConfirmRepository;
 use Auth\Services\EmailConfirmService;
+use Auth\Validation\EmailConfirmValidator;
+use Auth\Validation\RoleValidator;
+use Auth\Validation\UsersValidator;
 
 class App
 {
@@ -232,6 +237,28 @@ class App
     $containerValidator->setContainer(MangaValidator::class, function () {
       return new MangaValidator();
     });
+
+    $containerValidator->setContainer(MangakaValidator::class, function () {
+      return new MangaValidator();
+    });
+
+    $containerValidator->setContainer(TagsValidator::class, function () {
+      return new TagsValidator();
+    });
+
+    $containerValidator->setContainer(EmailConfirmValidator::class, function () {
+      return new EmailConfirmValidator();
+    });
+
+    $containerValidator->setContainer(RoleValidator::class, function () {
+      return new RoleValidator();
+    });
+
+    $containerValidator->setContainer(UsersValidator::class, function () {
+      return new UsersValidator();
+    });
+
+
 
     self::setValidatorContainer($containerValidator);
   }
