@@ -6,6 +6,7 @@ use Core\App;
 use Core\Database;
 use Database\Migrations\AddChangeTokenVarcharToText;
 use Database\Migrations\AddColumnIdRoleInUsers;
+use Database\Migrations\AddColumnImgTagInTableTags;
 use Database\Migrations\AddDateToEmailConfirmation;
 use Database\Migrations\AddForeignKeyIdRoleToUsers;
 use Database\Migrations\AddIdRoleSeed;
@@ -67,7 +68,8 @@ class DatabaseManager
         AddNomColumnInRoleTable::class,
         DropAndReacreateFkTagMangaId_manga::class,
         DropAnRecreateFkTagMangaId_Tag::class,
-        AddRoleWeightInTableRole::class
+        AddRoleWeightInTableRole::class,
+        AddColumnImgTagInTableTags::class
     ];
 
     private array $seeds = [
