@@ -2,12 +2,15 @@
 namespace Api\Validation;
 
 use Core\Validation\_BaseApiValidator;
+use Core\Validation\Rules\ExistRule;
 use Core\Validation\Rules\NotRequiredRule;
 use Core\Validation\Rules\NumberRule;
 use Core\Validation\Rules\RequiredRule;
 
 final class MangaValidator extends _BaseApiValidator
 {
+    private $table = 'mangas';
+    private $column = 'Id_manga';
 
     protected function getGetRules(): array
     {
@@ -15,6 +18,7 @@ final class MangaValidator extends _BaseApiValidator
             'id' => [
                 new RequiredRule(),
                 new NumberRule(),
+                new ExistRule($this->table, $this->column),
             ],
         ];
     }
