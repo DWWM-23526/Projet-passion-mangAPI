@@ -9,7 +9,7 @@ final class NumberRule extends _BaseRule implements ValidationRuleInterface
     {
         if (!is_numeric($values)) {
 
-            var_dump($values);
+         
             return ['this field must be a number'];
         }
         
