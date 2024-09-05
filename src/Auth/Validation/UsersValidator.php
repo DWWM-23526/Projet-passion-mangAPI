@@ -1,7 +1,12 @@
 <?php
+
 namespace Auth\Validation;
 
 use Core\Validation\_BaseApiValidator;
+use Core\Validation\Rules\NumberRule;
+use Core\Validation\Rules\RequiredRule;
+use Core\Validation\Rules\StringRule;
+use Core\Validation\Rules\TinyIntRule;
 
 
 final class UsersValidator extends _BaseApiValidator
@@ -10,36 +15,32 @@ final class UsersValidator extends _BaseApiValidator
     protected function getGetRules(): array
     {
         return [
-         
+            'id' => new RequiredRule(),
+            'name' => new StringRule(),
+            'email' => new StringRule(),
+            'password' => new StringRule(),
+            'is_deleted' => new TinyIntRule(),
+            'id_role' => new NumberRule()
         ];
     }
 
     protected function getGetAllRules(): array
     {
-        return [
-          
-        ];
+        return [];
     }
 
     protected function getCreateRules(): array
     {
-        return [
-          
-        ];
+        return [];
     }
 
     protected function getUpdateRules(): array
     {
-        return [
-           
-        ];
+        return [];
     }
 
     protected function getDeleteRules(): array
     {
-        return [
-          
-        ];
+        return [];
     }
-
 }
