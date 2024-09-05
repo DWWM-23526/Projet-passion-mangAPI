@@ -16,13 +16,6 @@ final class MangaValidator extends _BaseApiValidator
     {
         return [
             'id' => [new RequiredRule(), new NumberRule()],
-            'img_manga' => [new RequiredRule(), new StringRule()],
-            'manga_name' => new StringRule(),
-            'edition' => new StringRule(),
-            'total_tome_number' => new NumberRule(),
-            'texte' => new StringRule(),
-            'is_deleted' => new TinyIntRule(),
-            'Id_mangaka' => new NumberRule()
         ];
     }
 
@@ -34,7 +27,14 @@ final class MangaValidator extends _BaseApiValidator
     protected function getCreateRules(): array
     {
         return [
-            'id' => new NotRequiredRule(),
+            'id' => [new RequiredRule(), new NumberRule()],
+            'img_manga' => [new RequiredRule(), new StringRule()],
+            'manga_name' => new StringRule(),
+            'edition' => new StringRule(),
+            'total_tome_number' => new NumberRule(),
+            'texte' => new StringRule(),
+            'is_deleted' => new TinyIntRule(),
+            'Id_mangaka' => new NumberRule()
         ];
     }
 
