@@ -24,7 +24,7 @@ abstract class _BaseApiService extends _BaseService
 
         try {
             $page = isset($params['_page']) ? (int)$params['_page'] : 1;
-            $limit = isset($params['_limit']) ? (int)$params['_limit'] : 25;
+            $limit = isset($params['_limit']) ? (int)$params['_limit'] : 10000;
             $sortColumn = isset($params['_sort']) ? $params['_sort'] : null;
             $sortOrder = isset($params['_order']) ? $params['_order'] : 'ASC';
             $offset = ($page - 1) * $limit;
