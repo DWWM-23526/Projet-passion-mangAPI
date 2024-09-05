@@ -8,6 +8,8 @@ final class NumberRule extends _BaseRule implements ValidationRuleInterface
     public function validate(mixed $values): array
     {
         if (!is_numeric($values)) {
+
+            var_dump($values);
             return ['this field must be a number'];
         }
         
