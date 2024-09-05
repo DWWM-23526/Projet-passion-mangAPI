@@ -17,17 +17,11 @@ abstract class _BaseValidator
         foreach ($this->rules as $key => $rule) {
             $value = $data[$key] ?? null;
 
-            var_dump($rule);
-
             foreach ($rule as $_rule) {
-
-                var_dump($_rule->validate($value));
 
                 $errors = array_merge($errors, $_rule->validate($value));
             }
         }
-
-        var_dump($errors);
 
         if (!empty($errors)) {
             $this->handleErrors($errors);
