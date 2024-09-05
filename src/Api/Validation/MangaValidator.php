@@ -42,8 +42,7 @@ final class MangaValidator extends _BaseApiValidator
     {
         return [
             'id' => new NotRequiredRule(),
-            // 'name' => new RequiredRule(),
-            // 'age' => new NumberRule(),
+           
         ];
     }
 

@@ -2,6 +2,8 @@
 
 namespace Core\Validation;
 
+use core\HTTPResponse;
+
 abstract class _BaseValidator
 {
 
@@ -12,28 +14,34 @@ abstract class _BaseValidator
 
         $errors = [];
 
-        foreach ($this->rules as $field => $rule) 
-        {
-            $value = $data[$field] ?? null;
-            $errors = array_merge($errors, $rule->validate($value));
+        foreach ($this->rules as $key => $rule) {
+            $value = $data[$key] ?? null;
+
+            var_dump($rule);
+
+            foreach ($rule as $_rule) {
+
+                var_dump($_rule->validate($value));
+
+                $errors = array_merge($errors, $_rule->validate($value));
+            }
         }
 
-        if (!empty($errors))
-        {
+        var_dump($errors);
+
+        if (!empty($errors)) {
             $this->handleErrors($errors);
         }
-
     }
 
-    protected function handleErrors(array $errors):  void
+    protected function handleErrors(array $errors): void
     {
         throw new \Exception('Validation errors: ' . json_encode($errors));
-        
+        // HTTPResponse::abort('Validation errors: ' . json_encode($errors), 500 );
     }
 
-    public function addRule(string $field, ValidationRuleInterface $rule)
+    public function addRule(string $key, ValidationRuleInterface $rule)
     {
-        $this->rules[$field] = $rule;
+        $this->rules[$key] = $rule;
     }
-    
 }
