@@ -138,7 +138,7 @@ class App
 
       DatabaseManager::getInstance($config['database']);
 
-      // self::logMessage('App initialized');
+      self::logMessage('App initialized');
     }
 
     self::instanceEmailExpiration();
