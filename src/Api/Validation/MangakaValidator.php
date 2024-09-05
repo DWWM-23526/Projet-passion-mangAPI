@@ -3,6 +3,7 @@
 namespace Api\Validation;
 
 use Core\Validation\_BaseApiValidator;
+use Core\Validation\Rules\NumberRule;
 use Core\Validation\Rules\RequiredRule;
 use Core\Validation\Rules\StringRule;
 use Core\Validation\Rules\TinyIntRule;
@@ -14,8 +15,8 @@ final class MangakaValidator extends _BaseApiValidator
     protected function getGetRules(): array
     {
         return [
-            'id' => new RequiredRule(),
-            'img_mangaka' => new StringRule(),
+            'id' => [new RequiredRule(), new NumberRule()],
+            'img_mangaka' => [new RequiredRule(), new StringRule()],
             'first_name' => new StringRule(),
             'last_name' => new StringRule(),
             //    'birthdate' => // TODO: add daterule ?,

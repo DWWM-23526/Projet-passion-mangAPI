@@ -15,8 +15,8 @@ final class MangaValidator extends _BaseApiValidator
     protected function getGetRules(): array
     {
         return [
-            'id' => new RequiredRule(),
-            'img_manga' => new StringRule(),
+            'id' => [new RequiredRule(), new NumberRule()],
+            'img_manga' => [new RequiredRule(), new StringRule()],
             'manga_name' => new StringRule(),
             'edition' => new StringRule(),
             'total_tome_number' => new NumberRule(),
@@ -42,7 +42,7 @@ final class MangaValidator extends _BaseApiValidator
     {
         return [
             'id' => new NotRequiredRule(),
-           
+
         ];
     }
 

@@ -15,10 +15,10 @@ final class UsersValidator extends _BaseApiValidator
     protected function getGetRules(): array
     {
         return [
-            'id' => new RequiredRule(),
-            'name' => new StringRule(),
-            'email' => new StringRule(),
-            'password' => new StringRule(),
+            'id' => [new RequiredRule(), new NumberRule()],
+            'name' => [new RequiredRule(), new StringRule()],
+            'email' => [new RequiredRule(), new StringRule()],
+            'password' => [new RequiredRule(), new StringRule()],
             'is_deleted' => new TinyIntRule(),
             'id_role' => new NumberRule()
         ];

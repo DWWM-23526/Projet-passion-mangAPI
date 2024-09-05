@@ -15,7 +15,7 @@ final class TagsValidator extends _BaseApiValidator
     protected function getGetRules(): array
     {
         return [
-            'id' => new RequiredRule(),
+            'id' => [new RequiredRule(), new NumberRule()],
             'tag_name' => new StringRule(),
             'img_tag' => new StringRule(),
             'is_deleted' => new TinyIntRule()

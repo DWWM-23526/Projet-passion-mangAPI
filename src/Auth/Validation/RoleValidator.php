@@ -14,9 +14,9 @@ final class RoleValidator extends _BaseApiValidator
     protected function getGetRules(): array
     {
         return [
-            'id' => new RequiredRule(),
-            'nom' => new StringRule(),
-            'role_weight' => new NumberRule()
+            'id' => [new RequiredRule(), new NumberRule()],
+            'nom' => [new RequiredRule(), new StringRule()],
+            'role_weight' => [new RequiredRule(), new NumberRule()]
         ];
     }
 
