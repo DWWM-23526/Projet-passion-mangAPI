@@ -16,12 +16,7 @@ final class MangakaValidator extends _BaseApiValidator
     {
         return [
             'id' => [new RequiredRule(), new NumberRule()],
-            'img_mangaka' => [new RequiredRule(), new StringRule()],
-            'first_name' => new StringRule(),
-            'last_name' => new StringRule(),
-            //    'birthdate' => // TODO: add daterule ?,
-            'texte' => new StringRule(),
-            'is_deleted' => new TinyIntRule(),
+           
         ];
     }
 

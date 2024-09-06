@@ -3,11 +3,9 @@
 namespace Api\Validation;
 
 use Core\Validation\_BaseApiValidator;
-use Core\Validation\Rules\NotRequiredRule;
 use Core\Validation\Rules\NumberRule;
 use Core\Validation\Rules\RequiredRule;
-use Core\Validation\Rules\StringRule;
-use Core\Validation\Rules\TinyIntRule;
+
 
 final class TagsValidator extends _BaseApiValidator
 {
@@ -16,9 +14,7 @@ final class TagsValidator extends _BaseApiValidator
     {
         return [
             'id' => [new RequiredRule(), new NumberRule()],
-            'tag_name' => new StringRule(),
-            'img_tag' => new StringRule(),
-            'is_deleted' => new TinyIntRule()
+
         ];
     }
 

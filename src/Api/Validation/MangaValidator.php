@@ -6,8 +6,6 @@ use Core\Validation\_BaseApiValidator;
 use Core\Validation\Rules\NotRequiredRule;
 use Core\Validation\Rules\NumberRule;
 use Core\Validation\Rules\RequiredRule;
-use Core\Validation\Rules\StringRule;
-use Core\Validation\Rules\TinyIntRule;
 
 final class MangaValidator extends _BaseApiValidator
 {
@@ -27,14 +25,7 @@ final class MangaValidator extends _BaseApiValidator
     protected function getCreateRules(): array
     {
         return [
-            'id' => [new RequiredRule(), new NumberRule()],
-            'img_manga' => [new RequiredRule(), new StringRule()],
-            'manga_name' => new StringRule(),
-            'edition' => new StringRule(),
-            'total_tome_number' => new NumberRule(),
-            'texte' => new StringRule(),
-            'is_deleted' => new TinyIntRule(),
-            'Id_mangaka' => new NumberRule()
+
         ];
     }
 
