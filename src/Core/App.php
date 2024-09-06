@@ -41,6 +41,7 @@ use Auth\Services\EmailConfirmService;
 use Auth\Validation\EmailConfirmValidator;
 use Auth\Validation\RoleValidator;
 use Auth\Validation\UsersValidator;
+use Core\repositories\CoreRepository;
 
 class App
 {
@@ -161,6 +162,11 @@ class App
   private static function initRepositoriesContainer()
   {
     $containerRepositories = new Container();
+
+
+    $containerRepositories->setContainer(CoreRepository::class, function () {
+      return new CoreRepository();
+    });
 
     $containerRepositories->setContainer(MangaRepository::class, function () {
       return new MangaRepository();
