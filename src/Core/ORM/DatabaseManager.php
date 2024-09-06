@@ -28,6 +28,8 @@ use Database\Migrations\ChangeIdRoleByNullAndDefaultOne;
 use Database\Migrations\DropAndReacreateFkTagMangaId_manga;
 use Database\Migrations\DropAnRecreateFkTagMangaId_Tag;
 use Database\Migrations\EditDateTypeToTimeStamp;
+use Database\Migrations\EditTableMangaImgManga;
+use Database\Migrations\EditTableMangakaImgMangaka;
 use Database\Migrations\RemoveTokenToEmailConfirmAndAddName;
 use Database\Seed\FavoritesSeed;
 use Database\Seed\MangakasSeed;
@@ -69,7 +71,9 @@ class DatabaseManager
         DropAndReacreateFkTagMangaId_manga::class,
         DropAnRecreateFkTagMangaId_Tag::class,
         AddRoleWeightInTableRole::class,
-        AddColumnImgTagInTableTags::class
+        AddColumnImgTagInTableTags::class,
+        EditTableMangaImgManga::class,
+        EditTableMangakaImgMangaka::class
     ];
 
     private array $seeds = [
@@ -156,13 +160,13 @@ class DatabaseManager
             }
         }
 
-        // if (empty($newMigrations)) {
+        if (empty($newMigrations)) {
 
-        //     $this->logMessage("All migrations are applied.");
-        // } else {
+            $this->logMessage("All migrations are applied.");
+        } else {
 
-        //     $this->logMessage("Migration applied: " . implode(', ', $newMigrations));
-        // }
+            $this->logMessage("Migration applied: " . implode(', ', $newMigrations));
+        }
     }
 
     private function seed()
@@ -178,13 +182,13 @@ class DatabaseManager
             }
         }
 
-        // if (empty($newMigrations)) {
+        if (empty($newMigrations)) {
 
-        //     $this->logMessage("All seeds are applied.");
-        // } else {
+            $this->logMessage("All seeds are applied.");
+        } else {
 
-        //     $this->logMessage("Seeds applied: " . implode(', ', $newMigrations));
-        // }
+            $this->logMessage("Seeds applied: " . implode(', ', $newMigrations));
+        }
     }
 
     private function getAppliedMigrations()
