@@ -15,9 +15,7 @@ final class EmailConfirmValidator extends _BaseApiValidator
     {
         return [
             'id' => [new RequiredRule(), new NumberRule()],
-            'email' => [new RequiredRule(), new StringRule()],
-            'name' => [new RequiredRule(), new StringRule()],
-            //  'date' => TODO: Add dateRule ?
+        
         ];
     }
 
