@@ -3,19 +3,21 @@
 namespace Api\Validation;
 
 use Core\Validation\_BaseApiValidator;
+use Core\Validation\Rules\ExistRule;
 use Core\Validation\Rules\NumberRule;
 use Core\Validation\Rules\RequiredRule;
-use Core\Validation\Rules\StringRule;
-use Core\Validation\Rules\TinyIntRule;
+
 
 
 final class MangakaValidator extends _BaseApiValidator
 {
+    private $table = 'mangakas';
+    private $column = 'Id_mangaka';
 
     protected function getGetRules(): array
     {
         return [
-            'id' => [new RequiredRule(), new NumberRule()],
+            'id' => [new RequiredRule(), new NumberRule(),new ExistRule($this->table, $this->column)],
            
         ];
     }
