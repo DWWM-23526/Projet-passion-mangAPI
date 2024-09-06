@@ -245,7 +245,7 @@ class App
     });
 
     $containerValidator->setContainer(MangakaValidator::class, function () {
-      return new MangaValidator();
+      return new MangakaValidator();
     });
 
     $containerValidator->setContainer(TagsValidator::class, function () {
