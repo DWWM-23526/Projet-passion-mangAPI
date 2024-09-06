@@ -16,11 +16,6 @@ final class UsersValidator extends _BaseApiValidator
     {
         return [
             'id' => [new RequiredRule(), new NumberRule()],
-            'name' => [new RequiredRule(), new StringRule()],
-            'email' => [new RequiredRule(), new StringRule()],
-            'password' => [new RequiredRule(), new StringRule()],
-            'is_deleted' => new TinyIntRule(),
-            'id_role' => new NumberRule()
         ];
     }
 
