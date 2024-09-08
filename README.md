@@ -1,39 +1,37 @@
-# API REST en PHP avec WAMP
+# REST API in PHP with WAMP
 
-Ce projet est une API RESTful développée en PHP et hébergée sur un serveur WAMP. L'API interagit avec une base de données MySQL. La configuration sensible, telle que les informations de connexion à la base de données, est gérée de manière sécurisée en utilisant des fichiers de configuration ignorés par Git.
+This project is a RESTful API developed in PHP and hosted on a WAMP server. The API interacts with a MySQL database. Sensitive configuration, such as database connection information, is securely managed using configuration files ignored by Git.
 
-### Prérequis
+### Prerequisites
 
-* WAMP (Windows, Apache, MySQL, PHP)
-* Composer (pour la gestion des dépendances PHP)
+- WAMP (Windows, Apache, MySQL, PHP)
+- Composer (for PHP dependency management)
 
 # Installation
 
-### Étape 1: Cloner le dépôt
+### Step 1: Clone the repository
 
-Clonez le dépôt dans le répertoire de votre choix :
-
+Clone the repository into your desired directory:
 
 ```
 git clone https://github.com/DWWM-23526/Projet-passion-mangAPI.git
 cd Projet-passion-mangAPI
 ```
 
-### Étape 2: Installer les dépendances
+### Step 2: Install dependencies
 
-Assurez-vous d'avoir Composer installé, puis exécutez la commande suivante pour installer les dépendances du projet :
-
+Make sure Composer is installed, then run the following command to install project dependencies:
 
 ```
 composer install
 ```
 
-### Étape 3: Configurer la base de données
+### Step 3: Configure the database
 
-Créez un fichier db.config.php dans le répertoire config avec le contenu suivant :
+Create a db.config.php file in the config directory with the following content:
 
 ```
-<?php 
+<?php
 return [
     'database' => [
         'host' => 'votre_hote',
@@ -47,29 +45,29 @@ return [
 ];
 
 ```
-> Remarque : Ce fichier est ajouté au .gitignore pour des raisons de sécurité. Assurez-vous de ne pas inclure vos informations de connexion dans votre dépôt.
 
-Veillez également a créer un fichier migration.log dans un dossier log à la racine de votre projet
+> Note: This file is added to .gitignore for security reasons. Make sure not to include your connection details in your repository.
 
-### Étape 4: Configurer le log
+Also, ensure to create a migration.log file in a log folder at the root of your project.
 
-Créez un fichier migration.log dans un dossier log a la racine du projet
+### Step 4: Configure the log
 
-### Étape 5: Configurer le Virtual Host
+Create a migration.log file in a log folder at the root of the project.
 
-Ajoutez une configuration de virtual host dans votre serveur WAMP.
+### Step 5: Set up the Virtual Host
 
+Add a virtual host configuration in your WAMP server.
 
-### Étape 6: Initialiser la base de données
+### Step 6: Initialize the database
 
-MySQL est requis.
+MySQL is required.
 
-La base de données est automatiquement créée lors de l'initialisation du projet, vous n'avez donc aucune action supplémentaire à effectuer. 
+The database is automatically created when initializing the project, so no additional steps are needed.
 
-### Utilisation
+### Usage
 
-Une fois que le serveur WAMP est configuré et en cours d'exécution, vous pouvez accéder à votre API en naviguant vers http://api.votre-projet.local dans votre navigateur ou en utilisant un outil comme Postman pour effectuer des requêtes HTTP.
+Once the WAMP server is configured and running, you can access your API by navigating to http://api.your-project.local in your browser or using a tool like Postman to send HTTP requests.
 
 #
 
-Merci d'utiliser notre API REST en PHP avec WAMP.
+Thank you for using our REST API in PHP with WAMP.
