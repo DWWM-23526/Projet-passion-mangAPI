@@ -30,7 +30,7 @@ class AuthController extends _BaseController
             $autentification = $this->authService->authentication($email, $password);
             $this->sendSuccessResponse($response, $autentification);
         } catch (\Throwable $th) {
-            $this->sendErrorResponse($response, 'login failed', 500);
+            $this->sendErrorResponse($response, 'login failed', 401);
         }
     }
 
