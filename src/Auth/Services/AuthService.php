@@ -118,9 +118,9 @@ class AuthService
                 throw new Exception("User not found", 404);
             }
             $resetToken = JwtHandler::generatePasswordResetToken(['Id_user' => $user->Id_user]);
-            $this->mailerService->sendPasswordResetEmail($user->email, $resetToken);
+            $mailSendedToUser = $this->mailerService->sendPasswordResetEmail($user->email, $resetToken);
 
-            return "Password reset sent";
+            return $mailSendedToUser;
         } catch (Exception $e) {
             throw new Exception("Failed to send password reset email: " . $e->getMessage());
         }
@@ -141,9 +141,9 @@ class AuthService
 
             $hashedPassword = password_hash($newPassword, PASSWORD_ARGON2ID);
 
-            $this->usersRepository->updatePassword($user->Id_user, $hashedPassword);
+            $newUserWithUpdatedPassword = $this->usersRepository->updatePasswordUser($user->Id_user, $hashedPassword);
 
-            return "Password updated successfully";
+            return $newUserWithUpdatedPassword;
         } catch (Exception $e) {
             throw new Exception("Failed to update password: " . $e->getMessage(), 500);
         }

@@ -35,9 +35,9 @@ class UsersRepository extends _BaseApiRepository
         return $this->detach('favoris', $this->primaryKey, 'Id_manga', $userId, $mangaId);
     }
 
-    public function updatePassword(int $userId, string $hashedPassword)
+    public function updatePasswordUser(int $userId, string $hashedPassword)
     {
-        $this->update(['password' => $hashedPassword], $userId);
+        return $this->update(['password' => $hashedPassword], $userId);
     }
 
 }
