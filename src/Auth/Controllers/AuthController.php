@@ -58,4 +58,31 @@ class AuthController extends _BaseController
             $this->sendErrorResponse($response, 'Failed to get id_role in token validated', 500);
         }
     }
+
+    public function forgotPasswordRequest(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $body = $request->getBody();
+        $email = $body['email'];
+
+        try {
+            $handleRequestPasswordReset = $this->authService->requestPasswordReset($email);
+            $this->sendSuccessResponse($response, $handleRequestPasswordReset);
+        } catch (\Throwable $th) {
+            $this->sendErrorResponse($response, 'Failed to send password reset email.', 500);
+        }
+    }
+
+    public function resetPassword(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $body = $request->getBody();
+        $token = $body['token'];
+        $newPassword = $body['new_password'];
+
+        try {
+            $newPasswordUpdated = $this->authService->updatePassword($token, $newPassword);
+            $this->sendSuccessResponse($response, $newPasswordUpdated);
+        } catch (\Throwable $th) {
+            $this->sendErrorResponse($response, 'Failed to reset password.', 500);
+        }
+    }
 }

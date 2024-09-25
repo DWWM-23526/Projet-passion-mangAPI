@@ -7,6 +7,7 @@ use Core\App;
 use core\HTTPResponse;
 use Core\repositories\_BaseApiRepository;
 use Core\Validation\_BaseApiValidator;
+use Exception;
 
 abstract class _BaseApiService extends _BaseService
 {
@@ -23,8 +24,8 @@ abstract class _BaseApiService extends _BaseService
     {
 
         try {
-            $page = isset($params['_page']) ? (int)$params['_page'] : 1;
-            $limit = isset($params['_limit']) ? (int)$params['_limit'] : 10000;
+            $page = isset($params['_page']) ? (int) $params['_page'] : 1;
+            $limit = isset($params['_limit']) ? (int) $params['_limit'] : 10000;
             $sortColumn = isset($params['_sort']) ? $params['_sort'] : null;
             $sortOrder = isset($params['_order']) ? $params['_order'] : 'ASC';
             $offset = ($page - 1) * $limit;
@@ -39,9 +40,9 @@ abstract class _BaseApiService extends _BaseService
         } catch (\InvalidArgumentException $invalidArgEx) {
 
             throw new \InvalidArgumentException('Invalid parameters provided');
-        } catch (\Throwable $th) {
+        } catch (Exception $e) {
 
-            throw new \Throwable('An unexpected error occurred');
+            throw new Exception('An unexpected error occurred' . $e);
         }
     }
 
@@ -63,7 +64,8 @@ abstract class _BaseApiService extends _BaseService
 
         foreach ($values as $key => $value) {
             $this->validator->validateGet(['id' => $value]);
-        };
+        }
+        ;
 
         $data = $this->repository->getManyItems($values);
 

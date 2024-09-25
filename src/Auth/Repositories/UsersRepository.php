@@ -14,7 +14,7 @@ class UsersRepository extends _BaseApiRepository
     protected $modelClass = Users::class;
     protected $primaryKey = 'Id_user';
 
-    
+
     public function getUserByEmail(string $email)
     {
         return $this->getBy($email, 'email');
@@ -33,6 +33,11 @@ class UsersRepository extends _BaseApiRepository
     public function removeMangaFromUser(int $userId, int $mangaId)
     {
         return $this->detach('favoris', $this->primaryKey, 'Id_manga', $userId, $mangaId);
+    }
+
+    public function updatePassword(int $userId, string $hashedPassword)
+    {
+        $this->update(['password' => $hashedPassword], $userId);
     }
 
 }

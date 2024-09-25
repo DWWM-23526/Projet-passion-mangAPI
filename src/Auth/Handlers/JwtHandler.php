@@ -9,7 +9,9 @@ use Firebase\JWT\Key;
 class JwtHandler
 {
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     private static function _getKey()
     {
@@ -48,6 +50,18 @@ class JwtHandler
             'name' => $user['name'],
             'email' => $user['email'],
             'password' => $user['password'],
+        ];
+
+        return JWT::encode($payload, self::_getKey(), 'HS256');
+    }
+
+    public static function generatePasswordResetToken($userId)
+    {
+        $payload = [
+            'iss' => "passionmanga",
+            'iat' => time(),
+            'exp' => time() + (60 * 60),
+            'Id_user' => $userId,
         ];
 
         return JWT::encode($payload, self::_getKey(), 'HS256');
