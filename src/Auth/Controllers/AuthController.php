@@ -74,9 +74,10 @@ class AuthController extends _BaseController
 
     public function resetPassword(HTTPRequest $request, HTTPResponse $response, $params)
     {
+        
         $body = $request->getBody();
-        $token = $body['token'];
-        $newPassword = $body['new_password'];
+        $token = $params['resetToken'];
+        $newPassword = $body['password'];
 
         try {
             $newPasswordUpdated = $this->authService->updatePassword($token, $newPassword);

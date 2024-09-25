@@ -65,9 +65,9 @@ class MailerService
   public function sendPasswordResetEmail($email, $resetToken)
   {
     $resetLink = "http://localhost:8008/passion-manga/reset-password/$resetToken";
-    $subject = 'Réinitialisation de votre mot de passe';
-    $msg = "Vous avez demandé une réinitialisation de votre mot de passe. 
-    Cliquez sur le lien ci-dessous pour procéder à la réinitialisation : 
+    $subject = 'Reinitialisation de votre mot de passe';
+    $msg = "Vous avez demandé une réinitialisation de votre mot de passe.
+    Cliquez sur le lien ci-dessous pour procéder à la réinitialisation :
     <br>
     <a href='$resetLink'>Réinitialiser mon mot de passe</a>
     <br><br>

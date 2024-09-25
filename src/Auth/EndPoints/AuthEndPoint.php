@@ -24,6 +24,6 @@ class AuthEndpoint extends _BaseApiEndpoint
         $this->addPost('/permission', 'takeIdRoleInToken', 'admin');
 
         $this->addPost('/forgot-password', 'forgotPasswordRequest', 'guest');
-        $this->addPost('/reset-password', 'resetPassword', 'guest');
+        $this->addPost('/reset-password/{resetToken}', 'resetPassword', 'guest');
     }
 }

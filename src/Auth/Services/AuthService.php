@@ -117,7 +117,8 @@ class AuthService
             if (!$user) {
                 throw new Exception("User not found", 404);
             }
-            $resetToken = JwtHandler::generatePasswordResetToken(['Id_user' => $user->Id_user]);
+            $resetToken = JwtHandler::generatePasswordResetToken(['Id_user' => $user->id]);
+
             $mailSendedToUser = $this->mailerService->sendPasswordResetEmail($user->email, $resetToken);
 
             return $mailSendedToUser;
@@ -134,14 +135,15 @@ class AuthService
                 throw new Exception("Invalid or expired token", 400);
             }
 
-            $user = $this->usersRepository->getItemById($decodedToken['Id_user']);
+            $user = $this->usersRepository->getItemById($decodedToken['Id_user']->Id_user);
+            var_dump($user);
             if (!$user) {
                 throw new Exception("User not found", 404);
             }
 
             $hashedPassword = password_hash($newPassword, PASSWORD_ARGON2ID);
 
-            $newUserWithUpdatedPassword = $this->usersRepository->updatePasswordUser($user->Id_user, $hashedPassword);
+            $newUserWithUpdatedPassword = $this->usersRepository->updatePasswordUser($user->id, $hashedPassword);
 
             return $newUserWithUpdatedPassword;
         } catch (Exception $e) {
