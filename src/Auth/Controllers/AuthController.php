@@ -30,7 +30,7 @@ class AuthController extends _BaseController
             $autentification = $this->authService->authentication($email, $password);
             $this->sendSuccessResponse($response, $autentification);
         } catch (\Throwable $th) {
-            $this->sendErrorResponse($response, 'login failed', 500);
+            $this->sendErrorResponse($response, 'login failed', 401);
         }
     }
 
@@ -56,6 +56,34 @@ class AuthController extends _BaseController
             $this->sendSuccessResponse($response, $tokenValidatedWithOnlyIdRole);
         } catch (\Throwable $th) {
             $this->sendErrorResponse($response, 'Failed to get id_role in token validated', 500);
+        }
+    }
+
+    public function forgotPasswordRequest(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        $body = $request->getBody();
+        $email = $body['email'];
+
+        try {
+            $handleRequestPasswordReset = $this->authService->requestPasswordReset($email);
+            $this->sendSuccessResponse($response, $handleRequestPasswordReset);
+        } catch (\Throwable $th) {
+            $this->sendErrorResponse($response, 'Failed to send password reset email.', 500);
+        }
+    }
+
+    public function resetPassword(HTTPRequest $request, HTTPResponse $response, $params)
+    {
+        
+        $body = $request->getBody();
+        $token = $params['resetToken'];
+        $newPassword = $body['password'];
+
+        try {
+            $newPasswordUpdated = $this->authService->updatePassword($token, $newPassword);
+            $this->sendSuccessResponse($response, $newPasswordUpdated);
+        } catch (\Throwable $th) {
+            $this->sendErrorResponse($response, 'Failed to reset password.', 500);
         }
     }
 }
